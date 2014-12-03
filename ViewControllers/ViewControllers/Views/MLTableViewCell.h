@@ -8,7 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MLTableViewCell : UITableViewCell
+@protocol MLTableViewCellProtocol <NSObject>
+
+@required
+- (void)configureForData:(id)dataObject tableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath;
+
+@end
+
+@interface MLTableViewCell : UITableViewCell <MLTableViewCellProtocol>
 
 + (UITableViewCellStyle)defaultTableViewCellStyle;
 + (NSString *)defaultTableViewCellIdentifier;
@@ -25,6 +32,5 @@
 @interface MLTableViewCell (MLSubclassOnly)
 
 - (void)finishInitialize;
-- (void)configureForData:(id)dataObject tableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath;
 
 @end

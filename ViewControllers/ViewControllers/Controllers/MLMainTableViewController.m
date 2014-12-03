@@ -14,10 +14,17 @@
 #define INDEX(section, row)     [NSString stringWithFormat:@"%ld=%ld", section, row]
 
 typedef NS_ENUM(NSUInteger, MLSections) {
+    MLSectionCells,
     MLSectionBaseControllers,
     MLSectionCoreDataControllers,
     MLSectionContainerControllers,
     MLSectionCount
+};
+
+typedef NS_ENUM(NSUInteger, MLRowCells) {
+    MLRowCellTableView,
+    MLRowCellCollectionView,
+    MLRowCellCount
 };
 
 typedef NS_ENUM(NSUInteger, MLRowBaseControllers) {
@@ -77,6 +84,10 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         mapping = @{
+                    //MLSectionCells
+                    INDEX(MLSectionCells, MLRowCellTableView)                                           : @"MLContactsTableViewController",
+                    INDEX(MLSectionCells, MLRowCellCollectionView)                                      : [NSNull null],
+                    
                     //MLSectionBaseControllers
                     INDEX(MLSectionBaseControllers, MLRowBaseViewController)                            : @"MLCustomViewController",
                     INDEX(MLSectionBaseControllers, MLRowBaseTableViewController)                       : @"MLCustomTableViewController",
@@ -112,24 +123,7 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
         Class classObj = NSClassFromString((NSString *)obj);
         NSAssert1([classObj isSubclassOfClass:[UIViewController class]], @"Class '%@' is not subclass of UIViewController.", obj);
         UIViewController * viewController = [[classObj alloc] init];
-        
-        if (configuration && [viewController conformsToProtocol:@protocol(MLCustomConfiguration)]) {
-            id <MLCustomConfiguration> controller = (id <MLCustomConfiguration>)viewController;
-
-            if (!viewController.isViewLoaded && [controller respondsToSelector:@selector(finishInitializeWithConfiguration:)]) {
-                [controller finishInitializeWithConfiguration:configuration];
-            }
-            
-            if (!viewController.isViewLoaded) {
-                [viewController view];
-                
-                if ([controller respondsToSelector:@selector(finishDidLoadWithConfiguration:)]) {
-                    [controller finishDidLoadWithConfiguration:configuration];
-                }
-            }
-        }
-        
-        [self.navigationController pushViewController:viewController animated:YES];
+        [self.navigationController pushViewController:viewController withConfiguration:configuration animated:YES];
     }
     else {
         NSLog(@"-> Unsupported selection for index path: %@", indexPath);
@@ -147,6 +141,10 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         mapping = @{
+                    //MLSectionCells
+                    INDEX(MLSectionCells, MLRowCellTableView)                                           : @"UITableViewCell",
+                    INDEX(MLSectionCells, MLRowCellCollectionView)                                      : @"UICollectionViewCell",
+                    
                     //MLSectionBaseControllers
                     INDEX(MLSectionBaseControllers, MLRowBaseViewController)                            : @"View",
                     INDEX(MLSectionBaseControllers, MLRowBaseTableViewController)                       : @"TableView",
@@ -180,6 +178,7 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         mapping = @{
+                    @(MLSectionCells)                   : @(MLRowCellCount),
                     @(MLSectionBaseControllers)         : @(MLRowBaseCount),
                     @(MLSectionCoreDataControllers)     : @(MLRowCoreDataCount),
                     @(MLSectionContainerControllers)    : @(MLRowContainerCount)
@@ -194,6 +193,7 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         mapping = @{
+                    @(MLSectionCells)                   : @"Cells Layout",
                     @(MLSectionBaseControllers)         : @"Base Controllers",
                     @(MLSectionCoreDataControllers)     : @"Core Data Controllers",
                     @(MLSectionContainerControllers)    : @"Container Controllers"

@@ -8,7 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MLCollectionViewCell : UICollectionViewCell
+@protocol MLCollectionViewCellProtocol <NSObject>
+
+@required
+- (void)configureForData:(id)dataObject collectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath;
+
+@end
+
+@interface MLCollectionViewCell : UICollectionViewCell <MLCollectionViewCellProtocol>
 
 + (NSString *)defaultCollectionViewCellIdentifier;
 + (NSString *)defaultCollectionViewCellNibName;
@@ -22,6 +29,5 @@
 @interface MLCollectionViewCell (MLSubclassOnly)
 
 - (void)finishInitialize;
-- (void)configureForData:(id)dataObject collectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath;
 
 @end

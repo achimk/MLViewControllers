@@ -5,11 +5,16 @@
 //
 
 #ifdef __OBJC__
+    // Apple Frameworks
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
-#endif
-#import "MLDefines.h"
 
-#import "MLConstants.h"
+    // Defines and Constants
+    #import "MLDefines.h"
+    #import "MLConstants.h"
+
+    // Categories
+    #import "UINavigationController+MLCustomConfiguration.h"
+#endif
 

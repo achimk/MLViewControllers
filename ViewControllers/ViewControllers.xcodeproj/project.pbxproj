@@ -37,6 +37,11 @@
 		278377D41A20ECE800C29996 /* MLCustomCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 278377D31A20ECE800C29996 /* MLCustomCollectionViewCell.m */; };
 		278377D81A20F1F500C29996 /* MLCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 278377D71A20F1F500C29996 /* MLCollectionReusableView.m */; };
 		278377DB1A20F6D800C29996 /* MLCustomCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 278377DA1A20F6D800C29996 /* MLCustomCollectionReusableView.m */; };
+		AAA780F11A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA780F01A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m */; };
+		AAA780F41A25EC0B00E2E295 /* MLDynamicResizingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA780F31A25EC0B00E2E295 /* MLDynamicResizingTableViewCell.m */; };
+		AAA780F71A25EC2500E2E295 /* MLCustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA780F61A25EC2500E2E295 /* MLCustomTableViewCell.m */; };
+		AAA780F91A25F21900E2E295 /* Contacts.json in Resources */ = {isa = PBXBuildFile; fileRef = AAA780F81A25F21900E2E295 /* Contacts.json */; };
+		AAA780FD1A25F28D00E2E295 /* MLContactsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA780FC1A25F28D00E2E295 /* MLContactsTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +105,15 @@
 		278377D91A20F6D800C29996 /* MLCustomCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCustomCollectionReusableView.h; sourceTree = "<group>"; };
 		278377DA1A20F6D800C29996 /* MLCustomCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCustomCollectionReusableView.m; sourceTree = "<group>"; };
 		278377DC1A20FFAB00C29996 /* MLAutorotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLAutorotation.h; sourceTree = "<group>"; };
+		AAA780EF1A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+MLCustomConfiguration.h"; sourceTree = "<group>"; };
+		AAA780F01A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+MLCustomConfiguration.m"; sourceTree = "<group>"; };
+		AAA780F21A25EC0B00E2E295 /* MLDynamicResizingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLDynamicResizingTableViewCell.h; sourceTree = "<group>"; };
+		AAA780F31A25EC0B00E2E295 /* MLDynamicResizingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLDynamicResizingTableViewCell.m; sourceTree = "<group>"; };
+		AAA780F51A25EC2500E2E295 /* MLCustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCustomTableViewCell.h; sourceTree = "<group>"; };
+		AAA780F61A25EC2500E2E295 /* MLCustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCustomTableViewCell.m; sourceTree = "<group>"; };
+		AAA780F81A25F21900E2E295 /* Contacts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contacts.json; sourceTree = "<group>"; };
+		AAA780FB1A25F28D00E2E295 /* MLContactsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLContactsTableViewController.h; sourceTree = "<group>"; };
+		AAA780FC1A25F28D00E2E295 /* MLContactsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLContactsTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,8 +188,10 @@
 		278377741A20B7B400C29996 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AAA780ED1A25C42700E2E295 /* Interface */,
 				278377A61A20B7D400C29996 /* Images.xcassets */,
 				2783776E1A20B7B400C29996 /* InfoPlist.strings */,
+				AAA780F81A25F21900E2E295 /* Contacts.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -239,6 +255,10 @@
 			children = (
 				2783778B1A20B7B400C29996 /* MLTableViewCell.h */,
 				2783778C1A20B7B400C29996 /* MLTableViewCell.m */,
+				AAA780F21A25EC0B00E2E295 /* MLDynamicResizingTableViewCell.h */,
+				AAA780F31A25EC0B00E2E295 /* MLDynamicResizingTableViewCell.m */,
+				AAA780F51A25EC2500E2E295 /* MLCustomTableViewCell.h */,
+				AAA780F61A25EC2500E2E295 /* MLCustomTableViewCell.m */,
 			);
 			name = "UITableView Cells";
 			sourceTree = "<group>";
@@ -274,9 +294,10 @@
 		278377A91A20B8BB00C29996 /* Concrete */ = {
 			isa = PBXGroup;
 			children = (
-				278377BC1A20C4EA00C29996 /* Base */,
-				278377BD1A20C4F500C29996 /* CoreData */,
-				278377CB1A20E19100C29996 /* MLCustomConfiguration.h */,
+				AAA780FA1A25F24B00E2E295 /* Cells Controllers */,
+				278377BC1A20C4EA00C29996 /* Base Controllers */,
+				278377BD1A20C4F500C29996 /* CoreData Controllers */,
+				AAA780EE1A25C46F00E2E295 /* Extensions */,
 				278377B91A20BB7400C29996 /* MLMainTableViewController.h */,
 				278377BA1A20BB7400C29996 /* MLMainTableViewController.m */,
 				278377CC1A20E35200C29996 /* MLLayoutViewController.h */,
@@ -294,7 +315,7 @@
 			name = iPad;
 			sourceTree = "<group>";
 		};
-		278377BC1A20C4EA00C29996 /* Base */ = {
+		278377BC1A20C4EA00C29996 /* Base Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				278377C41A20C5B300C29996 /* MLCustomViewController.h */,
@@ -304,14 +325,14 @@
 				278377C11A20C58300C29996 /* MLCustomCollectionViewController.h */,
 				278377C21A20C58300C29996 /* MLCustomCollectionViewController.m */,
 			);
-			name = Base;
+			name = "Base Controllers";
 			sourceTree = "<group>";
 		};
-		278377BD1A20C4F500C29996 /* CoreData */ = {
+		278377BD1A20C4F500C29996 /* CoreData Controllers */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = CoreData;
+			name = "CoreData Controllers";
 			sourceTree = "<group>";
 		};
 		278377C71A20D3C500C29996 /* UICollectionView Layouts */ = {
@@ -332,6 +353,32 @@
 				278377DA1A20F6D800C29996 /* MLCustomCollectionReusableView.m */,
 			);
 			name = "UICollectionView ReusableViews";
+			sourceTree = "<group>";
+		};
+		AAA780ED1A25C42700E2E295 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Interface;
+			sourceTree = "<group>";
+		};
+		AAA780EE1A25C46F00E2E295 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				278377CB1A20E19100C29996 /* MLCustomConfiguration.h */,
+				AAA780EF1A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.h */,
+				AAA780F01A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		AAA780FA1A25F24B00E2E295 /* Cells Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				AAA780FB1A25F28D00E2E295 /* MLContactsTableViewController.h */,
+				AAA780FC1A25F28D00E2E295 /* MLContactsTableViewController.m */,
+			);
+			name = "Cells Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -391,6 +438,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAA780F91A25F21900E2E295 /* Contacts.json in Resources */,
 				278377701A20B7B400C29996 /* InfoPlist.strings in Resources */,
 				278377A71A20B7D400C29996 /* Images.xcassets in Resources */,
 			);
@@ -404,6 +452,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				278377CA1A20D64600C29996 /* MLCollectionViewStickyLayout.m in Sources */,
+				AAA780F71A25EC2500E2E295 /* MLCustomTableViewCell.m in Sources */,
 				278377C31A20C58300C29996 /* MLCustomCollectionViewController.m in Sources */,
 				2783777C1A20B7B400C29996 /* MLConstants.m in Sources */,
 				2783779D1A20B7B400C29996 /* MLSwitchViewController.m in Sources */,
@@ -416,6 +465,7 @@
 				278377DB1A20F6D800C29996 /* MLCustomCollectionReusableView.m in Sources */,
 				278377941A20B7B400C29996 /* MLFetchedViewController.m in Sources */,
 				278377A01A20B7B400C29996 /* MLAppDelegate.m in Sources */,
+				AAA780F41A25EC0B00E2E295 /* MLDynamicResizingTableViewCell.m in Sources */,
 				278377801A20B7B400C29996 /* MLViewController.m in Sources */,
 				2783779A1A20B7B400C29996 /* MLFetchedCollectionViewController.m in Sources */,
 				278377831A20B7B400C29996 /* MLTableViewController.m in Sources */,
@@ -423,9 +473,11 @@
 				278377971A20B7B400C29996 /* MLFetchedTableViewController.m in Sources */,
 				278377891A20B7B400C29996 /* MLNavigationController.m in Sources */,
 				278377C01A20C51600C29996 /* MLCustomTableViewController.m in Sources */,
+				AAA780F11A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m in Sources */,
 				2783778D1A20B7B400C29996 /* MLTableViewCell.m in Sources */,
 				278377D41A20ECE800C29996 /* MLCustomCollectionViewCell.m in Sources */,
 				278377721A20B7B400C29996 /* main.m in Sources */,
+				AAA780FD1A25F28D00E2E295 /* MLContactsTableViewController.m in Sources */,
 				278377BB1A20BB7400C29996 /* MLMainTableViewController.m in Sources */,
 				278377C61A20C5B300C29996 /* MLCustomViewController.m in Sources */,
 			);
@@ -560,6 +612,7 @@
 				278377A51A20B7B400C29996 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
