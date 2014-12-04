@@ -38,7 +38,6 @@
 		278377D81A20F1F500C29996 /* MLCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 278377D71A20F1F500C29996 /* MLCollectionReusableView.m */; };
 		278377DB1A20F6D800C29996 /* MLCustomCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 278377DA1A20F6D800C29996 /* MLCustomCollectionReusableView.m */; };
 		AAA780F11A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA780F01A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m */; };
-		AAA780F41A25EC0B00E2E295 /* MLDynamicResizingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA780F31A25EC0B00E2E295 /* MLDynamicResizingTableViewCell.m */; };
 		AAA780F71A25EC2500E2E295 /* MLCustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA780F61A25EC2500E2E295 /* MLCustomTableViewCell.m */; };
 		AAA780F91A25F21900E2E295 /* Contacts.json in Resources */ = {isa = PBXBuildFile; fileRef = AAA780F81A25F21900E2E295 /* Contacts.json */; };
 		AAA780FD1A25F28D00E2E295 /* MLContactsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA780FC1A25F28D00E2E295 /* MLContactsTableViewController.m */; };
@@ -107,8 +106,6 @@
 		278377DC1A20FFAB00C29996 /* MLAutorotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLAutorotation.h; sourceTree = "<group>"; };
 		AAA780EF1A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+MLCustomConfiguration.h"; sourceTree = "<group>"; };
 		AAA780F01A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+MLCustomConfiguration.m"; sourceTree = "<group>"; };
-		AAA780F21A25EC0B00E2E295 /* MLDynamicResizingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLDynamicResizingTableViewCell.h; sourceTree = "<group>"; };
-		AAA780F31A25EC0B00E2E295 /* MLDynamicResizingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLDynamicResizingTableViewCell.m; sourceTree = "<group>"; };
 		AAA780F51A25EC2500E2E295 /* MLCustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCustomTableViewCell.h; sourceTree = "<group>"; };
 		AAA780F61A25EC2500E2E295 /* MLCustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCustomTableViewCell.m; sourceTree = "<group>"; };
 		AAA780F81A25F21900E2E295 /* Contacts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contacts.json; sourceTree = "<group>"; };
@@ -255,8 +252,6 @@
 			children = (
 				2783778B1A20B7B400C29996 /* MLTableViewCell.h */,
 				2783778C1A20B7B400C29996 /* MLTableViewCell.m */,
-				AAA780F21A25EC0B00E2E295 /* MLDynamicResizingTableViewCell.h */,
-				AAA780F31A25EC0B00E2E295 /* MLDynamicResizingTableViewCell.m */,
 				AAA780F51A25EC2500E2E295 /* MLCustomTableViewCell.h */,
 				AAA780F61A25EC2500E2E295 /* MLCustomTableViewCell.m */,
 			);
@@ -465,7 +460,6 @@
 				278377DB1A20F6D800C29996 /* MLCustomCollectionReusableView.m in Sources */,
 				278377941A20B7B400C29996 /* MLFetchedViewController.m in Sources */,
 				278377A01A20B7B400C29996 /* MLAppDelegate.m in Sources */,
-				AAA780F41A25EC0B00E2E295 /* MLDynamicResizingTableViewCell.m in Sources */,
 				278377801A20B7B400C29996 /* MLViewController.m in Sources */,
 				2783779A1A20B7B400C29996 /* MLFetchedCollectionViewController.m in Sources */,
 				278377831A20B7B400C29996 /* MLTableViewController.m in Sources */,

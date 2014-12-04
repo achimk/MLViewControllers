@@ -94,7 +94,7 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    if (([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending)
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")
         && self.automaticallyAdjustsScrollViewInsets
         && self.appearsFirstTime) {
         
@@ -252,9 +252,7 @@
 #pragma mark UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:[NSString stringWithFormat:@"%@: NOT IMPLEMENTED.", NSStringFromSelector(_cmd)]
-                                 userInfo:nil];
+    METHOD_NOT_IMPLEMENTED;
     return nil;
 }
 

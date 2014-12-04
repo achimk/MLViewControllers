@@ -29,13 +29,14 @@
 
 - (void)finishInitialize {
     [super finishInitialize];
+    
+    //!!!: Fix for contentView constraint warnings
+    self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 
     self.accessoryView = nil;
     self.accessoryType = UITableViewCellAccessoryNone;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    //!!!: Fix for conentView constraint warning
-//    self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     
     _labelName = [[UILabel alloc] init];
     _labelName.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0f];
@@ -90,6 +91,10 @@
     [self.labelDate setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     [self.labelAbout setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
     [self.labelAbout setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
     
     // Set max layout width for all multi-line labels
     // This is required for any multi-line label. If you
@@ -98,8 +103,7 @@
     // the minimum size needed to fit all contents. So if you
     // do not have a max width it will not constrain the width
     // of the label when calculating height.
-    CGSize defaultSize = DEFAULT_CELL_SIZE;
-    self.labelAbout.preferredMaxLayoutWidth = defaultSize.width - ([sizes[@"marginH"] floatValue] * 2.0f);
+    self.labelAbout.preferredMaxLayoutWidth = self.contentView.bounds.size.width - MARGIN_HORIZONTAL * 2.0f;
 }
 
 #pragma mark Prepare For Reuse
@@ -114,7 +118,8 @@
 
 #pragma mark Configure
 
-- (void)configureForData:(id)dataObject tableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
+- (void)configureForData:(id)dataObject tableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath type:(MLTableViewCellConfigureType)type {
+    
     self.labelName.text = dataObject[@"name"];
     self.labelDate.text = dataObject[@"registered"];
     self.labelAbout.text = dataObject[@"about"];

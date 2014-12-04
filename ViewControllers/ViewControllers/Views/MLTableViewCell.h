@@ -8,10 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, MLTableViewCellConfigureType) {
+    MLTableViewCellConfigureDefault,
+    MLTableViewCellConfigureDynamicResize
+};
+
 @protocol MLTableViewCellProtocol <NSObject>
 
 @required
+// Method for dynamic resizing cell size
++ (CGSize)cellSizeForData:(id)dataObject tableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath;
+
+// Configure cell for data
 - (void)configureForData:(id)dataObject tableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath;
+- (void)configureForData:(id)dataObject tableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath type:(MLTableViewCellConfigureType)type;
 
 @end
 

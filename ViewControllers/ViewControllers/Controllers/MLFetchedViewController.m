@@ -97,16 +97,12 @@
 #pragma mark Configure NSFetchedResutlsController
 
 - (NSString *)entityName {
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:[NSString stringWithFormat:@"You must override %@ in subclass.", NSStringFromSelector(_cmd)]
-                                 userInfo:nil];
+    METHOD_MUST_BE_OVERRIDDEN;
     return nil;
 }
 
 - (NSManagedObjectContext *)managedObjectContext {
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:[NSString stringWithFormat:@"You must override %@ in subclass.", NSStringFromSelector(_cmd)]
-                                 userInfo:nil];
+    METHOD_MUST_BE_OVERRIDDEN;
     return nil;
 }
 
@@ -123,9 +119,7 @@
 }
 
 - (NSArray *)sortDescriptors {
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:[NSString stringWithFormat:@"You must override %@ in subclass.", NSStringFromSelector(_cmd)]
-                                 userInfo:nil];
+    METHOD_MUST_BE_OVERRIDDEN;
     return nil;
 }
 

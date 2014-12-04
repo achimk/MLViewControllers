@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Joachim Kret. All rights reserved.
 //
 
-#import "MLDynamicResizingTableViewCell.h"
+#import "MLTableViewCell.h"
 
-@interface MLCustomTableViewCell : MLDynamicResizingTableViewCell
+@interface MLCustomTableViewCell : MLTableViewCell
 
 @end
