@@ -28,5 +28,6 @@ typedef NS_ENUM(NSUInteger, MLAutorotationMode) {
 
 @required
 - (MLAutorotationMode)autorotationMode;
+- (void)setAutorotationMode:(MLAutorotationMode)autorotationMode;
 
 @end

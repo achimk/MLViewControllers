@@ -68,11 +68,11 @@
 #pragma mark Rotations
 
 - (BOOL)shouldAutorotate {
-    if (![super shouldAutorotate]) {
-        return NO;
-    }
-    
     switch (self.autorotationMode) {
+        case MLAutorotationModeContainer: {
+            return [super shouldAutorotate];
+        } break;
+            
         case MLAutorotationModeContainerAndTopChildren:
         case MLAutorotationModeContainerAndAllChildren: {
             for (UIViewController * viewController in self.viewControllers) {
@@ -83,7 +83,6 @@
         } break;
             
         case MLAutorotationModeContainerAndNoChildren:
-        case MLAutorotationModeContainer:
         default: {
         } break;
     }
@@ -92,18 +91,21 @@
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
-    NSUInteger containerSupportedInterfaceOrientations = [super supportedInterfaceOrientations];
+    NSUInteger containerSupportedInterfaceOrientations = UIInterfaceOrientationMaskAll;
     
     switch (self.autorotationMode) {
-        case MLAutorotationModeContainerAndAllChildren:
-        case MLAutorotationModeContainerAndTopChildren: {
+        case MLAutorotationModeContainer: {
+            containerSupportedInterfaceOrientations = [super supportedInterfaceOrientations];
+        } break;
+            
+        case MLAutorotationModeContainerAndTopChildren:
+        case MLAutorotationModeContainerAndAllChildren: {
             for (UIViewController * viewController in self.viewControllers) {
                 containerSupportedInterfaceOrientations &= [viewController supportedInterfaceOrientations];
             }
         } break;
             
         case MLAutorotationModeContainerAndNoChildren:
-        case MLAutorotationModeContainer:
         default: {
         } break;
     }

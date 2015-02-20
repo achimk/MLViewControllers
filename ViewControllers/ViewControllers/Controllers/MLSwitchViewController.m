@@ -149,17 +149,9 @@
 #pragma mark Rotations
 
 - (BOOL)shouldAutorotate {
-    if (![super shouldAutorotate]) {
-        return NO;
-    }
-    
     switch (self.autorotationMode) {
-        case MLAutorotationModeContainerAndAllChildren: {
-            for (UIViewController * viewController in [self.viewControllers reverseObjectEnumerator]) {
-                if (![viewController shouldAutorotate]) {
-                    return NO;
-                }
-            }
+        case MLAutorotationModeContainer: {
+            return [super shouldAutorotate];
         } break;
             
         case MLAutorotationModeContainerAndTopChildren: {
@@ -169,8 +161,15 @@
             }
         } break;
             
+        case MLAutorotationModeContainerAndAllChildren: {
+            for (UIViewController * viewController in [self.viewControllers reverseObjectEnumerator]) {
+                if (![viewController shouldAutorotate]) {
+                    return NO;
+                }
+            }
+        } break;
+            
         case MLAutorotationModeContainerAndNoChildren:
-        case MLAutorotationModeContainer:
         default: {
         } break;
     }
@@ -179,13 +178,11 @@
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
-    NSUInteger containerSupportedInterfaceOrientations = [super supportedInterfaceOrientations];
+    NSUInteger containerSupportedInterfaceOrientations = UIInterfaceOrientationMaskAll;
     
     switch (self.autorotationMode) {
-        case MLAutorotationModeContainerAndAllChildren: {
-            for (UIViewController * viewController in [self.viewControllers reverseObjectEnumerator]) {
-                containerSupportedInterfaceOrientations &= [viewController supportedInterfaceOrientations];
-            }
+        case MLAutorotationModeContainer: {
+            containerSupportedInterfaceOrientations = [super supportedInterfaceOrientations];
         } break;
             
         case MLAutorotationModeContainerAndTopChildren: {
@@ -193,8 +190,13 @@
             containerSupportedInterfaceOrientations &= [topViewController supportedInterfaceOrientations];
         } break;
             
+        case MLAutorotationModeContainerAndAllChildren: {
+            for (UIViewController * viewController in [self.viewControllers reverseObjectEnumerator]) {
+                containerSupportedInterfaceOrientations &= [viewController supportedInterfaceOrientations];
+            }
+        } break;
+            
         case MLAutorotationModeContainerAndNoChildren:
-        case MLAutorotationModeContainer:
         default: {
         } break;
     }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		275646831A96A35C00D1847A /* MLRotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275646821A96A35C00D1847A /* MLRotationViewController.m */; };
 		278377661A20B7B400C29996 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278377651A20B7B400C29996 /* Foundation.framework */; };
 		278377681A20B7B400C29996 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278377671A20B7B400C29996 /* UIKit.framework */; };
 		2783776A1A20B7B400C29996 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278377691A20B7B400C29996 /* CoreData.framework */; };
@@ -44,6 +45,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		275646811A96A35C00D1847A /* MLRotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLRotationViewController.h; sourceTree = "<group>"; };
+		275646821A96A35C00D1847A /* MLRotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLRotationViewController.m; sourceTree = "<group>"; };
 		278377621A20B7B400C29996 /* ViewControllers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ViewControllers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		278377651A20B7B400C29996 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		278377671A20B7B400C29996 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -127,6 +130,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		275646801A96A30600D1847A /* Misc Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				275646811A96A35C00D1847A /* MLRotationViewController.h */,
+				275646821A96A35C00D1847A /* MLRotationViewController.m */,
+			);
+			name = "Misc Controllers";
+			sourceTree = "<group>";
+		};
 		278377591A20B7B400C29996 = {
 			isa = PBXGroup;
 			children = (
@@ -289,9 +301,10 @@
 		278377A91A20B8BB00C29996 /* Concrete */ = {
 			isa = PBXGroup;
 			children = (
-				AAA780FA1A25F24B00E2E295 /* Cells Controllers */,
+				AAA780FA1A25F24B00E2E295 /* Cell Controllers */,
 				278377BC1A20C4EA00C29996 /* Base Controllers */,
 				278377BD1A20C4F500C29996 /* CoreData Controllers */,
+				275646801A96A30600D1847A /* Misc Controllers */,
 				AAA780EE1A25C46F00E2E295 /* Extensions */,
 				278377B91A20BB7400C29996 /* MLMainTableViewController.h */,
 				278377BA1A20BB7400C29996 /* MLMainTableViewController.m */,
@@ -367,13 +380,13 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
-		AAA780FA1A25F24B00E2E295 /* Cells Controllers */ = {
+		AAA780FA1A25F24B00E2E295 /* Cell Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				AAA780FB1A25F28D00E2E295 /* MLContactsTableViewController.h */,
 				AAA780FC1A25F28D00E2E295 /* MLContactsTableViewController.m */,
 			);
-			name = "Cells Controllers";
+			name = "Cell Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -460,6 +473,7 @@
 				278377DB1A20F6D800C29996 /* MLCustomCollectionReusableView.m in Sources */,
 				278377941A20B7B400C29996 /* MLFetchedViewController.m in Sources */,
 				278377A01A20B7B400C29996 /* MLAppDelegate.m in Sources */,
+				275646831A96A35C00D1847A /* MLRotationViewController.m in Sources */,
 				278377801A20B7B400C29996 /* MLViewController.m in Sources */,
 				2783779A1A20B7B400C29996 /* MLFetchedCollectionViewController.m in Sources */,
 				278377831A20B7B400C29996 /* MLTableViewController.m in Sources */,

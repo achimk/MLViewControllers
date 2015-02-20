@@ -12,7 +12,7 @@
 
 @implementation UINavigationController (MLCustomConfiguration)
 
-- (void)pushViewController:(UIViewController *)viewController withConfiguration:(NSDictionary *)configuration animated:(BOOL)animated {
+- (void)ml_pushViewController:(UIViewController *)viewController withConfiguration:(NSDictionary *)configuration animated:(BOOL)animated {
     NSParameterAssert(viewController);
     
     if (configuration && [viewController conformsToProtocol:@protocol(MLCustomConfiguration)]) {

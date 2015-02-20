@@ -10,6 +10,6 @@
 
 @interface UINavigationController (MLCustomConfiguration)
 
-- (void)pushViewController:(UIViewController *)viewController withConfiguration:(NSDictionary *)configuration animated:(BOOL)animated;
+- (void)ml_pushViewController:(UIViewController *)viewController withConfiguration:(NSDictionary *)configuration animated:(BOOL)animated;
 
 @end

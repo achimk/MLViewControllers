@@ -99,7 +99,7 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
                     INDEX(MLSectionCoreDataControllers, MLRowCoreDataFetchedCollectionViewController)   : [NSNull null],
                     
                     //MLSectionContainerControllers
-                    INDEX(MLSectionContainerControllers, MLRowContainerNavigationController)            : [NSNull null],
+                    INDEX(MLSectionContainerControllers, MLRowContainerNavigationController)            : @"MLRotationViewController",
                     INDEX(MLSectionContainerControllers, MLRowContainerTabBarController)                : [NSNull null],
                     INDEX(MLSectionContainerControllers, MLRowContainerPageViewController)              : [NSNull null],
                     INDEX(MLSectionContainerControllers, MLRowContainerSwitchViewController)            : [NSNull null],
@@ -123,7 +123,7 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
         Class classObj = NSClassFromString((NSString *)obj);
         NSAssert1([classObj isSubclassOfClass:[UIViewController class]], @"Class '%@' is not subclass of UIViewController.", obj);
         UIViewController * viewController = [[classObj alloc] init];
-        [self.navigationController pushViewController:viewController withConfiguration:configuration animated:YES];
+        [self.navigationController ml_pushViewController:viewController withConfiguration:configuration animated:YES];
     }
     else {
         NSLog(@"-> Unsupported selection for index path: %@", indexPath);
