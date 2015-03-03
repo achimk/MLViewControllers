@@ -10,6 +10,7 @@
 
 #import "MLCustomConfiguration.h"
 #import "MLTableViewCell.h"
+#import "MLAutorotation.h"
 
 #define INDEX(section, row)     [NSString stringWithFormat:@"%ld=%ld", section, row]
 
@@ -44,7 +45,6 @@ typedef NS_ENUM(NSUInteger, MLRowCoreDataControllers) {
 typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
     MLRowContainerNavigationController,
     MLRowContainerTabBarController,
-    MLRowContainerPageViewController,
     MLRowContainerSwitchViewController,
     MLRowContainerCount
 };
@@ -77,6 +77,14 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
     [MLTableViewCell registerCellWithTableView:self.tableView];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if (self.parentViewController && [self.parentViewController conformsToProtocol:@protocol(MLAutorotation)]) {
+        [(id <MLAutorotation>)self.parentViewController setAutorotationMode:MLAutorotationModeContainer];
+    }
+}
+
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -100,9 +108,8 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
                     
                     //MLSectionContainerControllers
                     INDEX(MLSectionContainerControllers, MLRowContainerNavigationController)            : @"MLRotationViewController",
-                    INDEX(MLSectionContainerControllers, MLRowContainerTabBarController)                : [NSNull null],
-                    INDEX(MLSectionContainerControllers, MLRowContainerPageViewController)              : [NSNull null],
-                    INDEX(MLSectionContainerControllers, MLRowContainerSwitchViewController)            : [NSNull null],
+                    INDEX(MLSectionContainerControllers, MLRowContainerTabBarController)                : @"MLRotationTabBarController",
+                    INDEX(MLSectionContainerControllers, MLRowContainerSwitchViewController)            : @"MLRotationSwitchViewController"
                     };
     });
     
@@ -158,7 +165,6 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
                     //MLSectionContainerControllers
                     INDEX(MLSectionContainerControllers, MLRowContainerNavigationController)            : @"Navigation",
                     INDEX(MLSectionContainerControllers, MLRowContainerTabBarController)                : @"TabBar",
-                    INDEX(MLSectionContainerControllers, MLRowContainerPageViewController)              : @"Page",
                     INDEX(MLSectionContainerControllers, MLRowContainerSwitchViewController)            : @"Switch",
                     };
     });

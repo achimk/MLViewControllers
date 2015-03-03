@@ -62,7 +62,7 @@ typedef NS_ENUM (NSUInteger, MLSection) {
 #pragma mark Accessors
 
 - (NSString *)title {
-    return @"Rotation";
+    return ([super title]) ?: @"Rotation";
 }
 
 - (UIViewController <MLAutorotation> *)autorotationController {

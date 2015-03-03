@@ -94,10 +94,7 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")
-        && self.automaticallyAdjustsScrollViewInsets
-        && self.appearsFirstTime) {
-        
+    if (self.automaticallyAdjustsScrollViewInsets) {
         self.tableView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0.0f, self.bottomLayoutGuide.length, 0.0f);
     }
 }

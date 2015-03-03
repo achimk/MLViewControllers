@@ -73,10 +73,16 @@
             return [super shouldAutorotate];
         } break;
             
-        case MLAutorotationModeContainerAndTopChildren:
+        case MLAutorotationModeContainerAndTopChildren: {
+            UIViewController * topViewController = self.selectedViewController;
+            if (![topViewController shouldAutorotate]) {
+                return NO;
+            }
+        } break;
+            
         case MLAutorotationModeContainerAndAllChildren: {
             for (UIViewController * viewController in self.viewControllers) {
-                if (! [viewController shouldAutorotate]) {
+                if (![viewController shouldAutorotate]) {
                     return NO;
                 }
             }
@@ -98,7 +104,11 @@
             containerSupportedInterfaceOrientations = [super supportedInterfaceOrientations];
         } break;
             
-        case MLAutorotationModeContainerAndTopChildren:
+        case MLAutorotationModeContainerAndTopChildren: {
+            UIViewController * topViewController = self.selectedViewController;
+            containerSupportedInterfaceOrientations &= [topViewController supportedInterfaceOrientations];
+        } break;
+            
         case MLAutorotationModeContainerAndAllChildren: {
             for (UIViewController * viewController in self.viewControllers) {
                 containerSupportedInterfaceOrientations &= [viewController supportedInterfaceOrientations];

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2718AA241AA10DB000F4938C /* MLRotationTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2718AA231AA10DB000F4938C /* MLRotationTabBarController.m */; };
+		2718AA271AA1150600F4938C /* MLRotationSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2718AA261AA1150600F4938C /* MLRotationSwitchViewController.m */; };
 		275646831A96A35C00D1847A /* MLRotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275646821A96A35C00D1847A /* MLRotationViewController.m */; };
 		278377661A20B7B400C29996 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278377651A20B7B400C29996 /* Foundation.framework */; };
 		278377681A20B7B400C29996 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278377671A20B7B400C29996 /* UIKit.framework */; };
@@ -45,6 +47,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2718AA221AA10DB000F4938C /* MLRotationTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLRotationTabBarController.h; sourceTree = "<group>"; };
+		2718AA231AA10DB000F4938C /* MLRotationTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLRotationTabBarController.m; sourceTree = "<group>"; };
+		2718AA251AA1150600F4938C /* MLRotationSwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLRotationSwitchViewController.h; sourceTree = "<group>"; };
+		2718AA261AA1150600F4938C /* MLRotationSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLRotationSwitchViewController.m; sourceTree = "<group>"; };
 		275646811A96A35C00D1847A /* MLRotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLRotationViewController.h; sourceTree = "<group>"; };
 		275646821A96A35C00D1847A /* MLRotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLRotationViewController.m; sourceTree = "<group>"; };
 		278377621A20B7B400C29996 /* ViewControllers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ViewControllers.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -130,6 +136,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2718AA211AA10CF200F4938C /* Container Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2718AA221AA10DB000F4938C /* MLRotationTabBarController.h */,
+				2718AA231AA10DB000F4938C /* MLRotationTabBarController.m */,
+				2718AA251AA1150600F4938C /* MLRotationSwitchViewController.h */,
+				2718AA261AA1150600F4938C /* MLRotationSwitchViewController.m */,
+			);
+			name = "Container Controllers";
+			sourceTree = "<group>";
+		};
 		275646801A96A30600D1847A /* Misc Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,7 +252,7 @@
 			children = (
 				2783777D1A20B7B400C29996 /* Abstract Base */,
 				278377A81A20B88E00C29996 /* Abstract Containers */,
-				278377A91A20B8BB00C29996 /* Concrete */,
+				278377A91A20B8BB00C29996 /* Examples */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -284,7 +301,6 @@
 		278377A81A20B88E00C29996 /* Abstract Containers */ = {
 			isa = PBXGroup;
 			children = (
-				278377AB1A20B93600C29996 /* iPad */,
 				278377DC1A20FFAB00C29996 /* MLAutorotation.h */,
 				278377871A20B7B400C29996 /* MLNavigationController.h */,
 				278377881A20B7B400C29996 /* MLNavigationController.m */,
@@ -294,16 +310,19 @@
 				278377B11A20BA8F00C29996 /* MLPageViewController.m */,
 				2783779B1A20B7B400C29996 /* MLSwitchViewController.h */,
 				2783779C1A20B7B400C29996 /* MLSwitchViewController.m */,
+				278377B31A20BAB200C29996 /* MLSplitViewController.h */,
+				278377B41A20BAB200C29996 /* MLSplitViewController.m */,
 			);
 			name = "Abstract Containers";
 			sourceTree = "<group>";
 		};
-		278377A91A20B8BB00C29996 /* Concrete */ = {
+		278377A91A20B8BB00C29996 /* Examples */ = {
 			isa = PBXGroup;
 			children = (
 				AAA780FA1A25F24B00E2E295 /* Cell Controllers */,
 				278377BC1A20C4EA00C29996 /* Base Controllers */,
 				278377BD1A20C4F500C29996 /* CoreData Controllers */,
+				2718AA211AA10CF200F4938C /* Container Controllers */,
 				275646801A96A30600D1847A /* Misc Controllers */,
 				AAA780EE1A25C46F00E2E295 /* Extensions */,
 				278377B91A20BB7400C29996 /* MLMainTableViewController.h */,
@@ -311,16 +330,7 @@
 				278377CC1A20E35200C29996 /* MLLayoutViewController.h */,
 				278377CD1A20E35200C29996 /* MLLayoutViewController.m */,
 			);
-			name = Concrete;
-			sourceTree = "<group>";
-		};
-		278377AB1A20B93600C29996 /* iPad */ = {
-			isa = PBXGroup;
-			children = (
-				278377B31A20BAB200C29996 /* MLSplitViewController.h */,
-				278377B41A20BAB200C29996 /* MLSplitViewController.m */,
-			);
-			name = iPad;
+			name = Examples;
 			sourceTree = "<group>";
 		};
 		278377BC1A20C4EA00C29996 /* Base Controllers */ = {
@@ -460,11 +470,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				278377CA1A20D64600C29996 /* MLCollectionViewStickyLayout.m in Sources */,
+				2718AA271AA1150600F4938C /* MLRotationSwitchViewController.m in Sources */,
 				AAA780F71A25EC2500E2E295 /* MLCustomTableViewCell.m in Sources */,
 				278377C31A20C58300C29996 /* MLCustomCollectionViewController.m in Sources */,
 				2783777C1A20B7B400C29996 /* MLConstants.m in Sources */,
 				2783779D1A20B7B400C29996 /* MLSwitchViewController.m in Sources */,
 				278377B21A20BA8F00C29996 /* MLPageViewController.m in Sources */,
+				2718AA241AA10DB000F4938C /* MLRotationTabBarController.m in Sources */,
 				278377911A20B7B400C29996 /* MLCollectionViewCell.m in Sources */,
 				278377861A20B7B400C29996 /* MLCollectionViewController.m in Sources */,
 				278377CE1A20E35200C29996 /* MLLayoutViewController.m in Sources */,
