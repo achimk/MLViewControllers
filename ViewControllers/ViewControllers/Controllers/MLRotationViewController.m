@@ -87,10 +87,10 @@ typedef NS_ENUM (NSUInteger, MLSection) {
             self.mode = indexPath.row;
             self.autorotationController.autorotationMode = self.mode;
         } break;
+            
         case MLSectionOrientationMask: {
             [self toggleMaskForOrientation:indexPath.row];
         } break;
-        default: break;
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -112,11 +112,11 @@ typedef NS_ENUM (NSUInteger, MLSection) {
             cell.textLabel.text = self.dictionaryOfModes[@(indexPath.row)];
             cell.accessoryType = (indexPath.row == self.mode) ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
         } break;
+            
         case MLSectionOrientationMask: {
             cell.textLabel.text = self.dictionaryOfMasks[@(indexPath.row)];
             cell.accessoryType = ([self hasMaskForOrientation:indexPath.row]) ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
         } break;
-        default: break;
     }
     
     return cell;
@@ -158,6 +158,7 @@ typedef NS_ENUM (NSUInteger, MLSection) {
         case UIInterfaceOrientationUnknown: {
             self.mask &= ~UIInterfaceOrientationMaskAll;
         } break;
+            
         case UIInterfaceOrientationPortrait: {
             if (self.mask & UIInterfaceOrientationMaskPortrait) {
                 self.mask &= ~UIInterfaceOrientationMaskPortrait;
@@ -166,6 +167,7 @@ typedef NS_ENUM (NSUInteger, MLSection) {
                 self.mask |= UIInterfaceOrientationMaskPortrait;
             }
         } break;
+            
         case UIInterfaceOrientationLandscapeLeft: {
             if (self.mask & UIInterfaceOrientationMaskLandscapeLeft) {
                 self.mask &= ~UIInterfaceOrientationMaskLandscapeLeft;
@@ -174,6 +176,7 @@ typedef NS_ENUM (NSUInteger, MLSection) {
                 self.mask |= UIInterfaceOrientationMaskLandscapeLeft;
             }
         } break;
+            
         case UIInterfaceOrientationLandscapeRight: {
             if (self.mask & UIInterfaceOrientationMaskLandscapeRight) {
                 self.mask &= ~UIInterfaceOrientationMaskLandscapeRight;
@@ -182,6 +185,7 @@ typedef NS_ENUM (NSUInteger, MLSection) {
                 self.mask |= UIInterfaceOrientationMaskLandscapeRight;
             }
         } break;
+            
         case UIInterfaceOrientationPortraitUpsideDown: {
             if (self.mask & UIInterfaceOrientationMaskPortraitUpsideDown) {
                 self.mask &= ~UIInterfaceOrientationMaskPortraitUpsideDown;
@@ -190,7 +194,6 @@ typedef NS_ENUM (NSUInteger, MLSection) {
                 self.mask |= UIInterfaceOrientationMaskPortraitUpsideDown;
             }
         } break;
-        default: break;
     }
 }
 
@@ -211,7 +214,6 @@ typedef NS_ENUM (NSUInteger, MLSection) {
         case UIInterfaceOrientationPortraitUpsideDown: {
             return (self.mask & UIInterfaceOrientationMaskPortraitUpsideDown);
         }
-        default: return NO;
     }
 }
 

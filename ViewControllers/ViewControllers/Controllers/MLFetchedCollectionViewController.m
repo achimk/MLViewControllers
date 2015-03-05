@@ -268,19 +268,17 @@
     switch (type) {
         case NSFetchedResultsChangeInsert: {
             changes[@(NSFetchedResultsChangeInsert)] = @(sectionIndex);
-            break;
-        }
+        } break;
+            
         case NSFetchedResultsChangeDelete: {
             changes[@(NSFetchedResultsChangeDelete)] = @(sectionIndex);
-            break;
-        }
+        } break;
+            
         case NSFetchedResultsChangeUpdate: {
             changes[@(NSFetchedResultsChangeUpdate)] = @(sectionIndex);
-            break;
-        }
-        default: {
-            break;
-        }
+        } break;
+            
+        case NSFetchedResultsChangeMove: break;
     }
     
     [self.sectionChanges addObject:changes];
@@ -299,23 +297,19 @@
     switch (type) {
         case NSFetchedResultsChangeInsert: {
             changes[@(NSFetchedResultsChangeInsert)] = newIndexPath;
-            break;
-        }
+        } break;
+            
         case NSFetchedResultsChangeDelete: {
             changes[@(NSFetchedResultsChangeDelete)] = indexPath;
-            break;
-        }
+        } break;
+            
         case NSFetchedResultsChangeUpdate: {
             changes[@(NSFetchedResultsChangeUpdate)] = indexPath;
-            break;
-        }
+        } break;
+            
         case NSFetchedResultsChangeMove: {
             changes[@(NSFetchedResultsChangeMove)] = @[indexPath, newIndexPath];
-            break;
-        }
-        default: {
-            break;
-        }
+        } break;
     }
     
     [self.objectChanges addObject:changes];
@@ -334,19 +328,17 @@
                         switch (type) {
                             case NSFetchedResultsChangeInsert: {
                                 [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:[obj unsignedIntegerValue]]];
-                                break;
-                            }
+                            } break;
+                                
                             case NSFetchedResultsChangeDelete: {
                                 [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:[obj unsignedIntegerValue]]];
-                                break;
-                            }
+                            } break;
+                                
                             case NSFetchedResultsChangeUpdate: {
                                 [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:[obj unsignedIntegerValue]]];
-                                break;
-                            }
-                            default: {
-                                break;
-                            }
+                            } break;
+                                
+                            case NSFetchedResultsChangeMove: break;
                         }
                     }];
                 }
@@ -362,23 +354,19 @@
                         switch (type) {
                             case NSFetchedResultsChangeInsert: {
                                 [self.collectionView insertItemsAtIndexPaths:@[obj]];
-                                break;
-                            }
+                            } break;
+                                
                             case NSFetchedResultsChangeDelete: {
                                 [self.collectionView deleteItemsAtIndexPaths:@[obj]];
-                                break;
-                            }
+                            } break;
+                                
                             case NSFetchedResultsChangeUpdate: {
                                 [self.collectionView reloadItemsAtIndexPaths:@[obj]];
-                                break;
-                            }
+                            } break;
+                                
                             case NSFetchedResultsChangeMove: {
                                 [self.collectionView moveItemAtIndexPath:obj[0] toIndexPath:obj[1]];
-                                break;
-                            }
-                            default: {
-                                break;
-                            }
+                            } break;
                         }
                     }];
                 }

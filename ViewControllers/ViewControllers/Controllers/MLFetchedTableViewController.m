@@ -240,13 +240,10 @@
         case MLChangeTypeUpdate: {
             _updateAnimated = YES;
             [self.tableView beginUpdates];
-            break;
-        }
+        } break;
+            
         case MLChangeTypeIgnore:
-        case MLChangeTypeReload:
-        default: {
-            break;
-        }
+        case MLChangeTypeReload: break;
     }
 }
 
@@ -261,15 +258,14 @@
     switch (type) {
         case NSFetchedResultsChangeInsert: {
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];
-            break;
-        }
+        } break;
+            
         case NSFetchedResultsChangeDelete: {
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];
-            break;
-        }
-        default: {
-            break;
-        }
+        } break;
+ 
+        case NSFetchedResultsChangeMove:
+        case NSFetchedResultsChangeUpdate: break;
     }
 }
 
@@ -286,24 +282,20 @@
     switch (type) {
         case NSFetchedResultsChangeInsert: {
             [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:animation];
-            break;
-        }
+        } break;
+            
         case NSFetchedResultsChangeDelete: {
             [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:animation];
-            break;
-        }
+        } break;
+            
         case NSFetchedResultsChangeUpdate: {
             [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:animation];
-            break;
-        }
+        } break;
+            
         case NSFetchedResultsChangeMove: {
             [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:animation];
             [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:animation];
-            break;
-        }
-        default: {
-            break;
-        }
+        } break;
     }
 }
 

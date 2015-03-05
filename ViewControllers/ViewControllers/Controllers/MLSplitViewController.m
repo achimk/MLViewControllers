@@ -82,9 +82,7 @@
             }
         } break;
             
-        case MLAutorotationModeContainerAndNoChildren:
-        default: {
-        } break;
+        case MLAutorotationModeContainerAndNoChildren: break;
     }
     
     return YES;
@@ -105,9 +103,7 @@
             }
         } break;
             
-        case MLAutorotationModeContainerAndNoChildren:
-        default: {
-        } break;
+        case MLAutorotationModeContainerAndNoChildren: break;
     }
     
     return containerSupportedInterfaceOrientations;
