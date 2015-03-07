@@ -10,6 +10,7 @@
 		2718AA241AA10DB000F4938C /* MLRotationTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2718AA231AA10DB000F4938C /* MLRotationTabBarController.m */; };
 		2718AA271AA1150600F4938C /* MLRotationSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2718AA261AA1150600F4938C /* MLRotationSwitchViewController.m */; };
 		275646831A96A35C00D1847A /* MLRotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275646821A96A35C00D1847A /* MLRotationViewController.m */; };
+		277808C41AAB1D2100D4C410 /* MLUniformFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 277808C31AAB1D2100D4C410 /* MLUniformFlowLayout.m */; };
 		278377661A20B7B400C29996 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278377651A20B7B400C29996 /* Foundation.framework */; };
 		278377681A20B7B400C29996 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278377671A20B7B400C29996 /* UIKit.framework */; };
 		2783776A1A20B7B400C29996 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278377691A20B7B400C29996 /* CoreData.framework */; };
@@ -53,6 +54,8 @@
 		2718AA261AA1150600F4938C /* MLRotationSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLRotationSwitchViewController.m; sourceTree = "<group>"; };
 		275646811A96A35C00D1847A /* MLRotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLRotationViewController.h; sourceTree = "<group>"; };
 		275646821A96A35C00D1847A /* MLRotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLRotationViewController.m; sourceTree = "<group>"; };
+		277808C21AAB1D2100D4C410 /* MLUniformFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLUniformFlowLayout.h; sourceTree = "<group>"; };
+		277808C31AAB1D2100D4C410 /* MLUniformFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLUniformFlowLayout.m; sourceTree = "<group>"; };
 		278377621A20B7B400C29996 /* ViewControllers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ViewControllers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		278377651A20B7B400C29996 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		278377671A20B7B400C29996 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -356,6 +359,8 @@
 		278377C71A20D3C500C29996 /* UICollectionView Layouts */ = {
 			isa = PBXGroup;
 			children = (
+				277808C21AAB1D2100D4C410 /* MLUniformFlowLayout.h */,
+				277808C31AAB1D2100D4C410 /* MLUniformFlowLayout.m */,
 				278377C81A20D64600C29996 /* MLCollectionViewStickyLayout.h */,
 				278377C91A20D64600C29996 /* MLCollectionViewStickyLayout.m */,
 			);
@@ -500,6 +505,7 @@
 				AAA780FD1A25F28D00E2E295 /* MLContactsTableViewController.m in Sources */,
 				278377BB1A20BB7400C29996 /* MLMainTableViewController.m in Sources */,
 				278377C61A20C5B300C29996 /* MLCustomViewController.m in Sources */,
+				277808C41AAB1D2100D4C410 /* MLUniformFlowLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,6 +14,7 @@
 typedef NS_ENUM(NSUInteger, MLLayoutTypes) {
     MLLayoutTypeFlow,
     MLLayoutTypeSticky,
+    MLLayoutTypeUniform,
     MLLayoutTypeCount
 };
 
@@ -61,6 +62,7 @@ typedef NS_ENUM(NSUInteger, MLLayoutTypes) {
         layouts = @{
                     @(MLLayoutTypeFlow)     : @"UICollectionViewFlowLayout",
                     @(MLLayoutTypeSticky)   : @"MLCollectionViewStickyLayout",
+                    @(MLLayoutTypeUniform)  : @"MLUniformFlowLayout",
                     };
     });
     
@@ -90,6 +92,7 @@ typedef NS_ENUM(NSUInteger, MLLayoutTypes) {
         names = @{
                   @(MLLayoutTypeFlow)       : @"Flow Layout",
                   @(MLLayoutTypeSticky)     : @"Sticky Layout",
+                  @(MLLayoutTypeUniform)    : @"Uniform Layout",
                   };
     });
     
