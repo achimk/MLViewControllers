@@ -1,5 +1,5 @@
 //
-//  MLCustomTableViewCell.h
+//  MLContactTableViewCell.h
 //  ViewControllers
 //
 //  Created by Joachim Kret on 26/11/14.
@@ -8,6 +8,6 @@
 
 #import "MLTableViewCell.h"
 
-@interface MLCustomTableViewCell : MLTableViewCell
+@interface MLContactTableViewCell : MLTableViewCell
 
 @end

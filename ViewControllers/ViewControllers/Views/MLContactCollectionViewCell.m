@@ -1,19 +1,17 @@
 //
-//  MLCustomTableViewCell.m
+//  MLContactCollectionViewCell.m
 //  ViewControllers
 //
-//  Created by Joachim Kret on 26/11/14.
-//  Copyright (c) 2014 Joachim Kret. All rights reserved.
+//  Created by Joachim Kret on 07.03.2015.
+//  Copyright (c) 2015 Joachim Kret. All rights reserved.
 //
 
-#import "MLCustomTableViewCell.h"
+#import "MLContactCollectionViewCell.h"
 
 #define MARGIN_VERTICAL     5.0f
 #define MARGIN_HORIZONTAL   20.0f
 
-#pragma mark - MLCustomTableViewCell
-
-@interface MLCustomTableViewCell ()
+@interface MLContactCollectionViewCell ()
 
 @property (nonatomic, readwrite, strong) UILabel * labelName;
 @property (nonatomic, readwrite, strong) UILabel * labelDate;
@@ -21,11 +19,9 @@
 
 @end
 
-#pragma mark -
+@implementation MLContactCollectionViewCell
 
-@implementation MLCustomTableViewCell
-
-#pragma mark Init
+#pragma mark Initialize
 
 - (void)finishInitialize {
     [super finishInitialize];
@@ -33,10 +29,6 @@
     //!!!: Fix for contentView constraint warnings
     self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-
-    self.accessoryView = nil;
-    self.accessoryType = UITableViewCellAccessoryNone;
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     _labelName = [[UILabel alloc] init];
     _labelName.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0f];
@@ -118,7 +110,7 @@
 
 #pragma mark Configure
 
-- (void)configureForData:(id)dataObject tableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath type:(MLTableViewCellConfigureType)type {
+- (void)configureForData:(id)dataObject collectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath type:(MLCollectionViewCellConfigureType)type {
     
     self.labelName.text = dataObject[@"name"];
     self.labelDate.text = dataObject[@"registered"];

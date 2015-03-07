@@ -94,7 +94,7 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
         mapping = @{
                     //MLSectionCells
                     INDEX(MLSectionCells, MLRowCellTableView)                                           : @"MLContactsTableViewController",
-                    INDEX(MLSectionCells, MLRowCellCollectionView)                                      : [NSNull null],
+                    INDEX(MLSectionCells, MLRowCellCollectionView)                                      : @"MLContactsCollectionViewController",
                     
                     //MLSectionBaseControllers
                     INDEX(MLSectionBaseControllers, MLRowBaseViewController)                            : @"MLCustomViewController",
