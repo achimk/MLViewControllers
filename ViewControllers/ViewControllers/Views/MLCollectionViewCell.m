@@ -18,26 +18,16 @@
     return nil;
 }
 
-+ (UINib *)defaultNib {
-    if ([self defaultCollectionViewCellNibName]) {
-        NSBundle * bundle = [NSBundle bundleForClass:[self class]];
-        return [UINib nibWithNibName:[self defaultCollectionViewCellNibName] bundle:bundle];
-    }
-    
-    return nil;
-}
-
 + (void)registerCellWithCollectionView:(UICollectionView *)collectionView {
     NSParameterAssert(collectionView);
     
     if ([self defaultCollectionViewCellNibName]) {
-        [collectionView registerNib:[self defaultNib] forCellWithReuseIdentifier:[self defaultCollectionViewCellNibName]];
-    }
-    else if ([self defaultCollectionViewCellIdentifier]) {
-        [collectionView registerClass:[self class] forCellWithReuseIdentifier:[self defaultCollectionViewCellIdentifier]];
+        NSBundle * bundle = [NSBundle bundleForClass:[self class]];
+        UINib * nib = [UINib nibWithNibName:[self defaultCollectionViewCellNibName] bundle:bundle];
+        [collectionView registerNib:nib forCellWithReuseIdentifier:[self defaultCollectionViewCellNibName]];
     }
     else {
-        NSAssert(NO, @"Can't register cell '%@' without nib name or cell identifier", [self class]);
+        [collectionView registerClass:[self class] forCellWithReuseIdentifier:[self defaultCollectionViewCellIdentifier]];
     }
 }
 
@@ -46,19 +36,60 @@
     NSParameterAssert(indexPath);
     
     NSString * cellIdentifier = ([self defaultCollectionViewCellNibName]) ?: [self defaultCollectionViewCellIdentifier];
-    UICollectionViewCell * cell = nil;
-    
-    if (cellIdentifier) {
-        cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    }
-    else {
-        NSAssert(NO, @"Can't dequeue cell '%@' without nib name or cell identifier", [self class]);
-    }
-    
-    return cell;
+    return [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
 }
 
-#pragma mark Dynamic Resizing
+#pragma mark Initialize
+
+- (id)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self finishInitialize];
+    }
+    
+    return self;
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self finishInitialize];
+}
+
+- (void)finishInitialize {
+    // Sublcasses can override this method
+}
+
+#pragma mark MLCollectionViewCellProtocol
+
++ (CGSize)cellSize {
+    NSString * nibName = [self defaultCollectionViewCellNibName];
+    
+    if (!nibName) {
+        return CGSizeZero;
+    }
+    
+    static NSMutableDictionary * dictionaryOfCellSizes = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        dictionaryOfCellSizes = [[NSMutableDictionary alloc] init];
+    });
+    
+    NSValue * sizeValue = dictionaryOfCellSizes[nibName];
+    
+    if (!sizeValue) {
+        NSBundle * bundle = [NSBundle bundleForClass:[self class]];
+        UINib * nib = [UINib nibWithNibName:nibName bundle:bundle];
+        NSArray * nibObjects = [nib instantiateWithOwner:nil options:nil];
+        NSAssert2([nibObjects count] > 0 && [[nibObjects objectAtIndex:0] isKindOfClass:[self class]], @"Nib '%@' doesn't appear to contain a valid %@", nibName, [self class]);
+        
+        if (nibObjects.count) {
+            UICollectionView * cell = (UICollectionView *)nibObjects[0];
+            sizeValue = [NSValue valueWithCGSize:cell.bounds.size];
+            [dictionaryOfCellSizes setObject:sizeValue forKey:nibName];
+        }
+    }
+    
+    return (sizeValue) ? sizeValue.CGSizeValue : CGSizeZero;
+}
 
 + (CGSize)cellSizeForData:(id)dataObject collectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath {
     NSParameterAssert(collectionView);
@@ -83,7 +114,9 @@
     // create and cache cell
     if (!cell) {
         if ([[self class] defaultCollectionViewCellNibName]) {
-            NSArray * nibObjects = [[self defaultNib] instantiateWithOwner:nil options:nil];
+            NSBundle * bundle = [NSBundle bundleForClass:[self class]];
+            UINib * nib = [UINib nibWithNibName:[self defaultCollectionViewCellNibName] bundle:bundle];
+            NSArray * nibObjects = [nib instantiateWithOwner:nil options:nil];
             NSAssert2([nibObjects count] > 0 && [[nibObjects objectAtIndex:0] isKindOfClass:[self class]], @"Nib '%@' doesn't appear to contain a valid %@", [self defaultCollectionViewCellNibName], [self class]);
             cell = (MLCollectionViewCell *)[nibObjects objectAtIndex:0];
         }
@@ -141,29 +174,6 @@
     return size;
 }
 
-#pragma mark Init
-
-- (id)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        [self finishInitialize];
-    }
-    
-    return self;
-}
-
-#pragma mark Awake
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    
-    [self finishInitialize];
-}
-
-#pragma mark Subclass Methods
-
-- (void)finishInitialize {
-}
-
 - (void)configureForData:(id)dataObject collectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath {
     [self configureForData:dataObject
             collectionView:collectionView
@@ -172,7 +182,7 @@
 }
 
 - (void)configureForData:(id)dataObject collectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath type:(MLCollectionViewCellConfigureType)type {
-    METHOD_MUST_BE_OVERRIDDEN;
+    // Sublcasses can override this method
 }
 
 @end

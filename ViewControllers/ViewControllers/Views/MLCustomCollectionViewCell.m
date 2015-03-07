@@ -23,8 +23,6 @@
 #pragma mark Init
 
 - (void)finishInitialize {
-    [super finishInitialize];
-    
     if (!_textLabel) {
         _textLabel = [[UILabel alloc] init];
         _textLabel.backgroundColor = [UIColor clearColor];

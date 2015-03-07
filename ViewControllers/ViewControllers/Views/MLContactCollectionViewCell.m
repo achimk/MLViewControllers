@@ -24,8 +24,6 @@
 #pragma mark Initialize
 
 - (void)finishInitialize {
-    [super finishInitialize];
-    
     //!!!: Fix for contentView constraint warnings
     self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
