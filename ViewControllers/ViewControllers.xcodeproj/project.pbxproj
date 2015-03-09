@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07E497747F7D15BA5D209B5E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39EA6D112DF10EA65BC5006F /* libPods.a */; };
 		2718AA241AA10DB000F4938C /* MLRotationTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2718AA231AA10DB000F4938C /* MLRotationTabBarController.m */; };
 		2718AA271AA1150600F4938C /* MLRotationSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2718AA261AA1150600F4938C /* MLRotationSwitchViewController.m */; };
+		274341981AAE1C7A002AD9B5 /* MLArrayDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274341971AAE1C7A002AD9B5 /* MLArrayDataTableViewController.m */; };
+		2743419B1AAE1E3D002AD9B5 /* MLCollectionListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2743419A1AAE1E3D002AD9B5 /* MLCollectionListController.m */; };
+		2743419E1AAE1F58002AD9B5 /* MLBaseResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2743419D1AAE1F58002AD9B5 /* MLBaseResultsController.m */; };
 		275646831A96A35C00D1847A /* MLRotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275646821A96A35C00D1847A /* MLRotationViewController.m */; };
 		277808C41AAB1D2100D4C410 /* MLUniformFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 277808C31AAB1D2100D4C410 /* MLUniformFlowLayout.m */; };
 		277808C71AAB261C00D4C410 /* MLContactsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 277808C61AAB261C00D4C410 /* MLContactsCollectionViewController.m */; };
@@ -53,10 +57,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C679E83FE33288317C35094 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		2718AA221AA10DB000F4938C /* MLRotationTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLRotationTabBarController.h; sourceTree = "<group>"; };
 		2718AA231AA10DB000F4938C /* MLRotationTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLRotationTabBarController.m; sourceTree = "<group>"; };
 		2718AA251AA1150600F4938C /* MLRotationSwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLRotationSwitchViewController.h; sourceTree = "<group>"; };
 		2718AA261AA1150600F4938C /* MLRotationSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLRotationSwitchViewController.m; sourceTree = "<group>"; };
+		274341961AAE1C7A002AD9B5 /* MLArrayDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLArrayDataTableViewController.h; sourceTree = "<group>"; };
+		274341971AAE1C7A002AD9B5 /* MLArrayDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLArrayDataTableViewController.m; sourceTree = "<group>"; };
+		274341991AAE1E3D002AD9B5 /* MLCollectionListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCollectionListController.h; sourceTree = "<group>"; };
+		2743419A1AAE1E3D002AD9B5 /* MLCollectionListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCollectionListController.m; sourceTree = "<group>"; };
+		2743419C1AAE1F58002AD9B5 /* MLBaseResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLBaseResultsController.h; sourceTree = "<group>"; };
+		2743419D1AAE1F58002AD9B5 /* MLBaseResultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLBaseResultsController.m; sourceTree = "<group>"; };
 		275646811A96A35C00D1847A /* MLRotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLRotationViewController.h; sourceTree = "<group>"; };
 		275646821A96A35C00D1847A /* MLRotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLRotationViewController.m; sourceTree = "<group>"; };
 		277808C21AAB1D2100D4C410 /* MLUniformFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLUniformFlowLayout.h; sourceTree = "<group>"; };
@@ -132,6 +143,8 @@
 		27B7FA181AABAFBC0062430E /* MLResultsControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLResultsControllerProtocol.h; sourceTree = "<group>"; };
 		27B7FA191AABC3530062430E /* MLFetchedResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLFetchedResultsController.h; sourceTree = "<group>"; };
 		27B7FA1A1AABC3530062430E /* MLFetchedResultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLFetchedResultsController.m; sourceTree = "<group>"; };
+		39EA6D112DF10EA65BC5006F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C8F14662890BF7E9EA7B8E7 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		AAA780EF1A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+MLCustomConfiguration.h"; sourceTree = "<group>"; };
 		AAA780F01A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+MLCustomConfiguration.m"; sourceTree = "<group>"; };
 		AAA780F51A25EC2500E2E295 /* MLContactTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLContactTableViewCell.h; sourceTree = "<group>"; };
@@ -149,6 +162,7 @@
 				278377661A20B7B400C29996 /* Foundation.framework in Frameworks */,
 				2783776A1A20B7B400C29996 /* CoreData.framework in Frameworks */,
 				278377681A20B7B400C29996 /* UIKit.framework in Frameworks */,
+				07E497747F7D15BA5D209B5E /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,6 +180,35 @@
 			name = "Container Controllers";
 			sourceTree = "<group>";
 		};
+		274341951AAE1A89002AD9B5 /* Data Source Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				274341961AAE1C7A002AD9B5 /* MLArrayDataTableViewController.h */,
+				274341971AAE1C7A002AD9B5 /* MLArrayDataTableViewController.m */,
+			);
+			name = "Data Source Controllers";
+			sourceTree = "<group>";
+		};
+		2743419F1AAE1F84002AD9B5 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
+		274341A01AAE1FC1002AD9B5 /* Results Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2743419C1AAE1F58002AD9B5 /* MLBaseResultsController.h */,
+				2743419D1AAE1F58002AD9B5 /* MLBaseResultsController.m */,
+				274341991AAE1E3D002AD9B5 /* MLCollectionListController.h */,
+				2743419A1AAE1E3D002AD9B5 /* MLCollectionListController.m */,
+				27B7FA191AABC3530062430E /* MLFetchedResultsController.h */,
+				27B7FA1A1AABC3530062430E /* MLFetchedResultsController.m */,
+			);
+			name = "Results Controllers";
+			sourceTree = "<group>";
+		};
 		275646801A96A30600D1847A /* Misc Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -181,6 +224,7 @@
 				2783776B1A20B7B400C29996 /* ViewControllers */,
 				278377641A20B7B400C29996 /* Frameworks */,
 				278377631A20B7B400C29996 /* Products */,
+				86EAF2D25404F7923B86D684 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -198,6 +242,7 @@
 				278377651A20B7B400C29996 /* Foundation.framework */,
 				278377671A20B7B400C29996 /* UIKit.framework */,
 				278377691A20B7B400C29996 /* CoreData.framework */,
+				39EA6D112DF10EA65BC5006F /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -262,6 +307,8 @@
 		278377771A20B7B400C29996 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2743419F1AAE1F84002AD9B5 /* Support */,
+				274341A01AAE1FC1002AD9B5 /* Results Controllers */,
 				27B7FA101AAB99BB0062430E /* Data Sources */,
 			);
 			path = Models;
@@ -344,6 +391,7 @@
 				AAA780FA1A25F24B00E2E295 /* Cell Controllers */,
 				278377BC1A20C4EA00C29996 /* Base Controllers */,
 				278377BD1A20C4F500C29996 /* CoreData Controllers */,
+				274341951AAE1A89002AD9B5 /* Data Source Controllers */,
 				2718AA211AA10CF200F4938C /* Container Controllers */,
 				275646801A96A30600D1847A /* Misc Controllers */,
 				AAA780EE1A25C46F00E2E295 /* Extensions */,
@@ -401,14 +449,21 @@
 			isa = PBXGroup;
 			children = (
 				27B7FA181AABAFBC0062430E /* MLResultsControllerProtocol.h */,
-				27B7FA191AABC3530062430E /* MLFetchedResultsController.h */,
-				27B7FA1A1AABC3530062430E /* MLFetchedResultsController.m */,
 				27B7FA111AAB9A040062430E /* MLTableViewDataSource.h */,
 				27B7FA121AAB9A040062430E /* MLTableViewDataSource.m */,
 				27B7FA141AAB9A180062430E /* MLCollectionViewDataSource.h */,
 				27B7FA151AAB9A180062430E /* MLCollectionViewDataSource.m */,
 			);
 			name = "Data Sources";
+			sourceTree = "<group>";
+		};
+		86EAF2D25404F7923B86D684 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1C679E83FE33288317C35094 /* Pods.debug.xcconfig */,
+				3C8F14662890BF7E9EA7B8E7 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		AAA780ED1A25C42700E2E295 /* Interface */ = {
@@ -446,9 +501,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 278377A31A20B7B400C29996 /* Build configuration list for PBXNativeTarget "ViewControllers" */;
 			buildPhases = (
+				9F633946D890A532BA2EE93B /* Check Pods Manifest.lock */,
 				2783775E1A20B7B400C29996 /* Sources */,
 				2783775F1A20B7B400C29996 /* Frameworks */,
 				278377601A20B7B400C29996 /* Resources */,
+				7833F3B349B06A1670038860 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -504,6 +561,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7833F3B349B06A1670038860 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9F633946D890A532BA2EE93B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2783775E1A20B7B400C29996 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -515,6 +605,7 @@
 				277808C71AAB261C00D4C410 /* MLContactsCollectionViewController.m in Sources */,
 				278377C31A20C58300C29996 /* MLCustomCollectionViewController.m in Sources */,
 				2783777C1A20B7B400C29996 /* MLConstants.m in Sources */,
+				2743419E1AAE1F58002AD9B5 /* MLBaseResultsController.m in Sources */,
 				2783779D1A20B7B400C29996 /* MLSwitchViewController.m in Sources */,
 				278377B21A20BA8F00C29996 /* MLPageViewController.m in Sources */,
 				2718AA241AA10DB000F4938C /* MLRotationTabBarController.m in Sources */,
@@ -534,6 +625,7 @@
 				27B7FA1B1AABC3530062430E /* MLFetchedResultsController.m in Sources */,
 				278377D81A20F1F500C29996 /* MLCollectionReusableView.m in Sources */,
 				278377971A20B7B400C29996 /* MLFetchedTableViewController.m in Sources */,
+				2743419B1AAE1E3D002AD9B5 /* MLCollectionListController.m in Sources */,
 				27B7FA131AAB9A040062430E /* MLTableViewDataSource.m in Sources */,
 				278377891A20B7B400C29996 /* MLNavigationController.m in Sources */,
 				278377C01A20C51600C29996 /* MLCustomTableViewController.m in Sources */,
@@ -541,6 +633,7 @@
 				2783778D1A20B7B400C29996 /* MLTableViewCell.m in Sources */,
 				278377D41A20ECE800C29996 /* MLCustomCollectionViewCell.m in Sources */,
 				278377721A20B7B400C29996 /* main.m in Sources */,
+				274341981AAE1C7A002AD9B5 /* MLArrayDataTableViewController.m in Sources */,
 				AAA780FD1A25F28D00E2E295 /* MLContactsTableViewController.m in Sources */,
 				278377BB1A20BB7400C29996 /* MLMainTableViewController.m in Sources */,
 				278377C61A20C5B300C29996 /* MLCustomViewController.m in Sources */,
@@ -633,6 +726,7 @@
 		};
 		278377A41A20B7B400C29996 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C679E83FE33288317C35094 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -647,6 +741,7 @@
 		};
 		278377A51A20B7B400C29996 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3C8F14662890BF7E9EA7B8E7 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

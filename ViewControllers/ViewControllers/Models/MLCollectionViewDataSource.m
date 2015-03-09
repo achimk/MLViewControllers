@@ -10,7 +10,7 @@
 
 #pragma mark - MLCollectionViewDataSource
 
-@interface MLCollectionViewDataSource ()
+@interface MLCollectionViewDataSource () <MLResultsControllerObserver>
 
 @property (nonatomic, readwrite, weak) UICollectionView * collectionView;
 
@@ -31,13 +31,46 @@
     NSParameterAssert(collectionView);
     
     if (self = [super init]) {
-        self.collectionView = collectionView;
-        self.collectionView.dataSource = self;
-        self.resultsController = resultsController;
-        self.delegate = delegate;
+        __weak typeof(collectionView) weakCollectionView = collectionView;
+        _collectionView = weakCollectionView;
+        collectionView.dataSource = self;
+        
+
+        if (resultsController) {
+            _resultsController = resultsController;
+            [resultsController addResultsControllerObserver:self];
+        }
+        
+        if (delegate) {
+            __weak typeof(delegate) weakDelegate = delegate;
+            _delegate = weakDelegate;
+        }
     }
     
     return self;
+}
+
+- (void)dealloc {
+    self.collectionView.dataSource = nil;
+    self.collectionView = nil;
+}
+
+#pragma mark Accessors
+
+- (void)setResultsController:(id<MLResultsController>)resultsController {
+    if (resultsController != _resultsController) {
+        if (_resultsController) {
+            [_resultsController removeResultsControllerObserver:self];
+        }
+        
+        _resultsController = resultsController;
+        
+        if (resultsController) {
+            [resultsController addResultsControllerObserver:self];
+        }
+        
+        [self.collectionView reloadData];
+    }
 }
 
 #pragma mark UICollectionViewDataSource
@@ -54,6 +87,24 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     id <MLResultsSectionInfo> sectionInfo = [self.resultsController.sections objectAtIndex:section];
     return [sectionInfo numberOfObjects];
+}
+
+#pragma mark MLResultsControllerObserver
+
+- (void)resultsControllerWillChangeContent:(id<MLResultsController>)resultsController {
+#warning Implement observer method!
+}
+
+- (void)resultsController:(id<MLResultsController>)resultsController didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(MLResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+#warning Implement observer method!
+}
+
+- (void)resultsController:(id<MLResultsController>)resultsController didChangeSection:(id<MLResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(MLResultsChangeType)type {
+#warning Implement observer method!
+}
+
+- (void)resultsControllerDidChangeContent:(id<MLResultsController>)resultsController {
+#warning Implement observer method!
 }
 
 @end

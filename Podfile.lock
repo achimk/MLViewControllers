@@ -1,0 +1,19 @@
+PODS:
+  - RZCollectionList (0.7.1)
+
+DEPENDENCIES:
+  - RZCollectionList (from `git@github.com:Raizlabs/RZCollectionList.git`)
+
+EXTERNAL SOURCES:
+  RZCollectionList:
+    :git: git@github.com:Raizlabs/RZCollectionList.git
+
+CHECKOUT OPTIONS:
+  RZCollectionList:
+    :commit: 4f2e1f953310a2d9c7e01d32156fa7b83e3f6bc7
+    :git: git@github.com:Raizlabs/RZCollectionList.git
+
+SPEC CHECKSUMS:
+  RZCollectionList: 63024ce078ba952a6a15ef6e877423c4f4ad66d9
+
+COCOAPODS: 0.35.0

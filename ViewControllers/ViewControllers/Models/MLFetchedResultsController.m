@@ -61,9 +61,7 @@
 
 #pragma mark - MLFetchedResultsController
 
-@interface MLFetchedResultsController () <NSFetchedResultsControllerDelegate> {
-    BOOL _needsFetch;
-}
+@interface MLFetchedResultsController () <NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, readonly, strong) NSFetchedResultsController * controller;
 @property (nonatomic, readwrite, assign) BOOL shouldDeleteCache;
@@ -76,8 +74,13 @@
 
 @dynamic predicate;
 @dynamic sortDescriptors;
-@dynamic allObjects;
-@dynamic sections;
+
++ (instancetype)controllerWithFetchRequest:(NSFetchRequest *)fetchRequest managedObjectContext:(NSManagedObjectContext *)context sectionNameKeyPath:(NSString *)sectionNameKeyPath cacheName:(NSString *)name {
+    return [[[self class] alloc] initWithFetchRequest:fetchRequest
+                                 managedObjectContext:context
+                                   sectionNameKeyPath:sectionNameKeyPath
+                                            cacheName:name];
+}
 
 #pragma mark Init
 
@@ -91,14 +94,14 @@
     NSParameterAssert(context);
     
     if (self = [super init]) {
+        _shouldDeleteCache = NO;
+        _cacheDeleteRule = MLFetchedCacheDeleteRuleDefault;
+        
         _controller = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                           managedObjectContext:context
                                                             sectionNameKeyPath:sectionNameKeyPath
                                                                      cacheName:name];
         _controller.delegate = self;
-        _needsFetch = YES;
-        _shouldDeleteCache = NO;
-        _cacheDeleteRule = MLFetchedCacheDeleteRuleDefault;
     }
     
     return self;
@@ -113,7 +116,6 @@
 - (void)setPredicate:(NSPredicate *)predicate {
     self.controller.fetchRequest.predicate = predicate;
     self.shouldDeleteCache = YES;
-    [self setNeedsFetch];
 }
 
 - (NSPredicate *)predicate {
@@ -123,32 +125,21 @@
 - (void)setSortDescriptors:(NSArray *)sortDescriptors {
     self.controller.fetchRequest.sortDescriptors = sortDescriptors;
     self.shouldDeleteCache = YES;
-    [self setNeedsFetch];
 }
 
 - (NSArray *)sortDescriptors {
     return self.controller.fetchRequest.sortDescriptors;
 }
 
-- (void)setNeedsFetch {
-    _needsFetch = YES;
-}
-
-- (BOOL)needsFetch {
-    return _needsFetch;
-}
-
 #pragma mark Fetching
 
-- (BOOL)fetchIfNeeded:(NSError **)error {
-    return ([self needsFetch]) ? [self performFetch:error] : NO;
-}
-
 - (BOOL)performFetch:(NSError **)error {
-    _needsFetch = NO;
+    BOOL clearCache = self.controller.cacheName &&
+                    (MLFetchedCacheDeleteRuleAlways == self.cacheDeleteRule ||
+                     (MLFetchedCacheDeleteRuleDefault == self.cacheDeleteRule && self.shouldDeleteCache));
+    self.shouldDeleteCache = NO;
     
-    if (self.controller.cacheName && (self.shouldDeleteCache || MLFetchedCacheDeleteRuleAlways == self.cacheDeleteRule)) {
-        self.shouldDeleteCache = NO;
+    if (clearCache) {
         [NSFetchedResultsController deleteCacheWithName:self.controller.cacheName];
     }
     
@@ -166,49 +157,67 @@
 #pragma mark MLResultsController
 
 - (NSArray *)allObjects {
-#warning Implement
-    return nil;
+    return [self.controller fetchedObjects];
 }
 
 - (NSArray *)sections {
-#warning Implement
-    return nil;
+    NSMutableArray * arrayOfSections = [[NSMutableArray alloc] init];
+    NSArray * arrayOfFetchedSections = self.controller.sections;
+    for (id <NSFetchedResultsSectionInfo> section in arrayOfFetchedSections) {
+        id <MLResultsSectionInfo> fetchedSectionInfo = [[MLFetchedResultsSectionInfo alloc] initWithFetchedResultsSectionInfo:section];
+        [arrayOfSections addObject:fetchedSectionInfo];
+    }
+    
+    return [NSArray arrayWithArray:arrayOfSections];
 }
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath {
-#warning Implement
-    return nil;
+    return [self.controller objectAtIndexPath:indexPath];
 }
 
 - (NSIndexPath *)indexPathForObject:(id)object {
-#warning Implement
-    return nil;
-}
-
-- (void)addResultsControllerObserver:(id <MLResultsControllerObserver>)observer {
-#warning Implement
-}
-
-- (void)removeResultsControllerObserver:(id <MLResultsControllerObserver>)observer {
-#warning Implement
+    return [self.controller indexPathForObject:object];
 }
 
 #pragma mark NSFetchedResultsControllerDelegate
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-
+    for (id <MLResultsControllerObserver> observer in self.arrayOfObservers) {
+        [observer resultsControllerWillChangeContent:self];
+    }
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-
+    
+    for (id <MLResultsControllerObserver> observer in self.arrayOfObservers) {
+        if ([observer respondsToSelector:@selector(resultsController:didChangeObject:atIndexPath:forChangeType:newIndexPath:)]) {
+            [observer resultsController:self
+                        didChangeObject:anObject
+                            atIndexPath:indexPath
+                          forChangeType:(MLResultsChangeType)type
+                           newIndexPath:newIndexPath];
+        }
+    }
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+    id <MLResultsSectionInfo> fetchedSectionInfo = [[MLFetchedResultsSectionInfo alloc] initWithFetchedResultsSectionInfo:sectionInfo];
+    
+    for (id <MLResultsControllerObserver> observer in self.arrayOfObservers) {
+        if ([observer respondsToSelector:@selector(resultsController:didChangeSection:atIndex:forChangeType:)]) {
+            [observer resultsController:self
+                       didChangeSection:fetchedSectionInfo
+                                atIndex:sectionIndex
+                          forChangeType:(MLResultsChangeType)type];
+        }
+    }
 
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-
+    for (id <MLResultsControllerObserver> observer in self.arrayOfObservers) {
+        [observer resultsControllerDidChangeContent:self];
+    }
 }
 
 @end

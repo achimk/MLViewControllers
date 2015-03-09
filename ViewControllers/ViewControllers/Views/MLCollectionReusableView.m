@@ -55,7 +55,7 @@
 
 #pragma mark Initialize
 
-- (id)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self finishInitialize];
     }
