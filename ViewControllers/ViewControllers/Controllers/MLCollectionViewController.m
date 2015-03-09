@@ -28,15 +28,7 @@
     return [UICollectionViewFlowLayout class];
 }
 
-#pragma mark Dealloc
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:NSCurrentLocaleDidChangeNotification
-                                                  object:nil];
-}
-
-#pragma mark Init
+#pragma mark Init / Dealloc
 
 - (id)initWithCollectionViewLayout:(UICollectionViewLayout *)layout {
     NSParameterAssert(layout);
@@ -61,6 +53,12 @@
     _clearsSelectionOnViewWillAppear = YES;
     _clearsSelectionOnReloadData = NO;
     _collectionViewConstraintsNeedsUpdate = NO;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSCurrentLocaleDidChangeNotification
+                                                  object:nil];
 }
 
 #pragma mark View

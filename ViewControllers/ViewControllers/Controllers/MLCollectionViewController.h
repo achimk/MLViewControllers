@@ -18,8 +18,6 @@
 @property (nonatomic, readwrite, assign) BOOL reloadOnAppearsFirstTime;
 @property (nonatomic, readwrite, assign) BOOL showsBackgroundView;
 
-+ (Class)defaultCollectionViewLayoutClass;
-
 - (id)initWithCollectionViewLayout:(UICollectionViewLayout *)layout;
 
 - (void)setNeedsReload;
@@ -33,6 +31,7 @@
 
 @interface MLCollectionViewController (MLSubclassOnly)
 
++ (Class)defaultCollectionViewLayoutClass;
 - (UIView *)backgroundViewForCollectionView:(UICollectionView *)collectionView;
 
 @end

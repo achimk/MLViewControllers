@@ -17,8 +17,6 @@
 @property (nonatomic, readwrite, assign) BOOL reloadOnAppearsFirstTime;
 @property (nonatomic, readwrite, assign) BOOL showsBackgroundView;
 
-+ (UITableViewStyle)defaultTableViewStyle;
-
 - (id)initWithStyle:(UITableViewStyle)style;
 
 - (void)setNeedsReload;
@@ -32,6 +30,7 @@
 
 @interface MLTableViewController (MLSubclassOnly)
 
++ (UITableViewStyle)defaultTableViewStyle;
 - (UIView *)backgroundViewForTableView:(UITableView *)tableView;
 
 @end

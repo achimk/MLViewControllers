@@ -18,9 +18,6 @@
 
 @implementation MLViewController
 
-@synthesize appearsFirstTime = _appearsFirstTime;
-@synthesize viewVisible = _viewVisible;
-
 #pragma mark Init / Dealloc
 
 - (id)initWithCoder:(NSCoder *)aDecoder {

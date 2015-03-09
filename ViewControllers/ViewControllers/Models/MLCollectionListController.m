@@ -8,6 +8,8 @@
 
 #import "MLCollectionListController.h"
 
+#pragma mark - MLCollectionListSectionInfo
+
 @interface MLCollectionListSectionInfo : NSObject <MLResultsSectionInfo>
 
 @property (nonatomic, readonly, strong) id <RZCollectionListSectionInfo> section;
@@ -15,6 +17,8 @@
 - (instancetype)initWithCollectionListSectionInfo:(id <RZCollectionListSectionInfo>)section;
 
 @end
+
+#pragma mark -
 
 @implementation MLCollectionListSectionInfo
 

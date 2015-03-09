@@ -18,9 +18,6 @@
 
 @implementation MLTabBarController
 
-@synthesize appearsFirstTime = _appearsFirstTime;
-@synthesize viewVisible = _viewVisible;
-
 #pragma mark Init
 
 - (id)initWithCoder:(NSCoder *)aDecoder {

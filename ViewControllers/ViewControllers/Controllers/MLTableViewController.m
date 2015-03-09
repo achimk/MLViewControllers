@@ -21,25 +21,13 @@
 
 @implementation MLTableViewController
 
-@synthesize tableView = _tableView;
-@synthesize clearsSelectionOnViewWillAppear = _clearsSelectionOnViewWillAppear;
-@synthesize clearsSelectionOnReloadData = _clearsSelectionOnReloadData;
-@synthesize reloadOnAppearsFirstTime = _reloadOnAppearsFirstTime;
 @dynamic showsBackgroundView;
 
 + (UITableViewStyle)defaultTableViewStyle {
     return UITableViewStylePlain;
 }
 
-#pragma mark Dealloc
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:NSCurrentLocaleDidChangeNotification
-                                                  object:nil];
-}
-
-#pragma mark Init
+#pragma mark Init / Dealloc
 
 - (id)initWithStyle:(UITableViewStyle)style {
     if (self = [self initWithNibName:nil bundle:nil]) {
@@ -58,6 +46,12 @@
     _clearsSelectionOnViewWillAppear = YES;
     _clearsSelectionOnReloadData = NO;
     _tableViewConstraintsNeedsUpdate = NO;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSCurrentLocaleDidChangeNotification
+                                                  object:nil];
 }
 
 #pragma mark View
