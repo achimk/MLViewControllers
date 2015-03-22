@@ -25,6 +25,14 @@
 
 @end
 
+@protocol MLTableViewLoadingDataSourceDelegate <MLTableViewDataSourceDelegate>
+
+@required
+- (BOOL)tableView:(UITableView *)tableView shouldShowLoadingCellAtIndexPath:(NSIndexPath *)indexPath;
+- (UITableViewCell *)tableView:(UITableView *)tableView loadingCellAtIndexPath:(NSIndexPath *)indexPath;
+
+@end
+
 @interface MLTableViewDataSource : NSObject <UITableViewDataSource>
 
 @property (nonatomic, readonly, weak) UITableView * tableView;

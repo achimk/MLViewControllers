@@ -1,38 +1,53 @@
 //
-//  MLStateMachine.m
+//  MLLoadableContentViewModel.m
 //  ViewControllers
 //
-//  Created by Joachim Kret on 18.03.2015.
+//  Created by Joachim Kret on 22.03.2015.
 //  Copyright (c) 2015 Joachim Kret. All rights reserved.
 //
 
-#import "MLStateMachine.h"
-#import <libkern/OSAtomic.h>
+#import "MLLoadableContentViewModel.h"
 #import <objc/message.h>
 
-NSString * const MLStateMachineStateNil     = @"Nil";
+NSString * const MLContentStateNil              = @"Nil";
+NSString * const MLContentStateInitial          = @"InitialState";
+NSString * const MLContentStateLoading          = @"LoadingState";
+NSString * const MLContentStateRefreshing       = @"RefreshingState";
+NSString * const MLContentStatePaging           = @"PagingState";
+NSString * const MLContentStateLoaded           = @"LoadedState";
+NSString * const MLContentStateNoContent        = @"NoContentState";
+NSString * const MLContentStateError            = @"ErrorState";
 
-#pragma mark - MLStateMachine
+#pragma mark - MLLoadableContentViewModel
 
-@interface MLStateMachine () {
-    OSSpinLock _lock;
-}
+@interface MLLoadableContentViewModel ()
+
+@property (nonatomic, readwrite, strong) MLLoadToken * loadToken;
+@property (nonatomic, readwrite, strong) NSError * error;
+
+- (BOOL)applyState:(NSString *)state;
+- (NSString *)missingTransitionFromState:(NSString *)fromState toState:(NSString *)toState;
 
 @end
 
 #pragma mark -
 
-@implementation MLStateMachine
-
-@synthesize currentState = _currentState;
-
-#pragma mark Init
+@implementation MLLoadableContentViewModel
 
 - (instancetype)init {
     if (self = [super init]) {
-        _lock = OS_SPINLOCK_INIT;
+        _currentState = MLContentStateInitial;
+        _validTransitions = @{
+                              MLContentStateInitial     : @[MLContentStateLoading],
+                              MLContentStateLoading     : @[MLContentStateLoaded, MLContentStateNoContent, MLContentStateError],
+                              MLContentStateRefreshing  : @[MLContentStateLoaded, MLContentStateNoContent, MLContentStateError],
+                              MLContentStatePaging      : @[MLContentStateRefreshing, MLContentStateLoaded, MLContentStateNoContent, MLContentStateError],
+                              MLContentStateLoaded      : @[MLContentStateRefreshing, MLContentStatePaging, MLContentStateNoContent, MLContentStateError],
+                              MLContentStateNoContent   : @[MLContentStateRefreshing, MLContentStateLoaded, MLContentStateError],
+                              MLContentStateError       : @[MLContentStateLoading, MLContentStateRefreshing, MLContentStatePaging, MLContentStateNoContent, MLContentStateLoaded]
+                              };
     }
-
+    
     return self;
 }
 
@@ -42,21 +57,70 @@ NSString * const MLStateMachineStateNil     = @"Nil";
     return (self.delegate) ?: self;
 }
 
-- (void)setCurrentState:(NSString *)currentState {
-    [self applyState:currentState];
+#pragma mark Content State
+
+- (BOOL)loadContent {
+    return [self loadContentWithState:MLContentStateLoading];
 }
 
-- (NSString *)currentState {
-    __block NSString * currentState = nil;
-    
-    OSSpinLockLock(&_lock);
-    currentState = _currentState;
-    OSSpinLockUnlock(&_lock);
-    
-    return currentState;
+- (BOOL)refreshContent {
+    return [self loadContentWithState:MLContentStateRefreshing];
 }
 
-#pragma mark State
+- (BOOL)pageContent {
+    return [self loadContentWithState:MLContentStatePaging];
+}
+
+- (BOOL)loadContentWithState:(NSString *)state {
+    NSParameterAssert(state);
+    NSAssert([state isEqualToString:MLContentStateRefreshing] ||
+             [state isEqualToString:MLContentStateLoading] ||
+             [state isEqualToString:MLContentStatePaging], @"Unsupported load content state: %@", state);
+    
+    BOOL applyState = [self applyState:state];
+    
+    if (applyState) {
+        __weak typeof(self) weakSelf = self;
+        MLLoadToken * token = [MLLoadToken token];
+        [token addSuccessHandler:^(id responseObjects) {
+            if (responseObjects) {
+                [weakSelf applyState:MLContentStateLoaded];
+            }
+            else {
+                [weakSelf applyState:MLContentStateNoContent];
+            }
+        }];
+        [token addFailureHandler:^(NSError *error) {
+            weakSelf.error = error;
+            [weakSelf applyState:MLContentStateError];
+        }];
+        
+        [self.loadToken ignore];
+        self.loadToken = token;
+        
+        if ([self.delegate respondsToSelector:@selector(loadableContent:loadDataWithLoadToken:)]) {
+            [self.delegate loadableContent:self loadDataWithLoadToken:token];
+        }
+        else {
+            [self loadDataWithLoadToken:token];
+        }
+    }
+    
+    return applyState;
+}
+
+#pragma mark Subclass Methods
+
+- (void)loadDataWithLoadToken:(MLLoadToken *)loadToken {
+    [NSException raise:NSInternalInconsistencyException format:@"You must override %@ in subclass.", NSStringFromSelector(_cmd)];
+}
+
+- (NSString *)missingTransitionFromState:(NSString *)fromState toState:(NSString *)toState {
+    [NSException raise:NSInternalInconsistencyException format:@"Cannot transition from %@ to %@", fromState, toState];
+    return nil;
+}
+
+#pragma mark Private Methods
 
 - (BOOL)applyState:(NSString *)state {
     NSString * fromState = self.currentState;
@@ -79,9 +143,7 @@ NSString * const MLStateMachineStateNil     = @"Nil";
         sendMsgReturnVoid(target, willChangeSelector);
     }
     
-    OSSpinLockLock(&_lock);
     _currentState = [toState copy];
-    OSSpinLockUnlock(&_lock);
     
     [self performTransitionFromState:fromState toState:toState];
     
@@ -95,18 +157,7 @@ NSString * const MLStateMachineStateNil     = @"Nil";
     return ([state isEqualToString:toState]);
 }
 
-- (NSString *)missingTransitionFromState:(NSString *)fromState toState:(NSString *)toState {
-    [NSException raise:@"IllegalStateTransition" format:@"cannot transition from %@ to %@", fromState, toState];
-    return nil;
-}
-
-#pragma mark Private Methods
-
 - (NSString *)stateTransitionFromState:(NSString *)fromState toState:(NSString *)toState {
-    if ([_delegate respondsToSelector:@selector(missingTransitionFromState:toState:)]) {
-        return [_delegate missingTransitionFromState:fromState toState:toState];
-    }
-    
     return [self missingTransitionFromState:fromState toState:toState];
 }
 
@@ -194,8 +245,7 @@ NSString * const MLStateMachineStateNil     = @"Nil";
         sendMsgReturnVoid(target, enterSelector);
     }
     
-    NSString * fromStateNotNil = (fromState) ?: MLStateMachineStateNil;
-    SEL transitionSelector = NSSelectorFromString([NSString stringWithFormat:@"stateDidChangeFrom%@To%@", fromStateNotNil, toState]);
+    SEL transitionSelector = NSSelectorFromString([NSString stringWithFormat:@"stateDidChangeFrom%@To%@", fromState, toState]);
     if ([target respondsToSelector:transitionSelector]) {
         sendMsgReturnVoid(target, transitionSelector);
     }

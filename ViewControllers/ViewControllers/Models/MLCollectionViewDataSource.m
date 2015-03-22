@@ -12,8 +12,6 @@
 
 @interface MLCollectionViewDataSource () <MLResultsControllerObserver>
 
-@property (nonatomic, readwrite, weak) UICollectionView * collectionView;
-
 @end
 
 #pragma mark -
@@ -52,7 +50,6 @@
 
 - (void)dealloc {
     self.collectionView.dataSource = nil;
-    self.collectionView = nil;
 }
 
 #pragma mark Accessors

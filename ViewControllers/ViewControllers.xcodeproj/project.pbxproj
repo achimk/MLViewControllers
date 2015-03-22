@@ -10,6 +10,10 @@
 		07E497747F7D15BA5D209B5E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39EA6D112DF10EA65BC5006F /* libPods.a */; };
 		2718AA241AA10DB000F4938C /* MLRotationTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2718AA231AA10DB000F4938C /* MLRotationTabBarController.m */; };
 		2718AA271AA1150600F4938C /* MLRotationSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2718AA261AA1150600F4938C /* MLRotationSwitchViewController.m */; };
+		27251AD61ABEF8E6004C1743 /* MLLoadingArrayDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27251AD51ABEF8E6004C1743 /* MLLoadingArrayDataTableViewController.m */; };
+		27251AD91ABEFBAB004C1743 /* MLLoadingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27251AD81ABEFBAB004C1743 /* MLLoadingTableViewCell.m */; };
+		27251ADD1ABF547B004C1743 /* MLLoadToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 27251ADC1ABF547B004C1743 /* MLLoadToken.m */; };
+		27251AE01ABF5D80004C1743 /* MLLoadableContentViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 27251ADF1ABF5D80004C1743 /* MLLoadableContentViewModel.m */; };
 		274341981AAE1C7A002AD9B5 /* MLArrayDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274341971AAE1C7A002AD9B5 /* MLArrayDataTableViewController.m */; };
 		2743419B1AAE1E3D002AD9B5 /* MLCollectionListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2743419A1AAE1E3D002AD9B5 /* MLCollectionListController.m */; };
 		2743419E1AAE1F58002AD9B5 /* MLBaseResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2743419D1AAE1F58002AD9B5 /* MLBaseResultsController.m */; };
@@ -48,7 +52,6 @@
 		278377D81A20F1F500C29996 /* MLCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 278377D71A20F1F500C29996 /* MLCollectionReusableView.m */; };
 		278377DB1A20F6D800C29996 /* MLCustomCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 278377DA1A20F6D800C29996 /* MLCustomCollectionReusableView.m */; };
 		27AEDEC01ABA13C700E018EE /* MLStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 27AEDEBF1ABA13C700E018EE /* MLStateMachine.m */; };
-		27AEDEC31ABA248000E018EE /* MLDataSourceStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 27AEDEC21ABA248000E018EE /* MLDataSourceStateMachine.m */; };
 		27B7FA131AAB9A040062430E /* MLTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B7FA121AAB9A040062430E /* MLTableViewDataSource.m */; };
 		27B7FA161AAB9A180062430E /* MLCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B7FA151AAB9A180062430E /* MLCollectionViewDataSource.m */; };
 		27B7FA1B1AABC3530062430E /* MLFetchedResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B7FA1A1AABC3530062430E /* MLFetchedResultsController.m */; };
@@ -64,6 +67,14 @@
 		2718AA231AA10DB000F4938C /* MLRotationTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLRotationTabBarController.m; sourceTree = "<group>"; };
 		2718AA251AA1150600F4938C /* MLRotationSwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLRotationSwitchViewController.h; sourceTree = "<group>"; };
 		2718AA261AA1150600F4938C /* MLRotationSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLRotationSwitchViewController.m; sourceTree = "<group>"; };
+		27251AD41ABEF8E6004C1743 /* MLLoadingArrayDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLoadingArrayDataTableViewController.h; sourceTree = "<group>"; };
+		27251AD51ABEF8E6004C1743 /* MLLoadingArrayDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLoadingArrayDataTableViewController.m; sourceTree = "<group>"; };
+		27251AD71ABEFBAB004C1743 /* MLLoadingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLoadingTableViewCell.h; sourceTree = "<group>"; };
+		27251AD81ABEFBAB004C1743 /* MLLoadingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLoadingTableViewCell.m; sourceTree = "<group>"; };
+		27251ADB1ABF547B004C1743 /* MLLoadToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLoadToken.h; sourceTree = "<group>"; };
+		27251ADC1ABF547B004C1743 /* MLLoadToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLoadToken.m; sourceTree = "<group>"; };
+		27251ADE1ABF5D80004C1743 /* MLLoadableContentViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLoadableContentViewModel.h; sourceTree = "<group>"; };
+		27251ADF1ABF5D80004C1743 /* MLLoadableContentViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLoadableContentViewModel.m; sourceTree = "<group>"; };
 		274341961AAE1C7A002AD9B5 /* MLArrayDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLArrayDataTableViewController.h; sourceTree = "<group>"; };
 		274341971AAE1C7A002AD9B5 /* MLArrayDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLArrayDataTableViewController.m; sourceTree = "<group>"; };
 		274341991AAE1E3D002AD9B5 /* MLCollectionListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCollectionListController.h; sourceTree = "<group>"; };
@@ -140,8 +151,6 @@
 		278377DC1A20FFAB00C29996 /* MLAutorotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLAutorotation.h; sourceTree = "<group>"; };
 		27AEDEBE1ABA13C700E018EE /* MLStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLStateMachine.h; sourceTree = "<group>"; };
 		27AEDEBF1ABA13C700E018EE /* MLStateMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLStateMachine.m; sourceTree = "<group>"; };
-		27AEDEC11ABA248000E018EE /* MLDataSourceStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLDataSourceStateMachine.h; sourceTree = "<group>"; };
-		27AEDEC21ABA248000E018EE /* MLDataSourceStateMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLDataSourceStateMachine.m; sourceTree = "<group>"; };
 		27B7FA111AAB9A040062430E /* MLTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTableViewDataSource.h; sourceTree = "<group>"; };
 		27B7FA121AAB9A040062430E /* MLTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLTableViewDataSource.m; sourceTree = "<group>"; };
 		27B7FA141AAB9A180062430E /* MLCollectionViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCollectionViewDataSource.h; sourceTree = "<group>"; };
@@ -186,6 +195,24 @@
 			name = "Container Controllers";
 			sourceTree = "<group>";
 		};
+		27251AD01ABEF11A004C1743 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				27251ADE1ABF5D80004C1743 /* MLLoadableContentViewModel.h */,
+				27251ADF1ABF5D80004C1743 /* MLLoadableContentViewModel.m */,
+			);
+			name = "View Models";
+			sourceTree = "<group>";
+		};
+		27251ADA1ABF37F0004C1743 /* Loading Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				27251AD41ABEF8E6004C1743 /* MLLoadingArrayDataTableViewController.h */,
+				27251AD51ABEF8E6004C1743 /* MLLoadingArrayDataTableViewController.m */,
+			);
+			name = "Loading Controllers";
+			sourceTree = "<group>";
+		};
 		274341951AAE1A89002AD9B5 /* Data Source Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -198,10 +225,10 @@
 		2743419F1AAE1F84002AD9B5 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				27251ADB1ABF547B004C1743 /* MLLoadToken.h */,
+				27251ADC1ABF547B004C1743 /* MLLoadToken.m */,
 				27AEDEBE1ABA13C700E018EE /* MLStateMachine.h */,
 				27AEDEBF1ABA13C700E018EE /* MLStateMachine.m */,
-				27AEDEC11ABA248000E018EE /* MLDataSourceStateMachine.h */,
-				27AEDEC21ABA248000E018EE /* MLDataSourceStateMachine.m */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -222,6 +249,8 @@
 		275646801A96A30600D1847A /* Misc Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				278377CC1A20E35200C29996 /* MLLayoutViewController.h */,
+				278377CD1A20E35200C29996 /* MLLayoutViewController.m */,
 				275646811A96A35C00D1847A /* MLRotationViewController.h */,
 				275646821A96A35C00D1847A /* MLRotationViewController.m */,
 			);
@@ -320,6 +349,7 @@
 				2743419F1AAE1F84002AD9B5 /* Support */,
 				274341A01AAE1FC1002AD9B5 /* Results Controllers */,
 				27B7FA101AAB99BB0062430E /* Data Sources */,
+				27251AD01ABEF11A004C1743 /* View Models */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -360,6 +390,8 @@
 				2783778C1A20B7B400C29996 /* MLTableViewCell.m */,
 				AAA780F51A25EC2500E2E295 /* MLContactTableViewCell.h */,
 				AAA780F61A25EC2500E2E295 /* MLContactTableViewCell.m */,
+				27251AD71ABEFBAB004C1743 /* MLLoadingTableViewCell.h */,
+				27251AD81ABEFBAB004C1743 /* MLLoadingTableViewCell.m */,
 			);
 			name = "UITableView Cells";
 			sourceTree = "<group>";
@@ -402,13 +434,12 @@
 				278377BC1A20C4EA00C29996 /* Base Controllers */,
 				278377BD1A20C4F500C29996 /* CoreData Controllers */,
 				274341951AAE1A89002AD9B5 /* Data Source Controllers */,
+				27251ADA1ABF37F0004C1743 /* Loading Controllers */,
 				2718AA211AA10CF200F4938C /* Container Controllers */,
 				275646801A96A30600D1847A /* Misc Controllers */,
 				AAA780EE1A25C46F00E2E295 /* Extensions */,
 				278377B91A20BB7400C29996 /* MLMainTableViewController.h */,
 				278377BA1A20BB7400C29996 /* MLMainTableViewController.m */,
-				278377CC1A20E35200C29996 /* MLLayoutViewController.h */,
-				278377CD1A20E35200C29996 /* MLLayoutViewController.m */,
 			);
 			name = Examples;
 			sourceTree = "<group>";
@@ -618,8 +649,10 @@
 				2743419E1AAE1F58002AD9B5 /* MLBaseResultsController.m in Sources */,
 				2783779D1A20B7B400C29996 /* MLSwitchViewController.m in Sources */,
 				278377B21A20BA8F00C29996 /* MLPageViewController.m in Sources */,
+				27251AD61ABEF8E6004C1743 /* MLLoadingArrayDataTableViewController.m in Sources */,
 				2718AA241AA10DB000F4938C /* MLRotationTabBarController.m in Sources */,
 				278377911A20B7B400C29996 /* MLCollectionViewCell.m in Sources */,
+				27251ADD1ABF547B004C1743 /* MLLoadToken.m in Sources */,
 				278377861A20B7B400C29996 /* MLCollectionViewController.m in Sources */,
 				278377CE1A20E35200C29996 /* MLLayoutViewController.m in Sources */,
 				278377AF1A20B95B00C29996 /* MLTabBarController.m in Sources */,
@@ -636,7 +669,6 @@
 				27B7FA1B1AABC3530062430E /* MLFetchedResultsController.m in Sources */,
 				278377D81A20F1F500C29996 /* MLCollectionReusableView.m in Sources */,
 				278377971A20B7B400C29996 /* MLFetchedTableViewController.m in Sources */,
-				27AEDEC31ABA248000E018EE /* MLDataSourceStateMachine.m in Sources */,
 				2743419B1AAE1E3D002AD9B5 /* MLCollectionListController.m in Sources */,
 				27B7FA131AAB9A040062430E /* MLTableViewDataSource.m in Sources */,
 				278377891A20B7B400C29996 /* MLNavigationController.m in Sources */,
@@ -649,6 +681,8 @@
 				AAA780FD1A25F28D00E2E295 /* MLContactsTableViewController.m in Sources */,
 				278377BB1A20BB7400C29996 /* MLMainTableViewController.m in Sources */,
 				278377C61A20C5B300C29996 /* MLCustomViewController.m in Sources */,
+				27251AE01ABF5D80004C1743 /* MLLoadableContentViewModel.m in Sources */,
+				27251AD91ABEFBAB004C1743 /* MLLoadingTableViewCell.m in Sources */,
 				277808CA1AAB28A600D4C410 /* MLContactCollectionViewCell.m in Sources */,
 				277808C41AAB1D2100D4C410 /* MLUniformFlowLayout.m in Sources */,
 			);

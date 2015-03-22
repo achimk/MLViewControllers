@@ -8,12 +8,16 @@
 
 #import "MLTableViewDataSource.h"
 
+#pragma mark - MLTableViewDataSource
+
 @interface MLTableViewDataSource () <MLResultsControllerObserver>
 
-@property (nonatomic, readwrite, weak) UITableView * tableView;
+@property (nonatomic, readwrite, assign) BOOL showLoadingCell;
 @property (nonatomic, readwrite, assign) BOOL reloadAfterAnimation;
 
 @end
+
+#pragma mark -
 
 @implementation MLTableViewDataSource
 
@@ -29,7 +33,11 @@
         _showSectionHeaders = NO;
         _animateTableChanges = YES;
         _reloadAfterAnimation = NO;
-        _addSectionAnimation = _removeSectionAnimation = _addObjectAnimation = _updateObjectAnimation = _removeSectionAnimation = UITableViewRowAnimationAutomatic;
+        _addSectionAnimation = _removeSectionAnimation
+                             = _addObjectAnimation
+                             = _updateObjectAnimation
+                             = _removeSectionAnimation
+                             = UITableViewRowAnimationAutomatic;
         
         __weak typeof(tableView) weakTableView = tableView;
         _tableView = weakTableView;
@@ -43,10 +51,15 @@
         if (delegate) {
             __weak typeof(delegate) weakDelegate = delegate;
             _delegate = weakDelegate;
+            _showLoadingCell = self.shouldShowLoadingCell;
         }
     }
     
     return self;
+}
+
+- (void)dealloc {
+    self.tableView.dataSource = nil;
 }
 
 #pragma mark Accessors
@@ -62,6 +75,7 @@
             [resultsController addResultsControllerObserver:self];
         }
         
+        self.showLoadingCell = self.shouldShowLoadingCell;
         [self.tableView reloadData];
     }
 }
@@ -82,10 +96,29 @@
     self.removeObjectAnimation = animation;
 }
 
+- (void)setDelegate:(id<MLTableViewDataSourceDelegate>)delegate {
+    if (delegate) {
+        __weak typeof(delegate)weakDelegate = delegate;
+        _delegate = weakDelegate;
+        
+        self.showLoadingCell = self.shouldShowLoadingCell;
+        [self.tableView reloadData];
+    }
+    else {
+        _delegate = nil;
+    }
+}
+
 #pragma mark UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     id object = [self.resultsController objectAtIndexPath:indexPath];
+    
+    if (self.showLoadingCell && [indexPath isEqual:self.loadingIndexPath]) {
+        id <MLTableViewLoadingDataSourceDelegate> delegate = (id <MLTableViewLoadingDataSourceDelegate>)self.delegate;
+        return [delegate tableView:tableView loadingCellAtIndexPath:indexPath];
+    }
+    
     return [self.delegate tableView:self.tableView cellForObject:object atIndexPath:indexPath];
 }
 
@@ -95,7 +128,17 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     id <MLResultsSectionInfo> sectionInfo = [self.resultsController.sections objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
+    NSUInteger numberOfObjects = [sectionInfo numberOfObjects];
+    
+    if (self.showLoadingCell) {
+        NSUInteger sections = [self.resultsController.sections count];
+        
+        if (section == (sections - 1)) {
+            numberOfObjects++;
+        }
+    }
+    
+    return numberOfObjects;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -125,6 +168,10 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     BOOL canEdit = NO;
     
+    if (self.showLoadingCell && [indexPath isEqual:self.loadingIndexPath]) {
+        return canEdit;
+    }
+    
     if ([self.delegate respondsToSelector:@selector(tableView:canEditObject:atIndexPath:)]) {
         id object = [self.resultsController objectAtIndexPath:indexPath];
         canEdit = [self.delegate tableView:tableView canEditObject:object atIndexPath:indexPath];
@@ -135,6 +182,10 @@
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     BOOL canMove = NO;
+    
+    if (self.showLoadingCell && [indexPath isEqual:self.loadingIndexPath]) {
+        return canMove;
+    }
     
     if ([self.delegate respondsToSelector:@selector(tableView:canMoveObject:atIndexPath:)]) {
         id object = [self.resultsController objectAtIndexPath:indexPath];
@@ -228,13 +279,24 @@
 }
 
 - (void)resultsControllerDidChangeContent:(id<MLResultsController>)resultsController {
+    BOOL showLoadingCell = self.shouldShowLoadingCell;
+    
     if (self.animateTableChanges) {
+//        BOOL updateLoadingCell = self.showLoadingCell && showLoadingCell;
+        
         if (self.reloadAfterAnimation) {
             [CATransaction begin];
             [CATransaction setCompletionBlock:^{
+                self.showLoadingCell = showLoadingCell;
                 [self.tableView reloadData];
             }];
         }
+        else {
+            [self setShowLoadingCell:showLoadingCell animated:YES];
+        }
+//        else if (!updateLoadingCell) {
+//            [self setShowLoadingCell:showLoadingCell animated:YES];
+//        }
         
         [self.tableView endUpdates];
         
@@ -242,10 +304,62 @@
             self.reloadAfterAnimation = NO;
             [CATransaction commit];
         }
+//        else if (updateLoadingCell) {
+//            NSIndexPath * indexPath = self.loadingIndexPath;
+//            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:self.updateObjectAnimation];
+//        }
     }
     else {
+        self.showLoadingCell = showLoadingCell;
         [self.tableView reloadData];
     }
+}
+
+#pragma mark Loading Cell
+
+- (void)setShowLoadingCell:(BOOL)showLoadingCell {
+    [self setShowLoadingCell:showLoadingCell animated:NO];
+}
+
+- (void)setShowLoadingCell:(BOOL)showLoadingCell animated:(BOOL)animated {
+    if (_showLoadingCell != showLoadingCell) {
+        if (animated) {
+            NSIndexPath * indexPath = self.loadingIndexPath;
+            
+            if (showLoadingCell) {
+                [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:self.addObjectAnimation];
+            }
+            else {
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:self.removeObjectAnimation];
+            }
+        }
+        
+        _showLoadingCell = showLoadingCell;
+    }
+}
+
+- (NSIndexPath *)loadingIndexPath {
+    NSUInteger sections = [self.resultsController.sections count];
+    
+    if (!sections) {
+        return nil;
+    }
+    
+    NSUInteger rows = [[self.resultsController.sections objectAtIndex:(sections - 1)] numberOfObjects];
+    
+    return [NSIndexPath indexPathForRow:rows inSection:(sections - 1)];
+}
+
+- (BOOL)shouldShowLoadingCell {
+    if ([self.delegate conformsToProtocol:@protocol(MLTableViewLoadingDataSourceDelegate)]) {
+        id <MLTableViewLoadingDataSourceDelegate> delegate = (id <MLTableViewLoadingDataSourceDelegate>)self.delegate;
+        NSIndexPath * indexPath = self.loadingIndexPath;
+        UITableView * tableView = self.tableView;
+        
+        return [delegate tableView:tableView shouldShowLoadingCellAtIndexPath:indexPath];
+    }
+    
+    return NO;
 }
 
 @end

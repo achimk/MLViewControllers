@@ -19,6 +19,7 @@ typedef NS_ENUM(NSUInteger, MLSections) {
     MLSectionBaseControllers,
     MLSectionCoreDataControllers,
     MLSectionDataSourceControllers,
+    MLSectionLoadingControllers,
     MLSectionContainerControllers,
     MLSectionCount
 };
@@ -49,6 +50,11 @@ typedef NS_ENUM(NSUInteger, MLRowDataSourceControllers) {
     MLRowDataSourceFetchedTableController,
     MLRowDataSourceFetchedCollectionController,
     MLRowDataSourceCount
+};
+
+typedef NS_ENUM(NSUInteger, MLRowLoadingControllers) {
+    MLRowLoadingArrayTableController,
+    MLRowLoadingCount
 };
 
 typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
@@ -119,6 +125,9 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
                     INDEX(MLSectionDataSourceControllers, MLRowDataSourceFetchedTableController)        : [NSNull null],
                     INDEX(MLSectionDataSourceControllers, MLRowDataSourceFetchedCollectionController)   : [NSNull null],
                     
+                    //MLSectionLoadingControllers
+                    INDEX(MLSectionLoadingControllers, MLRowLoadingArrayTableController)                : @"MLLoadingArrayDataTableViewController",
+                    
                     //MLSectionContainerControllers
                     INDEX(MLSectionContainerControllers, MLRowContainerNavigationController)            : @"MLRotationViewController",
                     INDEX(MLSectionContainerControllers, MLRowContainerTabBarController)                : @"MLRotationTabBarController",
@@ -181,6 +190,9 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
                     INDEX(MLSectionDataSourceControllers, MLRowDataSourceFetchedTableController)        : @"Fetched TableView",
                     INDEX(MLSectionDataSourceControllers, MLRowDataSourceFetchedCollectionController)   : @"Fetched CollectionView",
                     
+                    //MLSectionLoadingControllers
+                    INDEX(MLSectionLoadingControllers, MLRowLoadingArrayTableController)                : @"Loading Array TableView",
+                    
                     //MLSectionContainerControllers
                     INDEX(MLSectionContainerControllers, MLRowContainerNavigationController)            : @"Navigation",
                     INDEX(MLSectionContainerControllers, MLRowContainerTabBarController)                : @"TabBar",
@@ -207,6 +219,7 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
                     @(MLSectionBaseControllers)         : @(MLRowBaseCount),
                     @(MLSectionCoreDataControllers)     : @(MLRowCoreDataCount),
                     @(MLSectionDataSourceControllers)   : @(MLRowDataSourceCount),
+                    @(MLSectionLoadingControllers)      : @(MLRowLoadingCount),
                     @(MLSectionContainerControllers)    : @(MLRowContainerCount)
                     };
     });
@@ -223,6 +236,7 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
                     @(MLSectionBaseControllers)         : @"Base Controllers",
                     @(MLSectionCoreDataControllers)     : @"Core Data Controllers",
                     @(MLSectionDataSourceControllers)   : @"Data Source Controllers",
+                    @(MLSectionLoadingControllers)      : @"Loading Controllers",
                     @(MLSectionContainerControllers)    : @"Container Controllers"
                     };
     });
