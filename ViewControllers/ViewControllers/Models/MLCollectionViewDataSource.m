@@ -12,6 +12,11 @@
 
 @interface MLCollectionViewDataSource () <MLResultsControllerObserver>
 
+@property (nonatomic, readwrite, strong) NSMutableArray *batchUpdates;
+@property (nonatomic, readwrite, strong) NSMutableArray *insertedSectionIndexes;
+@property (nonatomic, readwrite, assign) BOOL showLoadingCell;
+@property (nonatomic, readwrite, assign) BOOL reloadAfterAnimation;
+
 @end
 
 #pragma mark -
@@ -29,6 +34,11 @@
     NSParameterAssert(collectionView);
     
     if (self = [super init]) {
+        _showLoadingCell = NO;
+        _useBatchUpdating = YES;
+        _reloadAfterAnimation = NO;
+        _animateCollectionChanges = YES;
+        
         __weak typeof(collectionView) weakCollectionView = collectionView;
         _collectionView = weakCollectionView;
         collectionView.dataSource = self;
@@ -66,13 +76,32 @@
             [resultsController addResultsControllerObserver:self];
         }
         
+        self.showLoadingCell = self.shouldShowLoadingCell;
         [self.collectionView reloadData];
+    }
+}
+
+- (void)setDelegate:(id<MLCollectionViewDataSourceDelegate>)delegate {
+    if (delegate) {
+        __weak typeof(delegate)weakDelegate = delegate;
+        _delegate = weakDelegate;
+        
+        self.showLoadingCell = self.shouldShowLoadingCell;
+        [self.collectionView reloadData];
+    }
+    else {
+        _delegate = nil;
     }
 }
 
 #pragma mark UICollectionViewDataSource
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.showLoadingCell && [indexPath isEqual:self.loadingIndexPath]) {
+        id <MLCollectionViewLoadingDataSourceDelegate> delegate = (id <MLCollectionViewLoadingDataSourceDelegate>) self.delegate;
+        return [delegate collectionView:collectionView loadingCellAtIndexPath:indexPath];
+    }
+    
     id object = [self.resultsController objectAtIndexPath:indexPath];
     return [self.delegate collectionView:self.collectionView cellForObject:object atIndexPath:indexPath];
 }
@@ -83,25 +112,210 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     id <MLResultsSectionInfo> sectionInfo = [self.resultsController.sections objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
+    NSUInteger numberOfObjects = [sectionInfo numberOfObjects];
+    
+    if (self.showLoadingCell) {
+        NSUInteger sections = [self.resultsController.sections count];
+        
+        if (section == (sections - 1)) {
+            numberOfObjects++;
+        }
+    }
+    
+    return numberOfObjects;
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    UICollectionReusableView * reusableView = nil;
+    
+    if ([self.delegate respondsToSelector:@selector(collectionView:viewForSupplementaryElementOfKind:atIndexPath:)]) {
+        reusableView = [self.delegate collectionView:collectionView viewForSupplementaryElementOfKind:kind atIndexPath:indexPath];
+    }
+    
+    return reusableView;
 }
 
 #pragma mark MLResultsControllerObserver
 
 - (void)resultsControllerWillChangeContent:(id<MLResultsController>)resultsController {
-#warning Implement observer method!
+    if (self.animateCollectionChanges) {
+        if (self.useBatchUpdating) {
+            self.reloadAfterAnimation = NO;
+            self.batchUpdates = [[NSMutableArray alloc] init];
+            self.insertedSectionIndexes = [[NSMutableArray alloc] init];
+        }
+    }
 }
 
 - (void)resultsController:(id<MLResultsController>)resultsController didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(MLResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-#warning Implement observer method!
+    if (!self.animateCollectionChanges) {
+        return;
+    }
+    
+    if (MLResultsChangeTypeUpdate == type) {
+        UICollectionViewCell * cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+        
+        if (cell) {
+            if (self.useBatchUpdating) {
+                if ([self.delegate respondsToSelector:@selector(collectionView:updateCell:forObject:atIndexPath:)]) {
+                    [self.delegate collectionView:self.collectionView updateCell:cell forObject:anObject atIndexPath:newIndexPath];
+                }
+                else {
+                    self.reloadAfterAnimation = YES;
+                }
+            }
+            else {
+                [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+            }
+        }
+    }
+    else {
+        BOOL shouldChangeObject = YES;
+        
+        if (MLResultsChangeTypeInsert == type) {
+            shouldChangeObject = ![self.insertedSectionIndexes containsObject:@(newIndexPath.section)];
+        }
+        
+        if (shouldChangeObject) {
+            void (^objectChangeBlock)(void) = ^{
+                switch (type) {
+                    case MLResultsChangeTypeInsert: {
+                        [self.collectionView insertItemsAtIndexPaths:@[newIndexPath]];
+                    } break;
+                        
+                    case MLResultsChangeTypeDelete: {
+                        [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+                    } break;
+                        
+                    case MLResultsChangeTypeMove: {
+                        [self.collectionView moveItemAtIndexPath:indexPath toIndexPath:newIndexPath];
+                    } break;
+                        
+                    case MLResultsChangeTypeUpdate: {
+                        // Nothing to do...
+                    } break;
+                }
+            };
+            
+            if (self.useBatchUpdating && self.batchUpdates) {
+                [self.batchUpdates addObject:[objectChangeBlock copy]];
+            }
+            else {
+                objectChangeBlock();
+            }
+        }
+    }
 }
 
 - (void)resultsController:(id<MLResultsController>)resultsController didChangeSection:(id<MLResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(MLResultsChangeType)type {
-#warning Implement observer method!
+    if (!self.animateCollectionChanges) {
+        return;
+    }
+    
+    if (MLResultsChangeTypeInsert == type) {
+        [self.insertedSectionIndexes addObject:@(sectionIndex)];
+    }
+    
+    void(^sectionChangeBlock)(void) = ^{
+        switch (type) {
+            case MLResultsChangeTypeInsert: {
+                [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+            } break;
+                
+            case MLResultsChangeTypeDelete: {
+                [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+            } break;
+                
+            case MLResultsChangeTypeMove:
+            case MLResultsChangeTypeUpdate: {
+                // Nothing to do...
+            } break;
+        }
+    };
+    
+    if (self.useBatchUpdating && self.batchUpdates) {
+        [self.batchUpdates addObject:[sectionChangeBlock copy]];
+    }
+    else {
+        sectionChangeBlock();
+    }
 }
 
 - (void)resultsControllerDidChangeContent:(id<MLResultsController>)resultsController {
-#warning Implement observer method!
+    BOOL showLoadingCell = self.shouldShowLoadingCell;
+    
+    if (self.animateCollectionChanges && self.collectionView.window) {
+        if (self.useBatchUpdating) {
+            if (self.batchUpdates.count) {
+                [self.collectionView performBatchUpdates:^{
+                    [self.batchUpdates enumerateObjectsUsingBlock:^(void (^changeBlock)(void), NSUInteger idx, BOOL *stop) {
+                        changeBlock();
+                    }];
+                } completion:^(BOOL finished) {
+                    if (self.reloadAfterAnimation) {
+                        self.reloadAfterAnimation = NO;
+                        self.showLoadingCell = showLoadingCell;
+                        [self.collectionView reloadData];
+                    }
+                    
+                    self.batchUpdates = nil;
+                }];
+            }
+            
+            self.insertedSectionIndexes = nil;
+        }
+    }
+    else {
+        self.showLoadingCell = showLoadingCell;
+        [self.collectionView reloadData];
+    }
+}
+
+#pragma mark Loading Cell
+
+- (void)setShowLoadingCell:(BOOL)showLoadingCell {
+    [self setShowLoadingCell:showLoadingCell animated:NO];
+}
+
+- (void)setShowLoadingCell:(BOOL)showLoadingCell animated:(BOOL)animated {
+    if (_showLoadingCell != showLoadingCell) {
+        if (animated) {
+            NSIndexPath * indexPath = self.loadingIndexPath;
+            
+            if (showLoadingCell) {
+                [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
+            }
+            else {
+                [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+            }
+        }
+        
+        _showLoadingCell = showLoadingCell;
+    }
+}
+
+- (NSIndexPath *)loadingIndexPath {
+    NSUInteger sections = [self.resultsController.sections count];
+    
+    if (!sections) {
+        return nil;
+    }
+    
+    NSUInteger rows = [[self.resultsController.sections objectAtIndex:(sections - 1)] numberOfObjects];
+    
+    return [NSIndexPath indexPathForRow:rows inSection:(sections - 1)];
+}
+
+- (BOOL)shouldShowLoadingCell {
+    if ([self.delegate conformsToProtocol:@protocol(MLCollectionViewLoadingDataSourceDelegate)]) {
+        id <MLCollectionViewLoadingDataSourceDelegate> delegate = (id <MLCollectionViewLoadingDataSourceDelegate>)self.delegate;
+        NSIndexPath * indexPath = self.loadingIndexPath;
+        UICollectionView * collectionView = self.collectionView;
+        
+        return [delegate collectionView:collectionView shouldShowLoadingCellAtIndexPath:indexPath];
+    }
+    
+    return NO;
 }
 
 @end

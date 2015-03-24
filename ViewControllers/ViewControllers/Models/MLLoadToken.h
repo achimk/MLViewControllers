@@ -18,11 +18,13 @@ typedef NS_ENUM(NSUInteger, MLLoadTokenState) {
 @interface MLLoadToken : NSObject
 
 @property (nonatomic, readonly, assign) MLLoadTokenState state;
+@property (nonatomic, readonly, strong) NSError * error;
 
 + (instancetype)token;
 
 - (void)addSuccessHandler:(void (^)(id responseObjects))handler;
 - (void)addFailureHandler:(void (^)(NSError * error))handler;
+- (void)addIgnoreHandler:(void (^)(void))handler;
 
 - (void)success:(id)responseObjects;
 - (void)failure:(NSError *)error;

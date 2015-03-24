@@ -19,7 +19,7 @@ typedef NS_ENUM(NSUInteger, MLSections) {
     MLSectionBaseControllers,
     MLSectionCoreDataControllers,
     MLSectionDataSourceControllers,
-    MLSectionLoadingControllers,
+    MLSectionLoadableControllers,
     MLSectionContainerControllers,
     MLSectionCount
 };
@@ -52,9 +52,9 @@ typedef NS_ENUM(NSUInteger, MLRowDataSourceControllers) {
     MLRowDataSourceCount
 };
 
-typedef NS_ENUM(NSUInteger, MLRowLoadingControllers) {
-    MLRowLoadingArrayTableController,
-    MLRowLoadingCount
+typedef NS_ENUM(NSUInteger, MLRowLoadableControllers) {
+    MLRowLoadableViewController,
+    MLRowLoadableCount
 };
 
 typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
@@ -125,8 +125,8 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
                     INDEX(MLSectionDataSourceControllers, MLRowDataSourceFetchedTableController)        : [NSNull null],
                     INDEX(MLSectionDataSourceControllers, MLRowDataSourceFetchedCollectionController)   : [NSNull null],
                     
-                    //MLSectionLoadingControllers
-                    INDEX(MLSectionLoadingControllers, MLRowLoadingArrayTableController)                : @"MLLoadingArrayDataTableViewController",
+                    //MLSectionLoadableControllers
+                    INDEX(MLSectionLoadableControllers, MLRowLoadableViewController)                    : @"MLLoadableViewController",
                     
                     //MLSectionContainerControllers
                     INDEX(MLSectionContainerControllers, MLRowContainerNavigationController)            : @"MLRotationViewController",
@@ -191,7 +191,7 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
                     INDEX(MLSectionDataSourceControllers, MLRowDataSourceFetchedCollectionController)   : @"Fetched CollectionView",
                     
                     //MLSectionLoadingControllers
-                    INDEX(MLSectionLoadingControllers, MLRowLoadingArrayTableController)                : @"Loading Array TableView",
+                    INDEX(MLSectionLoadableControllers, MLRowLoadableViewController)                    : @"Loadable View Controller",
                     
                     //MLSectionContainerControllers
                     INDEX(MLSectionContainerControllers, MLRowContainerNavigationController)            : @"Navigation",
@@ -219,7 +219,7 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
                     @(MLSectionBaseControllers)         : @(MLRowBaseCount),
                     @(MLSectionCoreDataControllers)     : @(MLRowCoreDataCount),
                     @(MLSectionDataSourceControllers)   : @(MLRowDataSourceCount),
-                    @(MLSectionLoadingControllers)      : @(MLRowLoadingCount),
+                    @(MLSectionLoadableControllers)     : @(MLRowLoadableCount),
                     @(MLSectionContainerControllers)    : @(MLRowContainerCount)
                     };
     });
@@ -236,7 +236,7 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
                     @(MLSectionBaseControllers)         : @"Base Controllers",
                     @(MLSectionCoreDataControllers)     : @"Core Data Controllers",
                     @(MLSectionDataSourceControllers)   : @"Data Source Controllers",
-                    @(MLSectionLoadingControllers)      : @"Loading Controllers",
+                    @(MLSectionLoadableControllers)     : @"Loadable Controllers",
                     @(MLSectionContainerControllers)    : @"Container Controllers"
                     };
     });

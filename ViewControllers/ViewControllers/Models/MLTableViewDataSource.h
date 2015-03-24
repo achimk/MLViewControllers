@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "MLResultsControllerProtocol.h"
 
+/**
+ MLTableViewDataSourceDelegate
+ */
 @protocol MLTableViewDataSourceDelegate <NSObject>
 
 @required
@@ -25,6 +28,9 @@
 
 @end
 
+/**
+ MLTableViewLoadingDataSourceDelegate
+ */
 @protocol MLTableViewLoadingDataSourceDelegate <MLTableViewDataSourceDelegate>
 
 @required
@@ -33,6 +39,9 @@
 
 @end
 
+/**
+ MLTableViewDataSource
+ */
 @interface MLTableViewDataSource : NSObject <UITableViewDataSource>
 
 @property (nonatomic, readonly, weak) UITableView * tableView;

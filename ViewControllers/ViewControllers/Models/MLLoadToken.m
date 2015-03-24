@@ -13,8 +13,10 @@
 @interface MLLoadToken ()
 
 @property (nonatomic, readwrite, assign) MLLoadTokenState state;
+@property (nonatomic, readwrite, strong) NSError * error;
 @property (nonatomic, readwrite, strong) NSMutableArray * arrayOfSuccessHandlers;
 @property (nonatomic, readwrite, strong) NSMutableArray * arrayOfFailureHandlers;
+@property (nonatomic, readwrite, strong) NSMutableArray * arrayOfIgnoreHandlers;
 
 @end
 
@@ -33,6 +35,7 @@
         _state = MLLoadTokenStateReady;
         _arrayOfSuccessHandlers = [[NSMutableArray alloc] init];
         _arrayOfFailureHandlers = [[NSMutableArray alloc] init];
+        _arrayOfIgnoreHandlers = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -60,6 +63,16 @@
     }
 }
 
+- (void)addIgnoreHandler:(void (^)(void))handler {
+    NSParameterAssert(handler);
+    
+    @synchronized(self) {
+        if (MLLoadTokenStateReady == self.state) {
+            [self.arrayOfIgnoreHandlers addObject:handler];
+        }
+    }
+}
+
 - (void)success:(id)responseObjects {
     NSArray * arrayOfSuccessHandlers = nil;
     
@@ -72,6 +85,7 @@
         arrayOfSuccessHandlers = [NSArray arrayWithArray:self.arrayOfSuccessHandlers];
         self.arrayOfSuccessHandlers = nil;
         self.arrayOfFailureHandlers = nil;
+        self.arrayOfIgnoreHandlers = nil;
     }
     
     for (void(^handler)(id) in arrayOfSuccessHandlers) {
@@ -87,10 +101,12 @@
             return;
         }
         
+        self.error = error;
         self.state = MLLoadTokenStateFailure;
         arrayOfFailureHandlers = [NSArray arrayWithArray:self.arrayOfFailureHandlers];
         self.arrayOfSuccessHandlers = nil;
         self.arrayOfFailureHandlers = nil;
+        self.arrayOfIgnoreHandlers = nil;
     }
     
     for (void(^handler)(NSError *) in arrayOfFailureHandlers) {
@@ -99,12 +115,22 @@
 }
 
 - (void)ignore {
+    NSArray * arrayOfIgnoreHandlers = nil;
+    
     @synchronized(self) {
-        if (MLLoadTokenStateReady == self.state) {
-            self.state = MLLoadTokenStateIgnore;
-            self.arrayOfSuccessHandlers = nil;
-            self.arrayOfFailureHandlers = nil;
+        if (MLLoadTokenStateReady != self.state) {
+            return;
         }
+        
+        self.state = MLLoadTokenStateIgnore;
+        arrayOfIgnoreHandlers = [NSArray arrayWithArray:self.arrayOfIgnoreHandlers];
+        self.arrayOfSuccessHandlers = nil;
+        self.arrayOfFailureHandlers = nil;
+        self.arrayOfIgnoreHandlers = nil;
+    }
+    
+    for (void(^handler)(void) in arrayOfIgnoreHandlers) {
+        handler();
     }
 }
 

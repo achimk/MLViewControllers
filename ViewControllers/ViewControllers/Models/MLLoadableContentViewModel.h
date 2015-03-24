@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "MLLoadToken.h"
 
+/**
+ Loadable content states
+ */
 extern NSString * const MLContentStateInitial;
 extern NSString * const MLContentStateLoading;
 extern NSString * const MLContentStateRefreshing;
@@ -17,37 +20,47 @@ extern NSString * const MLContentStateLoaded;
 extern NSString * const MLContentStateNoContent;
 extern NSString * const MLContentStateError;
 
+/**
+ MLLoadableContentType
+ */
+typedef NS_ENUM(NSUInteger, MLLoadableContentType) {
+    MLLoadableContentTypeDefault,       // Default type for loading resource
+    MLLoadableContentTypePaging         // Paging type for loading resources with pagination
+};
+
 @class MLLoadableContentViewModel;
 
+/**
+ MLLoadableContentDelegate
+ */
 @protocol MLLoadableContentDelegate <NSObject>
 
-#warning Change optional delegate methods!
+@required
+- (void)loadableContent:(MLLoadableContentViewModel *)loadableContent loadDataWithLoadToken:(MLLoadToken *)loadToken;
+
 @optional
-- (void)loadableContent:(MLLoadableContentViewModel *)model loadDataWithLoadToken:(MLLoadToken *)loadToken;
+- (void)loadableContentWillChangeState:(MLLoadableContentViewModel *)loadableContent;
+- (void)loadableContentDidChangeState:(MLLoadableContentViewModel *)loadableContent;
 
-// Completely generic state change
-- (void)stateWillChange;
-- (void)stateDidChange;
-//- (void)loadableContentWillChangeState:(MLLoadableContentViewModel *)model;
-//- (void)loadableContentDidChangeState:(MLLoadableContentViewModel *)model;
-
-// State machine also support calling the delegate (or subclasses) different selectors to handle state transitions:
-// - (BOOL)shouldEnter[toState];
-// - (void)didExit[fromState];
-// - (void)didEnter[toState];
-// - (void)stateDidChangeFrom[formState]To[toState];
+// MLLoadableContentDelegate support also state changing methods:
+// - (BOOL)loadableContentShouldEnter[toState];
+// - (void)loadableContentDidExit[fromState];
+// - (void)loadableContentDidEnter[toState];
+// - (void)loadableContentStateDidChangeFrom[formState]To[toState];
 
 @end
 
+/**
+ MLLoadableContentViewModel
+ */
 @interface MLLoadableContentViewModel : NSObject
 
 @property (nonatomic, readonly, copy) NSString * currentState;
-@property (nonatomic, readonly, strong) NSDictionary * validTransitions;
 @property (nonatomic, readonly, strong) MLLoadToken * loadToken;
-@property (nonatomic, readonly, strong) NSError * error;
-
+@property (nonatomic, readonly, assign) MLLoadableContentType type;
 @property (nonatomic, readwrite, weak) id <MLLoadableContentDelegate> delegate;
-@property (nonatomic, readwrite, assign) BOOL shouldLogStateTransitions;
+
+- (instancetype)initWithType:(MLLoadableContentType)type;
 
 - (BOOL)loadContent;
 - (BOOL)refreshContent;
@@ -55,9 +68,11 @@ extern NSString * const MLContentStateError;
 
 @end
 
+/**
+ MLLoadableContentViewModel (MLSubclassOnly)
+ */
 @interface MLLoadableContentViewModel (MLSubclassOnly)
 
-- (void)loadDataWithLoadToken:(MLLoadToken *)loadToken;
 - (NSString *)missingTransitionFromState:(NSString *)fromState toState:(NSString *)toState;
 
 @end

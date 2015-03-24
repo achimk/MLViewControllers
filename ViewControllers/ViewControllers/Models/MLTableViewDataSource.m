@@ -30,6 +30,7 @@
     NSParameterAssert(tableView);
     
     if (self = [super init]) {
+        _showLoadingCell = NO;
         _showSectionHeaders = NO;
         _animateTableChanges = YES;
         _reloadAfterAnimation = NO;
@@ -112,13 +113,12 @@
 #pragma mark UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    id object = [self.resultsController objectAtIndexPath:indexPath];
-    
     if (self.showLoadingCell && [indexPath isEqual:self.loadingIndexPath]) {
         id <MLTableViewLoadingDataSourceDelegate> delegate = (id <MLTableViewLoadingDataSourceDelegate>)self.delegate;
         return [delegate tableView:tableView loadingCellAtIndexPath:indexPath];
     }
     
+    id object = [self.resultsController objectAtIndexPath:indexPath];
     return [self.delegate tableView:self.tableView cellForObject:object atIndexPath:indexPath];
 }
 
@@ -282,8 +282,6 @@
     BOOL showLoadingCell = self.shouldShowLoadingCell;
     
     if (self.animateTableChanges) {
-//        BOOL updateLoadingCell = self.showLoadingCell && showLoadingCell;
-        
         if (self.reloadAfterAnimation) {
             [CATransaction begin];
             [CATransaction setCompletionBlock:^{
@@ -294,9 +292,6 @@
         else {
             [self setShowLoadingCell:showLoadingCell animated:YES];
         }
-//        else if (!updateLoadingCell) {
-//            [self setShowLoadingCell:showLoadingCell animated:YES];
-//        }
         
         [self.tableView endUpdates];
         
@@ -304,10 +299,6 @@
             self.reloadAfterAnimation = NO;
             [CATransaction commit];
         }
-//        else if (updateLoadingCell) {
-//            NSIndexPath * indexPath = self.loadingIndexPath;
-//            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:self.updateObjectAnimation];
-//        }
     }
     else {
         self.showLoadingCell = showLoadingCell;
