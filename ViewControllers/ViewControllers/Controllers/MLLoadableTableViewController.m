@@ -28,6 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.reloadOnAppearsFirstTime = NO;
     self.dataSource = [[MLTableViewDataSource alloc] initWithTableView:self.tableView
                                                      resultsController:self.resultsController
                                                               delegate:self];
@@ -64,7 +65,7 @@
 - (BOOL)tableView:(UITableView *)tableView shouldShowLoadingCellAtIndexPath:(NSIndexPath *)indexPath {
     MLLoadableContentType type = self.loadableContentViewModel.type;
     NSString * currentState = self.loadableContentViewModel.currentState;
-    return type == MLLoadableContentTypePaging && [currentState isEqualToString:MLContentStateLoaded];
+    return type == MLLoadableContentTypePaging && ([currentState isEqualToString:MLContentStateLoaded] || [currentState isEqualToString:MLContentStatePaging]);
 }
 
 @end

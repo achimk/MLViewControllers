@@ -52,6 +52,9 @@
         if (delegate) {
             __weak typeof(delegate) weakDelegate = delegate;
             _delegate = weakDelegate;
+            
+            _showLoadingCell = self.shouldShowLoadingCell;
+            [collectionView reloadData];
         }
     }
     

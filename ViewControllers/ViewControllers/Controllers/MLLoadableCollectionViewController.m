@@ -34,6 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.reloadOnAppearsFirstTime = NO;
     self.dataSource = [[MLCollectionViewDataSource alloc] initWithCollectionView:self.collectionView resultsController:self.resultsController delegate:self];
     self.dataSource.animateCollectionChanges = NO;
     
@@ -114,7 +115,7 @@
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldShowLoadingCellAtIndexPath:(NSIndexPath *)indexPath {
     MLLoadableContentType type = self.loadableContentViewModel.type;
     NSString * currentState = self.loadableContentViewModel.currentState;
-    return type == MLLoadableContentTypePaging && [currentState isEqualToString:MLContentStateLoaded];
+    return type == MLLoadableContentTypePaging && ([currentState isEqualToString:MLContentStateLoaded] || [currentState isEqualToString:MLContentStatePaging]);
 }
 
 @end
