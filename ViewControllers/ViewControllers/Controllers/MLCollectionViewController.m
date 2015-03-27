@@ -56,9 +56,7 @@
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:NSCurrentLocaleDidChangeNotification
-                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark View
@@ -80,15 +78,6 @@
         [self.view addSubview:_collectionView];
         [self.view setNeedsUpdateConstraints];
     }
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(currentLocaleDidChangeNotification:)
-                                                 name:NSCurrentLocaleDidChangeNotification
-                                               object:nil];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -165,6 +154,25 @@
     return (self.collectionView) ? self.collectionView.collectionViewLayout : nil;
 }
 
+- (void)setReloadOnCurrentLocaleChange:(BOOL)reloadOnCurrentLocaleChange {
+    if (reloadOnCurrentLocaleChange != _reloadOnCurrentLocaleChange) {
+        if (_reloadOnCurrentLocaleChange) {
+            [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                            name:NSCurrentLocaleDidChangeNotification
+                                                          object:nil];
+        }
+        
+        _reloadOnCurrentLocaleChange = reloadOnCurrentLocaleChange;
+        
+        if (reloadOnCurrentLocaleChange) {
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(currentLocaleDidChangeNotification:)
+                                                         name:NSCurrentLocaleDidChangeNotification
+                                                       object:nil];
+        }
+    }
+}
+
 - (void)setShowsBackgroundView:(BOOL)showsBackgroundView {
     if (showsBackgroundView && !self.isViewLoaded) {
         [self view];
@@ -209,7 +217,6 @@
 }
 
 - (void)reloadData {
-    NSAssert2([NSThread isMainThread], @"%@: %@ must be called on main thread", [self class], NSStringFromSelector(_cmd));
     _needsReload = NO;
     
     if (self.isViewVisible) {
@@ -233,13 +240,11 @@
 #pragma mark Notifications
 
 - (void)currentLocaleDidChangeNotification:(NSNotification *)aNotification {
-    if (self.reloadOnCurrentLocaleChange) {
-        if (self.isViewVisible) {
-            [self reloadData];
-        }
-        else {
-            [self setNeedsReload];
-        }
+    if (self.isViewVisible) {
+        [self reloadData];
+    }
+    else {
+        [self setNeedsReload];
     }
 }
 
@@ -248,10 +253,6 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     METHOD_NOT_IMPLEMENTED;
     return nil;
-}
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 0;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {

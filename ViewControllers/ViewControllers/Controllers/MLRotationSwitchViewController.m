@@ -31,6 +31,10 @@
 
 @implementation MLRotationSwitchViewController
 
++ (UIEdgeInsets)defaultContainerViewInset {
+    return UIEdgeInsetsMake(50.0f, 0.0f, 0.0f, 0.0f);
+}
+
 #pragma mark Init
 
 - (void)finishInitialize {
@@ -86,47 +90,19 @@
     
     if (_segmentedControlConstraintsNeedsUpdate) {
         _segmentedControlConstraintsNeedsUpdate = NO;
-
-        NSMutableArray * arrayOfConstraints = [[NSMutableArray alloc] init];
-        for (NSLayoutConstraint * constraint in self.view.constraints) {
-            if ([constraint.firstItem isEqual:self.containerView] ||
-                [constraint.secondItem isEqual:self.containerView]) {
-                [arrayOfConstraints addObject:constraint];
-            }
-        }
         
-        [self.view removeConstraints:arrayOfConstraints];
-        [arrayOfConstraints removeAllObjects];
-        arrayOfConstraints = nil;
-        
-        
-        NSDictionary * views = @{@"container"   : self.containerView,
-                                 @"segmented"   : self.segmentedControl};
-        
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[container]|" options:0 metrics:nil views:views]];
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.containerView
-                                                              attribute:NSLayoutAttributeTop
-                                                              relatedBy:NSLayoutRelationEqual
-                                                                 toItem:self.view
-                                                              attribute:NSLayoutAttributeTop
-                                                             multiplier:1.0f
-                                                               constant:0.0f]];
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.segmentedControl
-                                                              attribute:NSLayoutAttributeTop
-                                                              relatedBy:NSLayoutRelationEqual
-                                                                 toItem:self.containerView
-                                                              attribute:NSLayoutAttributeBottom
-                                                             multiplier:1.0f
-                                                               constant:10.0f]];
-        
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(10)-[segmented]-(10)-|" options:0 metrics:nil views:views]];
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.view
-                                                              attribute:NSLayoutAttributeBottom
-                                                              relatedBy:NSLayoutRelationEqual
-                                                                 toItem:self.segmentedControl
-                                                              attribute:NSLayoutAttributeBottom
-                                                             multiplier:1.0f
-                                                               constant:10.0f]];
+        NSDictionary * views = @{@"topGuide"            : self.topLayoutGuide,
+                                 @"segmentedControl"    : self.segmentedControl,
+                                 @"containerView"       : self.containerView};
+        NSDictionary * sizes = @{@"margin"              : @(10.0f)};
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide]-(margin)-[segmentedControl]-(margin)-[containerView]|"
+                                                                          options:0
+                                                                          metrics:sizes
+                                                                            views:views]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[segmentedControl]-(margin)-|"
+                                                                          options:0
+                                                                          metrics:sizes
+                                                                            views:views]];
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.segmentedControl
                                                               attribute:NSLayoutAttributeHeight
                                                               relatedBy:NSLayoutRelationEqual

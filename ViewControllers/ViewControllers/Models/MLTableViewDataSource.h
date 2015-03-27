@@ -47,7 +47,8 @@
 @property (nonatomic, readonly, weak) UITableView * tableView;
 @property (nonatomic, readwrite, strong) id <MLResultsController> resultsController;
 @property (nonatomic, readwrite, weak) id <MLTableViewDataSourceDelegate> delegate;
-
+@property (nonatomic, readwrite, assign) BOOL clearsSelectionOnReloadData;
+@property (nonatomic, readwrite, assign) BOOL reloadOnCurrentLocaleChange;
 @property (nonatomic, readwrite, assign, getter = shouldShowSectionHeaders) BOOL showSectionHeaders;
 @property (nonatomic, readwrite, assign, getter = shouldAnimateTableChanges) BOOL animateTableChanges;
 @property (nonatomic, readwrite, assign) UITableViewRowAnimation addSectionAnimation;
@@ -61,5 +62,7 @@
 - (void)setAllAnimations:(UITableViewRowAnimation)animation;
 - (void)setAllSectionAnimations:(UITableViewRowAnimation)animation;
 - (void)setAllObjectAnimations:(UITableViewRowAnimation)animation;
+
+- (void)reloadData;
 
 @end

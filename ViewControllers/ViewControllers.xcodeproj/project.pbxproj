@@ -12,7 +12,7 @@
 		2718AA271AA1150600F4938C /* MLRotationSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2718AA261AA1150600F4938C /* MLRotationSwitchViewController.m */; };
 		27251AD91ABEFBAB004C1743 /* MLLoadingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27251AD81ABEFBAB004C1743 /* MLLoadingTableViewCell.m */; };
 		27251ADD1ABF547B004C1743 /* MLLoadToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 27251ADC1ABF547B004C1743 /* MLLoadToken.m */; };
-		27251AE01ABF5D80004C1743 /* MLLoadableContentViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 27251ADF1ABF5D80004C1743 /* MLLoadableContentViewModel.m */; };
+		27251AE01ABF5D80004C1743 /* MLLoadableContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 27251ADF1ABF5D80004C1743 /* MLLoadableContent.m */; };
 		274341981AAE1C7A002AD9B5 /* MLArrayDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274341971AAE1C7A002AD9B5 /* MLArrayDataTableViewController.m */; };
 		2743419B1AAE1E3D002AD9B5 /* MLCollectionListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2743419A1AAE1E3D002AD9B5 /* MLCollectionListController.m */; };
 		2743419E1AAE1F58002AD9B5 /* MLBaseResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2743419D1AAE1F58002AD9B5 /* MLBaseResultsController.m */; };
@@ -75,8 +75,8 @@
 		27251AD81ABEFBAB004C1743 /* MLLoadingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLoadingTableViewCell.m; sourceTree = "<group>"; };
 		27251ADB1ABF547B004C1743 /* MLLoadToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLoadToken.h; sourceTree = "<group>"; };
 		27251ADC1ABF547B004C1743 /* MLLoadToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLoadToken.m; sourceTree = "<group>"; };
-		27251ADE1ABF5D80004C1743 /* MLLoadableContentViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLoadableContentViewModel.h; sourceTree = "<group>"; };
-		27251ADF1ABF5D80004C1743 /* MLLoadableContentViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLoadableContentViewModel.m; sourceTree = "<group>"; };
+		27251ADE1ABF5D80004C1743 /* MLLoadableContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLoadableContent.h; sourceTree = "<group>"; };
+		27251ADF1ABF5D80004C1743 /* MLLoadableContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLoadableContent.m; sourceTree = "<group>"; };
 		274341961AAE1C7A002AD9B5 /* MLArrayDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLArrayDataTableViewController.h; sourceTree = "<group>"; };
 		274341971AAE1C7A002AD9B5 /* MLArrayDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLArrayDataTableViewController.m; sourceTree = "<group>"; };
 		274341991AAE1E3D002AD9B5 /* MLCollectionListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCollectionListController.h; sourceTree = "<group>"; };
@@ -207,15 +207,6 @@
 			name = "Container Controllers";
 			sourceTree = "<group>";
 		};
-		27251AD01ABEF11A004C1743 /* View Models */ = {
-			isa = PBXGroup;
-			children = (
-				27251ADE1ABF5D80004C1743 /* MLLoadableContentViewModel.h */,
-				27251ADF1ABF5D80004C1743 /* MLLoadableContentViewModel.m */,
-			);
-			name = "View Models";
-			sourceTree = "<group>";
-		};
 		27251ADA1ABF37F0004C1743 /* Loading Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -247,6 +238,8 @@
 				27251ADC1ABF547B004C1743 /* MLLoadToken.m */,
 				27AEDEBE1ABA13C700E018EE /* MLStateMachine.h */,
 				27AEDEBF1ABA13C700E018EE /* MLStateMachine.m */,
+				27251ADE1ABF5D80004C1743 /* MLLoadableContent.h */,
+				27251ADF1ABF5D80004C1743 /* MLLoadableContent.m */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -367,7 +360,6 @@
 				2743419F1AAE1F84002AD9B5 /* Support */,
 				274341A01AAE1FC1002AD9B5 /* Results Controllers */,
 				27B7FA101AAB99BB0062430E /* Data Sources */,
-				27251AD01ABEF11A004C1743 /* View Models */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -705,7 +697,7 @@
 				278377C61A20C5B300C29996 /* MLCustomViewController.m in Sources */,
 				276CA8681AC0DF95002A90B3 /* MLLoadableCollectionViewController.m in Sources */,
 				276CA8621AC0DF54002A90B3 /* MLLoadableTableViewController.m in Sources */,
-				27251AE01ABF5D80004C1743 /* MLLoadableContentViewModel.m in Sources */,
+				27251AE01ABF5D80004C1743 /* MLLoadableContent.m in Sources */,
 				27251AD91ABEFBAB004C1743 /* MLLoadingTableViewCell.m in Sources */,
 				277808CA1AAB28A600D4C410 /* MLContactCollectionViewCell.m in Sources */,
 				277808C41AAB1D2100D4C410 /* MLUniformFlowLayout.m in Sources */,

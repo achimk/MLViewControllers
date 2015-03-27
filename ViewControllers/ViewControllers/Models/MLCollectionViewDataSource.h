@@ -42,10 +42,13 @@
 @property (nonatomic, readonly, weak) UICollectionView * collectionView;
 @property (nonatomic, readwrite, strong) id <MLResultsController> resultsController;
 @property (nonatomic, readwrite, weak) id <MLCollectionViewDataSourceDelegate> delegate;
-
+@property (nonatomic, readwrite, assign) BOOL clearsSelectionOnReloadData;
+@property (nonatomic, readwrite, assign) BOOL reloadOnCurrentLocaleChange;
 @property (nonatomic, readwrite, assign, getter = shouldUseBatchUpdating) BOOL useBatchUpdating;
 @property (nonatomic, readwrite, assign, getter = shouldAnimateCollectionChanges) BOOL animateCollectionChanges;
 
 - (instancetype)initWithCollectionView:(UICollectionView *)collectionView resultsController:(id <MLResultsController>)resultsController delegate:(id <MLCollectionViewDataSourceDelegate>)delegate;
+
+- (void)reloadData;
 
 @end

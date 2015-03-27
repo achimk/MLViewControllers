@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Joachim Kret. All rights reserved.
 //
 
-#import "MLTabBarController.h"
+#import "MLSwitchViewController.h"
 #import "MLCustomConfiguration.h"
 
-@interface MLLoadableViewController : MLTabBarController <MLCustomConfiguration>
+@interface MLLoadableViewController : MLSwitchViewController <MLCustomConfiguration>
 
 @end

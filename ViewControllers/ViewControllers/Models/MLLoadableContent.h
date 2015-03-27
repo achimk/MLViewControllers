@@ -1,5 +1,5 @@
 //
-//  MLLoadableContentViewModel.h
+//  MLLoadableContent.h
 //  ViewControllers
 //
 //  Created by Joachim Kret on 22.03.2015.
@@ -28,7 +28,7 @@ typedef NS_ENUM(NSUInteger, MLLoadableContentType) {
     MLLoadableContentTypePaging         // Paging type for loading resources with pagination
 };
 
-@class MLLoadableContentViewModel;
+@class MLLoadableContent;
 
 /**
  MLLoadableContentDelegate
@@ -36,11 +36,11 @@ typedef NS_ENUM(NSUInteger, MLLoadableContentType) {
 @protocol MLLoadableContentDelegate <NSObject>
 
 @required
-- (void)loadableContent:(MLLoadableContentViewModel *)loadableContent loadDataWithLoadToken:(MLLoadToken *)loadToken;
+- (void)loadableContent:(MLLoadableContent *)loadableContent loadDataWithLoadToken:(MLLoadToken *)loadToken;
 
 @optional
-- (void)loadableContentWillChangeState:(MLLoadableContentViewModel *)loadableContent;
-- (void)loadableContentDidChangeState:(MLLoadableContentViewModel *)loadableContent;
+- (void)loadableContentWillChangeState:(MLLoadableContent *)loadableContent;
+- (void)loadableContentDidChangeState:(MLLoadableContent *)loadableContent;
 
 // MLLoadableContentDelegate support also state changing methods:
 // - (BOOL)loadableContentShouldEnter[toState];
@@ -51,9 +51,9 @@ typedef NS_ENUM(NSUInteger, MLLoadableContentType) {
 @end
 
 /**
- MLLoadableContentViewModel
+ MLLoadableContent
  */
-@interface MLLoadableContentViewModel : NSObject
+@interface MLLoadableContent : NSObject
 
 @property (nonatomic, readonly, copy) NSString * currentState;
 @property (nonatomic, readonly, strong) MLLoadToken * loadToken;
@@ -69,9 +69,9 @@ typedef NS_ENUM(NSUInteger, MLLoadableContentType) {
 @end
 
 /**
- MLLoadableContentViewModel (MLSubclassOnly)
+ MLLoadableContent (MLSubclassOnly)
  */
-@interface MLLoadableContentViewModel (MLSubclassOnly)
+@interface MLLoadableContent (MLSubclassOnly)
 
 - (NSString *)missingTransitionFromState:(NSString *)fromState toState:(NSString *)toState;
 

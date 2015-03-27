@@ -13,15 +13,16 @@
 
 @property (nonatomic, readonly, strong) IBOutlet UIView * containerView;
 @property (nonatomic, readwrite, copy) NSArray * viewControllers;
-@property (nonatomic, readwrite, assign) NSUInteger selectedIndex;
 @property (nonatomic, readwrite, strong) UIViewController * selectedViewController;
+@property (nonatomic, readwrite, assign) NSUInteger selectedIndex;
 @property (nonatomic, readwrite, assign) MLAutorotationMode autorotationMode;
-
-+ (Class)defaultContainerViewClass;
 
 @end
 
 @interface MLSwitchViewController (MLSubclassOnly)
+
++ (Class)defaultContainerViewClass;
++ (UIEdgeInsets)defaultContainerViewInset;
 
 - (void)replaceViewController:(UIViewController *)existingViewController
            withViewController:(UIViewController *)newViewController

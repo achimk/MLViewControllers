@@ -34,6 +34,8 @@
         _showSectionHeaders = NO;
         _animateTableChanges = YES;
         _reloadAfterAnimation = NO;
+        _clearsSelectionOnReloadData = NO;
+        _reloadOnCurrentLocaleChange = NO;
         _addSectionAnimation = _removeSectionAnimation
                              = _addObjectAnimation
                              = _updateObjectAnimation
@@ -53,8 +55,7 @@
             __weak typeof(delegate) weakDelegate = delegate;
             _delegate = weakDelegate;
             
-            _showLoadingCell = self.shouldShowLoadingCell;
-            [tableView reloadData];
+            [self reloadData];
         }
     }
     
@@ -62,6 +63,7 @@
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.tableView.dataSource = nil;
 }
 
@@ -78,8 +80,26 @@
             [resultsController addResultsControllerObserver:self];
         }
         
-        self.showLoadingCell = self.shouldShowLoadingCell;
-        [self.tableView reloadData];
+        [self reloadData];
+    }
+}
+
+- (void)setReloadOnCurrentLocaleChange:(BOOL)reloadOnCurrentLocaleChange {
+    if (reloadOnCurrentLocaleChange != _reloadOnCurrentLocaleChange) {
+        if (_reloadOnCurrentLocaleChange) {
+            [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                            name:NSCurrentLocaleDidChangeNotification
+                                                          object:nil];
+        }
+        
+        _reloadOnCurrentLocaleChange = reloadOnCurrentLocaleChange;
+        
+        if (reloadOnCurrentLocaleChange) {
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(currentLocaleDidChangeNotification:)
+                                                         name:NSCurrentLocaleDidChangeNotification
+                                                       object:nil];
+        }
     }
 }
 
@@ -104,12 +124,36 @@
         __weak typeof(delegate)weakDelegate = delegate;
         _delegate = weakDelegate;
         
-        self.showLoadingCell = self.shouldShowLoadingCell;
-        [self.tableView reloadData];
+        [self reloadData];
     }
     else {
         _delegate = nil;
     }
+}
+
+#pragma mark Reload Data
+
+- (void)reloadData {
+    self.showLoadingCell = self.shouldShowLoadingCell;
+    
+    if (self.clearsSelectionOnReloadData) {
+        [self.tableView reloadData];
+    }
+    else {
+        NSArray * selectedItems = [[self.tableView indexPathsForSelectedRows] copy];
+        
+        [self.tableView reloadData];
+        
+        for (NSIndexPath * indexPath in selectedItems) {
+            [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+        }
+    }
+}
+
+#pragma mark Notifications
+
+- (void)currentLocaleDidChangeNotification:(NSNotification *)aNotification {
+    [self reloadData];
 }
 
 #pragma mark UITableViewDataSource
@@ -287,8 +331,7 @@
         if (self.reloadAfterAnimation) {
             [CATransaction begin];
             [CATransaction setCompletionBlock:^{
-                self.showLoadingCell = showLoadingCell;
-                [self.tableView reloadData];
+                [self reloadData];
             }];
         }
         else {
@@ -303,8 +346,7 @@
         }
     }
     else {
-        self.showLoadingCell = showLoadingCell;
-        [self.tableView reloadData];
+        [self reloadData];
     }
 }
 

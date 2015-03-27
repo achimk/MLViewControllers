@@ -49,9 +49,7 @@
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:NSCurrentLocaleDidChangeNotification
-                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark View
@@ -74,15 +72,6 @@
         [self.view addSubview:_tableView];
         [self.view setNeedsUpdateConstraints];
     }
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(currentLocaleDidChangeNotification:)
-                                                 name:NSCurrentLocaleDidChangeNotification
-                                               object:nil];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -162,6 +151,25 @@
     }
 }
 
+- (void)setReloadOnCurrentLocaleChange:(BOOL)reloadOnCurrentLocaleChange {
+    if (reloadOnCurrentLocaleChange != _reloadOnCurrentLocaleChange) {
+        if (_reloadOnCurrentLocaleChange) {
+            [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                            name:NSCurrentLocaleDidChangeNotification
+                                                          object:nil];
+        }
+        
+        _reloadOnCurrentLocaleChange = reloadOnCurrentLocaleChange;
+        
+        if (reloadOnCurrentLocaleChange) {
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(currentLocaleDidChangeNotification:)
+                                                         name:NSCurrentLocaleDidChangeNotification
+                                                       object:nil];
+        }
+    }
+}
+
 - (void)setShowsBackgroundView:(BOOL)showsBackgroundView {
     if (showsBackgroundView && !self.isViewLoaded) {
         [self view];
@@ -206,7 +214,6 @@
 }
 
 - (void)reloadData {
-    NSAssert2([NSThread isMainThread], @"%@: %@ must be called on main thread", [self class], NSStringFromSelector(_cmd));
     _needsReload = NO;
     
     if (self.isViewVisible) {
@@ -230,13 +237,11 @@
 #pragma mark Notifications
 
 - (void)currentLocaleDidChangeNotification:(NSNotification *)aNotification {
-    if (self.reloadOnCurrentLocaleChange) {
-        if (self.isViewVisible) {
-            [self reloadData];
-        }
-        else {
-            [self setNeedsReload];
-        }
+    if (self.isViewVisible) {
+        [self reloadData];
+    }
+    else {
+        [self setNeedsReload];
     }
 }
 
@@ -245,10 +250,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     METHOD_NOT_IMPLEMENTED;
     return nil;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

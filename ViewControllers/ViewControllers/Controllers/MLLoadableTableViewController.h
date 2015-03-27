@@ -7,12 +7,12 @@
 //
 
 #import "MLTableViewController.h"
-#import "MLLoadableContentViewModel.h"
+#import "MLLoadableContent.h"
 #import "MLResultsControllerProtocol.h"
 
 @interface MLLoadableTableViewController : MLTableViewController
 
-@property (nonatomic, readwrite, strong) MLLoadableContentViewModel * loadableContentViewModel;
+@property (nonatomic, readwrite, strong) MLLoadableContent * loadableContent;
 @property (nonatomic, readwrite, strong) id <MLResultsController> resultsController;
 
 @end

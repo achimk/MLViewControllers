@@ -34,9 +34,3 @@
 - (UIView *)backgroundViewForTableView:(UITableView *)tableView;
 
 @end
-
-@interface MLTableViewController (MLNotifications)
-
-- (void)currentLocaleDidChangeNotification:(NSNotification *)aNotification;
-
-@end

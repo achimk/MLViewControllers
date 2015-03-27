@@ -27,6 +27,10 @@
     return [UIView class];
 }
 
++ (UIEdgeInsets)defaultContainerViewInset {
+    return UIEdgeInsetsZero;
+}
+
 #pragma mark Init
 
 - (void)finishInitialize {
@@ -83,9 +87,21 @@
     if (_containerConstraintsNeedsUpdate) {
         _containerConstraintsNeedsUpdate = NO;
         
-        NSDictionary * views = @{@"containerView"   : self.containerView};
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[containerView]|" options:0 metrics:nil views:views]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[containerView]|" options:0 metrics:nil views:views]];
+        UIEdgeInsets inset = [[self class] defaultContainerViewInset];
+        NSDictionary * views = @{@"topGuide"        : self.topLayoutGuide,
+                                 @"containerView"   : self.containerView};
+        NSDictionary * sizes = @{@"top"             : @(inset.top),
+                                 @"bottom"          : @(inset.bottom),
+                                 @"left"            : @(inset.left),
+                                 @"right"           : @(inset.right)};
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide]-(top)-[containerView]-(bottom)-|"
+                                                                          options:0
+                                                                          metrics:sizes
+                                                                            views:views]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[containerView]-(right)-|"
+                                                                          options:0
+                                                                          metrics:sizes
+                                                                            views:views]];
     }
 }
 

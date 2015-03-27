@@ -41,9 +41,15 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if ([self.loadableContentViewModel.currentState isEqualToString:MLContentStateInitial]) {
-        [self.loadableContentViewModel loadContent];
+    if ([self.loadableContent.currentState isEqualToString:MLContentStateInitial]) {
+        [self.loadableContent loadContent];
     }
+}
+
+#pragma mark Reload Data
+
+- (void)reloadData {
+    [self.dataSource reloadData];
 }
 
 #pragma mark MLTableViewDataSourceDelegate
@@ -58,13 +64,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView loadingCellAtIndexPath:(NSIndexPath *)indexPath {
     MLLoadingTableViewCell * cell = [MLLoadingTableViewCell cellForTableView:tableView indexPath:indexPath];
-    [self.loadableContentViewModel pageContent];
+    [self.loadableContent pageContent];
     return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldShowLoadingCellAtIndexPath:(NSIndexPath *)indexPath {
-    MLLoadableContentType type = self.loadableContentViewModel.type;
-    NSString * currentState = self.loadableContentViewModel.currentState;
+    MLLoadableContentType type = self.loadableContent.type;
+    NSString * currentState = self.loadableContent.currentState;
     return type == MLLoadableContentTypePaging && ([currentState isEqualToString:MLContentStateLoaded] || [currentState isEqualToString:MLContentStatePaging]);
 }
 

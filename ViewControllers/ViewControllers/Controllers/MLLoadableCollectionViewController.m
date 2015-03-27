@@ -54,9 +54,15 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if ([self.loadableContentViewModel.currentState isEqualToString:MLContentStateInitial]) {
-        [self.loadableContentViewModel loadContent];
+    if ([self.loadableContent.currentState isEqualToString:MLContentStateInitial]) {
+        [self.loadableContent loadContent];
     }
+}
+
+#pragma mark Reload Data
+
+- (void)reloadData {
+    [self.dataSource reloadData];
 }
 
 #pragma mark MLUniformFlowLayoutDelegate
@@ -108,13 +114,13 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView loadingCellAtIndexPath:(NSIndexPath *)indexPath {
     MLLoadingCollectionViewCell * cell = [MLLoadingCollectionViewCell cellForCollectionView:collectionView indexPath:indexPath];
-    [self.loadableContentViewModel pageContent];
+    [self.loadableContent pageContent];
     return cell;
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldShowLoadingCellAtIndexPath:(NSIndexPath *)indexPath {
-    MLLoadableContentType type = self.loadableContentViewModel.type;
-    NSString * currentState = self.loadableContentViewModel.currentState;
+    MLLoadableContentType type = self.loadableContent.type;
+    NSString * currentState = self.loadableContent.currentState;
     return type == MLLoadableContentTypePaging && ([currentState isEqualToString:MLContentStateLoaded] || [currentState isEqualToString:MLContentStatePaging]);
 }
 

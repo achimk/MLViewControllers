@@ -35,9 +35,3 @@
 - (UIView *)backgroundViewForCollectionView:(UICollectionView *)collectionView;
 
 @end
-
-@interface MLCollectionViewController (MLNotifications)
-
-- (void)currentLocaleDidChangeNotification:(NSNotification *)aNotification;
-
-@end

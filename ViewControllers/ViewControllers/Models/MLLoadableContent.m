@@ -1,12 +1,12 @@
 //
-//  MLLoadableContentViewModel.m
+//  MLLoadableContent.m
 //  ViewControllers
 //
 //  Created by Joachim Kret on 22.03.2015.
 //  Copyright (c) 2015 Joachim Kret. All rights reserved.
 //
 
-#import "MLLoadableContentViewModel.h"
+#import "MLLoadableContent.h"
 #import <objc/message.h>
 
 NSString * const MLContentStateInitial          = @"InitialState";
@@ -17,9 +17,9 @@ NSString * const MLContentStateLoaded           = @"LoadedState";
 NSString * const MLContentStateNoContent        = @"NoContentState";
 NSString * const MLContentStateError            = @"ErrorState";
 
-#pragma mark - MLLoadableContentViewModel
+#pragma mark - MLLoadableContent
 
-@interface MLLoadableContentViewModel ()
+@interface MLLoadableContent ()
 
 @property (nonatomic, readwrite, strong) MLLoadToken * loadToken;
 @property (nonatomic, readonly, strong) NSDictionary * validTransitions;
@@ -31,7 +31,7 @@ NSString * const MLContentStateError            = @"ErrorState";
 
 #pragma mark -
 
-@implementation MLLoadableContentViewModel
+@implementation MLLoadableContent
 
 + (NSDictionary *)defaultTransitions {
     return @{

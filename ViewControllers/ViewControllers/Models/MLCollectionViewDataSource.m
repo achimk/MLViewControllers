@@ -38,6 +38,8 @@
         _useBatchUpdating = YES;
         _reloadAfterAnimation = NO;
         _animateCollectionChanges = YES;
+        _clearsSelectionOnReloadData = NO;
+        _reloadOnCurrentLocaleChange = NO;
         
         __weak typeof(collectionView) weakCollectionView = collectionView;
         _collectionView = weakCollectionView;
@@ -53,8 +55,7 @@
             __weak typeof(delegate) weakDelegate = delegate;
             _delegate = weakDelegate;
             
-            _showLoadingCell = self.shouldShowLoadingCell;
-            [collectionView reloadData];
+            [self reloadData];
         }
     }
     
@@ -62,6 +63,7 @@
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.collectionView.dataSource = nil;
 }
 
@@ -79,8 +81,7 @@
             [resultsController addResultsControllerObserver:self];
         }
         
-        self.showLoadingCell = self.shouldShowLoadingCell;
-        [self.collectionView reloadData];
+        [self reloadData];
     }
 }
 
@@ -89,12 +90,55 @@
         __weak typeof(delegate)weakDelegate = delegate;
         _delegate = weakDelegate;
         
-        self.showLoadingCell = self.shouldShowLoadingCell;
-        [self.collectionView reloadData];
+        [self reloadData];
     }
     else {
         _delegate = nil;
     }
+}
+
+- (void)setReloadOnCurrentLocaleChange:(BOOL)reloadOnCurrentLocaleChange {
+    if (reloadOnCurrentLocaleChange != _reloadOnCurrentLocaleChange) {
+        if (_reloadOnCurrentLocaleChange) {
+            [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                            name:NSCurrentLocaleDidChangeNotification
+                                                          object:nil];
+        }
+        
+        _reloadOnCurrentLocaleChange = reloadOnCurrentLocaleChange;
+        
+        if (reloadOnCurrentLocaleChange) {
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(currentLocaleDidChangeNotification:)
+                                                         name:NSCurrentLocaleDidChangeNotification
+                                                       object:nil];
+        }
+    }
+}
+
+#pragma mark Reload Data
+
+- (void)reloadData {
+    self.showLoadingCell = self.shouldShowLoadingCell;
+    
+    if (self.clearsSelectionOnReloadData) {
+        [self.collectionView reloadData];
+    }
+    else {
+        NSArray * selectedItems = [[self.collectionView indexPathsForSelectedItems] copy];
+        
+        [self.collectionView reloadData];
+        
+        for (NSIndexPath * indexPath in selectedItems) {
+            [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+        }
+    }
+}
+
+#pragma mark Notifications
+
+- (void)currentLocaleDidChangeNotification:(NSNotification *)aNotification {
+    [self reloadData];
 }
 
 #pragma mark UICollectionViewDataSource
@@ -245,8 +289,6 @@
 }
 
 - (void)resultsControllerDidChangeContent:(id<MLResultsController>)resultsController {
-    BOOL showLoadingCell = self.shouldShowLoadingCell;
-    
     if (self.animateCollectionChanges && self.collectionView.window) {
         if (self.useBatchUpdating) {
             if (self.batchUpdates.count) {
@@ -257,8 +299,8 @@
                 } completion:^(BOOL finished) {
                     if (self.reloadAfterAnimation) {
                         self.reloadAfterAnimation = NO;
-                        self.showLoadingCell = showLoadingCell;
-                        [self.collectionView reloadData];
+                        
+                        [self reloadData];
                     }
                     
                     self.batchUpdates = nil;
@@ -269,8 +311,7 @@
         }
     }
     else {
-        self.showLoadingCell = showLoadingCell;
-        [self.collectionView reloadData];
+        [self reloadData];
     }
 }
 
