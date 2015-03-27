@@ -39,8 +39,7 @@ typedef NS_ENUM (NSUInteger, MLSection) {
     _mode = MLAutorotationModeContainer;
     _mask = UIInterfaceOrientationMaskAll;
     
-    _dictionaryOfModes = @{@(MLAutorotationModeContainer)               : @"Default implementation",
-                           @(MLAutorotationModeContainerAndNoChildren)  : @"Container only",
+    _dictionaryOfModes = @{@(MLAutorotationModeContainer)               : @"Container only",
                            @(MLAutorotationModeContainerAndTopChildren) : @"Container and top children",
                            @(MLAutorotationModeContainerAndAllChildren) : @"Container and all children"};
     

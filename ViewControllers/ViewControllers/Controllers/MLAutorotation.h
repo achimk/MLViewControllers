@@ -13,9 +13,6 @@ typedef NS_ENUM(NSUInteger, MLAutorotationMode) {
     // and which ones receive events
     MLAutorotationModeContainer,
     
-    // The container only decides and receives events
-    MLAutorotationModeContainerAndNoChildren,
-    
     // The container and its top children decide and receive events. A container might have
     // several top children if it displays several view controllers next to each other
     MLAutorotationModeContainerAndTopChildren,

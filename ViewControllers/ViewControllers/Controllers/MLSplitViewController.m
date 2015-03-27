@@ -78,8 +78,6 @@
                 }
             }
         } break;
-            
-        case MLAutorotationModeContainerAndNoChildren: break;
     }
     
     return YES;
@@ -99,8 +97,6 @@
                 containerSupportedInterfaceOrientations &= [viewController supportedInterfaceOrientations];
             }
         } break;
-            
-        case MLAutorotationModeContainerAndNoChildren: break;
     }
     
     return containerSupportedInterfaceOrientations;
