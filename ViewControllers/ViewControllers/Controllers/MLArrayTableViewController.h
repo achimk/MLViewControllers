@@ -1,5 +1,5 @@
 //
-//  MLFetchedTableViewController.h
+//  MLArrayTableViewController.h
 //  ViewControllers
 //
 //  Created by Joachim Kret on 29.03.2015.
@@ -8,6 +8,6 @@
 
 #import "MLTableViewController.h"
 
-@interface MLFetchedTableViewController : MLTableViewController
+@interface MLArrayTableViewController : MLTableViewController
 
 @end

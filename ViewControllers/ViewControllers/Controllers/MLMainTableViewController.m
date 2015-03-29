@@ -17,7 +17,6 @@
 typedef NS_ENUM(NSUInteger, MLSections) {
     MLSectionCells,
     MLSectionBaseControllers,
-    MLSectionCoreDataControllers,
     MLSectionDataSourceControllers,
     MLSectionLoadableControllers,
     MLSectionContainerControllers,
@@ -35,13 +34,6 @@ typedef NS_ENUM(NSUInteger, MLRowBaseControllers) {
     MLRowBaseTableViewController,
     MLRowBaseCollectionViewController,
     MLRowBaseCount
-};
-
-typedef NS_ENUM(NSUInteger, MLRowCoreDataControllers) {
-    MLRowCoreDataFetchedViewController,
-    MLRowCoreDataFetchedTableViewController,
-    MLRowCoreDataFetchedCollectionViewController,
-    MLRowCoreDataCount
 };
 
 typedef NS_ENUM(NSUInteger, MLRowDataSourceControllers) {
@@ -114,16 +106,11 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
                     INDEX(MLSectionBaseControllers, MLRowBaseTableViewController)                       : @"MLCustomTableViewController",
                     INDEX(MLSectionBaseControllers, MLRowBaseCollectionViewController)                  : @"MLLayoutViewController",
                     
-                    //MLSectionCoreDataControllers
-                    INDEX(MLSectionCoreDataControllers, MLRowCoreDataFetchedViewController)             : [NSNull null],
-                    INDEX(MLSectionCoreDataControllers, MLRowCoreDataFetchedTableViewController)        : [NSNull null],
-                    INDEX(MLSectionCoreDataControllers, MLRowCoreDataFetchedCollectionViewController)   : [NSNull null],
-                    
                     //MLSectionDataSourceControllers
-                    INDEX(MLSectionDataSourceControllers, MLRowDataSourceArrayTableController)          : @"MLArrayDataTableViewController",
-                    INDEX(MLSectionDataSourceControllers, MLRowDataSourceArrayCollectionController)     : [NSNull null],
-                    INDEX(MLSectionDataSourceControllers, MLRowDataSourceFetchedTableController)        : [NSNull null],
-                    INDEX(MLSectionDataSourceControllers, MLRowDataSourceFetchedCollectionController)   : [NSNull null],
+                    INDEX(MLSectionDataSourceControllers, MLRowDataSourceArrayTableController)          : @"MLArrayTableViewController",
+                    INDEX(MLSectionDataSourceControllers, MLRowDataSourceArrayCollectionController)     : @"MLArrayCollectionViewController",
+                    INDEX(MLSectionDataSourceControllers, MLRowDataSourceFetchedTableController)        : @"MLFetchedTableViewController",
+                    INDEX(MLSectionDataSourceControllers, MLRowDataSourceFetchedCollectionController)   : @"MLFetchedCollectionViewController",
                     
                     //MLSectionLoadableControllers
                     INDEX(MLSectionLoadableControllers, MLRowLoadableViewController)                    : @"MLLoadableViewController",
@@ -139,8 +126,7 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
     static dispatch_once_t secondToken;
     dispatch_once(&secondToken, ^{
         configurations = @{
-                           INDEX(MLSectionBaseControllers, MLRowBaseCollectionViewController)                : @{@"useCoreData"  : @(NO)},
-                           INDEX(MLSectionCoreDataControllers, MLRowCoreDataFetchedCollectionViewController) : @{@"useCoreData"  : @(YES)},
+                           INDEX(MLSectionBaseControllers, MLRowBaseCollectionViewController)                : @{@"useCoreData"  : @(NO)}
                            };
     });
     
@@ -179,11 +165,6 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
                     INDEX(MLSectionBaseControllers, MLRowBaseTableViewController)                       : @"TableView",
                     INDEX(MLSectionBaseControllers, MLRowBaseCollectionViewController)                  : @"CollectionView",
                     
-                    //MLSectionCoreDataControllers
-                    INDEX(MLSectionCoreDataControllers, MLRowCoreDataFetchedViewController)             : @"Fetched View",
-                    INDEX(MLSectionCoreDataControllers, MLRowCoreDataFetchedTableViewController)        : @"Fetched TableView",
-                    INDEX(MLSectionCoreDataControllers, MLRowCoreDataFetchedCollectionViewController)   : @"Fetched CollectionView",
-                    
                     //MLSectionDataSourceControllers
                     INDEX(MLSectionDataSourceControllers, MLRowDataSourceArrayTableController)          : @"Array TableView",
                     INDEX(MLSectionDataSourceControllers, MLRowDataSourceArrayCollectionController)     : @"Array CollectionView",
@@ -217,7 +198,6 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
         mapping = @{
                     @(MLSectionCells)                   : @(MLRowCellCount),
                     @(MLSectionBaseControllers)         : @(MLRowBaseCount),
-                    @(MLSectionCoreDataControllers)     : @(MLRowCoreDataCount),
                     @(MLSectionDataSourceControllers)   : @(MLRowDataSourceCount),
                     @(MLSectionLoadableControllers)     : @(MLRowLoadableCount),
                     @(MLSectionContainerControllers)    : @(MLRowContainerCount)
@@ -234,7 +214,6 @@ typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
         mapping = @{
                     @(MLSectionCells)                   : @"Cells Layout",
                     @(MLSectionBaseControllers)         : @"Base Controllers",
-                    @(MLSectionCoreDataControllers)     : @"Core Data Controllers",
                     @(MLSectionDataSourceControllers)   : @"Data Source Controllers",
                     @(MLSectionLoadableControllers)     : @"Loadable Controllers",
                     @(MLSectionContainerControllers)    : @"Container Controllers"

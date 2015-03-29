@@ -1,42 +1,34 @@
 //
-//  MLFetchedCollectionViewController.m
+//  MLArrayCollectionViewController.m
 //  ViewControllers
 //
 //  Created by Joachim Kret on 29.03.2015.
 //  Copyright (c) 2015 Joachim Kret. All rights reserved.
 //
 
-#import "MLFetchedCollectionViewController.h"
+#import "MLArrayCollectionViewController.h"
 #import "MLCollectionViewDataSource.h"
-#import "MLFetchedResultsController.h"
+#import "MLCollectionListController.h"
+#import "RZCollectionList.h"
 #import "MLUniformFlowLayout.h"
 #import "MLCustomCollectionReusableView.h"
 #import "MLCustomCollectionViewCell.h"
-#import "MLEventEntity.h"
 
-#pragma mark - MLFetchedCollectionViewController
+#pragma mark - MLArrayCollectionViewController
 
-@interface MLFetchedCollectionViewController () <MLCollectionViewDataSourceDelegate>
+@interface MLArrayCollectionViewController () <MLCollectionViewDataSourceDelegate>
 
-@property (nonatomic, readwrite, strong) MLFetchedResultsController * fetchedResultsController;
+@property (nonatomic, readwrite, strong) MLCollectionListController * collectionListController;
 @property (nonatomic, readwrite, strong) MLCollectionViewDataSource * dataSource;
 
 @end
 
 #pragma mark -
 
-@implementation MLFetchedCollectionViewController
+@implementation MLArrayCollectionViewController
 
 + (Class)defaultCollectionViewLayoutClass {
     return [MLUniformFlowLayout class];
-}
-
-#pragma mark Dealloc
-
-- (void)dealloc {
-    [[MLCoreDataStack defaultStack] saveWithBlock:^(NSManagedObjectContext *context) {
-        [MLEventEntity ml_deleteAllInContext:context];
-    }];
 }
 
 #pragma mark View
@@ -55,18 +47,11 @@
     [self.collectionView registerClass:[MLCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
     [MLCustomCollectionViewCell registerCellWithCollectionView:self.collectionView];
     
-    NSPredicate * predicate = nil;
-    NSSortDescriptor * sort = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES];
-    NSFetchRequest * fetchRequest = [MLEventEntity ml_requestWithPredicate:predicate withSortDescriptor:sort];
-    NSManagedObjectContext * context = [[MLCoreDataStack defaultStack] managedObjectContext];
-    
-    self.fetchedResultsController = [[MLFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                        managedObjectContext:context
-                                                                          sectionNameKeyPath:nil
-                                                                                   cacheName:nil];
+    RZArrayCollectionList * collectionList = [[RZArrayCollectionList alloc] initWithArray:@[] sectionNameKeyPath:nil];
+    self.collectionListController = [[MLCollectionListController alloc] initWithCollectionList:collectionList];
     
     self.dataSource = [[MLCollectionViewDataSource alloc] initWithCollectionView:self.collectionView
-                                                               resultsController:self.fetchedResultsController
+                                                               resultsController:self.collectionListController
                                                                         delegate:self];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
@@ -74,13 +59,16 @@
                                                                                            action:@selector(addAction:)];
 }
 
+#pragma mark Accessors
+
+- (RZArrayCollectionList *)arrayCollectionList {
+    return self.collectionListController.collectionList;
+}
+
 #pragma mark Actions
 
 - (IBAction)addAction:(id)sender {
-    [[MLCoreDataStack defaultStack] saveWithBlock:^(NSManagedObjectContext *context) {
-        MLEventEntity * event = [MLEventEntity ml_createInContext:context];
-        event.timestamp = [NSDate date];
-    }];
+    [self.arrayCollectionList addObject:[NSDate date] toSection:0];
 }
 
 #pragma mark MLUniformFlowLayoutDelegate
@@ -105,13 +93,11 @@
     return 1;
 }
 
-
 #pragma mark MLCollectionViewDataSourceDelegate
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForObject:(id)object atIndexPath:(NSIndexPath *)indexPath {
-    MLEventEntity * event = (MLEventEntity *)object;
     MLCustomCollectionViewCell * cell = [MLCustomCollectionViewCell cellForCollectionView:collectionView indexPath:indexPath];
-    cell.textLabel.text = [event.timestamp description];
+    cell.textLabel.text = [object description];
     return cell;
 }
 

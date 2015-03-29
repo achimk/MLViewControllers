@@ -102,6 +102,11 @@
                                                             sectionNameKeyPath:sectionNameKeyPath
                                                                      cacheName:name];
         _controller.delegate = self;
+
+        NSError * error = nil;
+        if (![self performFetch:&error]) {
+            NSLog(@"-> Error performing fetch for controller: %@, error : %@", _controller, [error localizedDescription]);
+        }
     }
     
     return self;

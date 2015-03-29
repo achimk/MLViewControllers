@@ -1,28 +1,29 @@
 //
-//  MLArrayDataTableViewController.m
+//  MLArrayTableViewController.m
 //  ViewControllers
 //
-//  Created by Joachim Kret on 09.03.2015.
+//  Created by Joachim Kret on 29.03.2015.
 //  Copyright (c) 2015 Joachim Kret. All rights reserved.
 //
 
-#import "MLArrayDataTableViewController.h"
-#import "MLTableViewDataSource.h"
+#import "MLArrayTableViewController.h"
 #import "MLCollectionListController.h"
+#import "MLTableViewDataSource.h"
 #import "RZCollectionList.h"
 #import "MLTableViewCell.h"
 
-#pragma mark - MLArrayDataTableViewController
+#pragma mark - MLArrayTableViewController
 
-@interface MLArrayDataTableViewController () <MLTableViewDataSourceDelegate>
+@interface MLArrayTableViewController () <MLTableViewDataSourceDelegate>
 
+@property (nonatomic, readwrite, strong) MLCollectionListController * collectionListController;
 @property (nonatomic, readwrite, strong) MLTableViewDataSource * dataSource;
 
 @end
 
 #pragma mark -
 
-@implementation MLArrayDataTableViewController
+@implementation MLArrayTableViewController
 
 #pragma mark View
 
@@ -32,10 +33,10 @@
     [MLTableViewCell registerCellWithTableView:self.tableView];
     
     RZArrayCollectionList * collectionList = [[RZArrayCollectionList alloc] initWithArray:@[] sectionNameKeyPath:nil];
-    MLCollectionListController * resultsController = [[MLCollectionListController alloc] initWithCollectionList:collectionList];
+    self.collectionListController = [[MLCollectionListController alloc] initWithCollectionList:collectionList];
     
     self.dataSource = [[MLTableViewDataSource alloc] initWithTableView:self.tableView
-                                                     resultsController:resultsController
+                                                     resultsController:self.collectionListController
                                                               delegate:self];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
@@ -45,14 +46,14 @@
 
 #pragma mark Accessors
 
-- (RZArrayCollectionList *)collectionList {
-    return (self.dataSource && [self.dataSource.resultsController isKindOfClass:[MLCollectionListController class]]) ? [(MLCollectionListController *)self.dataSource.resultsController collectionList] : nil;
+- (RZArrayCollectionList *)arrayCollectionList {
+    return self.collectionListController.collectionList;
 }
 
 #pragma mark Actions
 
 - (IBAction)addAction:(id)sender {
-    [self.collectionList addObject:[NSDate date] toSection:0];
+    [self.arrayCollectionList addObject:[NSDate date] toSection:0];
 }
 
 #pragma mark MLTableViewDataSourceDelegate
@@ -69,7 +70,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (UITableViewCellEditingStyleDelete == editingStyle) {
-        [self.collectionList removeObjectAtIndexPath:indexPath];
+        [self.arrayCollectionList removeObjectAtIndexPath:indexPath];
     }
 }
 

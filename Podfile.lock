@@ -1,19 +1,27 @@
 PODS:
+  - MLActiveRecord (1.0.0)
   - RZCollectionList (0.7.1)
 
 DEPENDENCIES:
+  - MLActiveRecord (from `git@github.com:achimk/MLActiveRecord.git`)
   - RZCollectionList (from `git@github.com:Raizlabs/RZCollectionList.git`)
 
 EXTERNAL SOURCES:
+  MLActiveRecord:
+    :git: git@github.com:achimk/MLActiveRecord.git
   RZCollectionList:
     :git: git@github.com:Raizlabs/RZCollectionList.git
 
 CHECKOUT OPTIONS:
+  MLActiveRecord:
+    :commit: f1e4a38d9545d62b6ff2a65a346353144ee418c6
+    :git: git@github.com:achimk/MLActiveRecord.git
   RZCollectionList:
     :commit: 4f2e1f953310a2d9c7e01d32156fa7b83e3f6bc7
     :git: git@github.com:Raizlabs/RZCollectionList.git
 
 SPEC CHECKSUMS:
+  MLActiveRecord: 3f04a9258e0cc1577eade3d355da016f2155cac0
   RZCollectionList: 63024ce078ba952a6a15ef6e877423c4f4ad66d9
 
 COCOAPODS: 0.35.0

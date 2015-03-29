@@ -13,7 +13,6 @@
 		27251AD91ABEFBAB004C1743 /* MLLoadingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27251AD81ABEFBAB004C1743 /* MLLoadingTableViewCell.m */; };
 		27251ADD1ABF547B004C1743 /* MLLoadToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 27251ADC1ABF547B004C1743 /* MLLoadToken.m */; };
 		27251AE01ABF5D80004C1743 /* MLLoadableContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 27251ADF1ABF5D80004C1743 /* MLLoadableContent.m */; };
-		274341981AAE1C7A002AD9B5 /* MLArrayDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274341971AAE1C7A002AD9B5 /* MLArrayDataTableViewController.m */; };
 		2743419B1AAE1E3D002AD9B5 /* MLCollectionListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2743419A1AAE1E3D002AD9B5 /* MLCollectionListController.m */; };
 		2743419E1AAE1F58002AD9B5 /* MLBaseResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2743419D1AAE1F58002AD9B5 /* MLBaseResultsController.m */; };
 		275646831A96A35C00D1847A /* MLRotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275646821A96A35C00D1847A /* MLRotationViewController.m */; };
@@ -21,6 +20,11 @@
 		276CA8621AC0DF54002A90B3 /* MLLoadableTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276CA8611AC0DF54002A90B3 /* MLLoadableTableViewController.m */; };
 		276CA8651AC0DF73002A90B3 /* MLLoadableSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276CA8641AC0DF73002A90B3 /* MLLoadableSettingsViewController.m */; };
 		276CA8681AC0DF95002A90B3 /* MLLoadableCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276CA8671AC0DF95002A90B3 /* MLLoadableCollectionViewController.m */; };
+		27709B251AC82C5800F3D29C /* MLArrayTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27709B241AC82C5800F3D29C /* MLArrayTableViewController.m */; };
+		27709B281AC82C7800F3D29C /* MLFetchedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27709B271AC82C7800F3D29C /* MLFetchedTableViewController.m */; };
+		27709B2B1AC82E8200F3D29C /* MLArrayCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27709B2A1AC82E8200F3D29C /* MLArrayCollectionViewController.m */; };
+		27709B2E1AC82E9C00F3D29C /* MLFetchedCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27709B2D1AC82E9C00F3D29C /* MLFetchedCollectionViewController.m */; };
+		27709B321AC8349700F3D29C /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 27709B301AC8349700F3D29C /* DataModel.xcdatamodeld */; };
 		277808C41AAB1D2100D4C410 /* MLUniformFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 277808C31AAB1D2100D4C410 /* MLUniformFlowLayout.m */; };
 		277808C71AAB261C00D4C410 /* MLContactsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 277808C61AAB261C00D4C410 /* MLContactsCollectionViewController.m */; };
 		277808CA1AAB28A600D4C410 /* MLContactCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 277808C91AAB28A600D4C410 /* MLContactCollectionViewCell.m */; };
@@ -36,9 +40,6 @@
 		278377891A20B7B400C29996 /* MLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 278377881A20B7B400C29996 /* MLNavigationController.m */; };
 		2783778D1A20B7B400C29996 /* MLTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2783778C1A20B7B400C29996 /* MLTableViewCell.m */; };
 		278377911A20B7B400C29996 /* MLCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 278377901A20B7B400C29996 /* MLCollectionViewCell.m */; };
-		278377941A20B7B400C29996 /* MLFetchedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 278377931A20B7B400C29996 /* MLFetchedViewController.m */; };
-		278377971A20B7B400C29996 /* MLFetchedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 278377961A20B7B400C29996 /* MLFetchedTableViewController.m */; };
-		2783779A1A20B7B400C29996 /* MLFetchedCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 278377991A20B7B400C29996 /* MLFetchedCollectionViewController.m */; };
 		2783779D1A20B7B400C29996 /* MLSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2783779C1A20B7B400C29996 /* MLSwitchViewController.m */; };
 		278377A01A20B7B400C29996 /* MLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2783779F1A20B7B400C29996 /* MLAppDelegate.m */; };
 		278377A71A20B7D400C29996 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 278377A61A20B7D400C29996 /* Images.xcassets */; };
@@ -59,6 +60,8 @@
 		27B7FA131AAB9A040062430E /* MLTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B7FA121AAB9A040062430E /* MLTableViewDataSource.m */; };
 		27B7FA161AAB9A180062430E /* MLCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B7FA151AAB9A180062430E /* MLCollectionViewDataSource.m */; };
 		27B7FA1B1AABC3530062430E /* MLFetchedResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B7FA1A1AABC3530062430E /* MLFetchedResultsController.m */; };
+		27D7EB731AC83544007024AA /* MLEventEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D7EB721AC83544007024AA /* MLEventEntity.m */; };
+		27D7EB771AC83B7C007024AA /* MLDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D7EB761AC83B7C007024AA /* MLDataStack.m */; };
 		AAA780F11A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA780F01A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m */; };
 		AAA780F71A25EC2500E2E295 /* MLContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA780F61A25EC2500E2E295 /* MLContactTableViewCell.m */; };
 		AAA780F91A25F21900E2E295 /* Contacts.json in Resources */ = {isa = PBXBuildFile; fileRef = AAA780F81A25F21900E2E295 /* Contacts.json */; };
@@ -77,8 +80,6 @@
 		27251ADC1ABF547B004C1743 /* MLLoadToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLoadToken.m; sourceTree = "<group>"; };
 		27251ADE1ABF5D80004C1743 /* MLLoadableContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLoadableContent.h; sourceTree = "<group>"; };
 		27251ADF1ABF5D80004C1743 /* MLLoadableContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLoadableContent.m; sourceTree = "<group>"; };
-		274341961AAE1C7A002AD9B5 /* MLArrayDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLArrayDataTableViewController.h; sourceTree = "<group>"; };
-		274341971AAE1C7A002AD9B5 /* MLArrayDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLArrayDataTableViewController.m; sourceTree = "<group>"; };
 		274341991AAE1E3D002AD9B5 /* MLCollectionListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCollectionListController.h; sourceTree = "<group>"; };
 		2743419A1AAE1E3D002AD9B5 /* MLCollectionListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCollectionListController.m; sourceTree = "<group>"; };
 		2743419C1AAE1F58002AD9B5 /* MLBaseResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLBaseResultsController.h; sourceTree = "<group>"; };
@@ -93,6 +94,15 @@
 		276CA8641AC0DF73002A90B3 /* MLLoadableSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLoadableSettingsViewController.m; sourceTree = "<group>"; };
 		276CA8661AC0DF95002A90B3 /* MLLoadableCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLoadableCollectionViewController.h; sourceTree = "<group>"; };
 		276CA8671AC0DF95002A90B3 /* MLLoadableCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLoadableCollectionViewController.m; sourceTree = "<group>"; };
+		27709B231AC82C5800F3D29C /* MLArrayTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLArrayTableViewController.h; sourceTree = "<group>"; };
+		27709B241AC82C5800F3D29C /* MLArrayTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLArrayTableViewController.m; sourceTree = "<group>"; };
+		27709B261AC82C7800F3D29C /* MLFetchedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLFetchedTableViewController.h; sourceTree = "<group>"; };
+		27709B271AC82C7800F3D29C /* MLFetchedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLFetchedTableViewController.m; sourceTree = "<group>"; };
+		27709B291AC82E8200F3D29C /* MLArrayCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLArrayCollectionViewController.h; sourceTree = "<group>"; };
+		27709B2A1AC82E8200F3D29C /* MLArrayCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLArrayCollectionViewController.m; sourceTree = "<group>"; };
+		27709B2C1AC82E9C00F3D29C /* MLFetchedCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLFetchedCollectionViewController.h; sourceTree = "<group>"; };
+		27709B2D1AC82E9C00F3D29C /* MLFetchedCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLFetchedCollectionViewController.m; sourceTree = "<group>"; };
+		27709B311AC8349700F3D29C /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		277808C21AAB1D2100D4C410 /* MLUniformFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLUniformFlowLayout.h; sourceTree = "<group>"; };
 		277808C31AAB1D2100D4C410 /* MLUniformFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLUniformFlowLayout.m; sourceTree = "<group>"; };
 		277808C51AAB261C00D4C410 /* MLContactsCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLContactsCollectionViewController.h; sourceTree = "<group>"; };
@@ -122,12 +132,6 @@
 		2783778C1A20B7B400C29996 /* MLTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MLTableViewCell.m; sourceTree = "<group>"; };
 		2783778F1A20B7B400C29996 /* MLCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLCollectionViewCell.h; sourceTree = "<group>"; };
 		278377901A20B7B400C29996 /* MLCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MLCollectionViewCell.m; sourceTree = "<group>"; };
-		278377921A20B7B400C29996 /* MLFetchedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLFetchedViewController.h; sourceTree = "<group>"; };
-		278377931A20B7B400C29996 /* MLFetchedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MLFetchedViewController.m; sourceTree = "<group>"; };
-		278377951A20B7B400C29996 /* MLFetchedTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLFetchedTableViewController.h; sourceTree = "<group>"; };
-		278377961A20B7B400C29996 /* MLFetchedTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MLFetchedTableViewController.m; sourceTree = "<group>"; };
-		278377981A20B7B400C29996 /* MLFetchedCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLFetchedCollectionViewController.h; sourceTree = "<group>"; };
-		278377991A20B7B400C29996 /* MLFetchedCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MLFetchedCollectionViewController.m; sourceTree = "<group>"; };
 		2783779B1A20B7B400C29996 /* MLSwitchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLSwitchViewController.h; sourceTree = "<group>"; };
 		2783779C1A20B7B400C29996 /* MLSwitchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MLSwitchViewController.m; sourceTree = "<group>"; };
 		2783779E1A20B7B400C29996 /* MLAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLAppDelegate.h; sourceTree = "<group>"; };
@@ -170,6 +174,10 @@
 		27B7FA181AABAFBC0062430E /* MLResultsControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLResultsControllerProtocol.h; sourceTree = "<group>"; };
 		27B7FA191AABC3530062430E /* MLFetchedResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLFetchedResultsController.h; sourceTree = "<group>"; };
 		27B7FA1A1AABC3530062430E /* MLFetchedResultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLFetchedResultsController.m; sourceTree = "<group>"; };
+		27D7EB711AC83544007024AA /* MLEventEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLEventEntity.h; sourceTree = "<group>"; };
+		27D7EB721AC83544007024AA /* MLEventEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLEventEntity.m; sourceTree = "<group>"; };
+		27D7EB751AC83B7C007024AA /* MLDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLDataStack.h; sourceTree = "<group>"; };
+		27D7EB761AC83B7C007024AA /* MLDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLDataStack.m; sourceTree = "<group>"; };
 		39EA6D112DF10EA65BC5006F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C8F14662890BF7E9EA7B8E7 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		AAA780EF1A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+MLCustomConfiguration.h"; sourceTree = "<group>"; };
@@ -225,8 +233,14 @@
 		274341951AAE1A89002AD9B5 /* Data Source Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				274341961AAE1C7A002AD9B5 /* MLArrayDataTableViewController.h */,
-				274341971AAE1C7A002AD9B5 /* MLArrayDataTableViewController.m */,
+				27709B231AC82C5800F3D29C /* MLArrayTableViewController.h */,
+				27709B241AC82C5800F3D29C /* MLArrayTableViewController.m */,
+				27709B291AC82E8200F3D29C /* MLArrayCollectionViewController.h */,
+				27709B2A1AC82E8200F3D29C /* MLArrayCollectionViewController.m */,
+				27709B261AC82C7800F3D29C /* MLFetchedTableViewController.h */,
+				27709B271AC82C7800F3D29C /* MLFetchedTableViewController.m */,
+				27709B2C1AC82E9C00F3D29C /* MLFetchedCollectionViewController.h */,
+				27709B2D1AC82E9C00F3D29C /* MLFetchedCollectionViewController.m */,
 			);
 			name = "Data Source Controllers";
 			sourceTree = "<group>";
@@ -266,6 +280,23 @@
 				275646821A96A35C00D1847A /* MLRotationViewController.m */,
 			);
 			name = "Misc Controllers";
+			sourceTree = "<group>";
+		};
+		27709B2F1AC8343B00F3D29C /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				27709B301AC8349700F3D29C /* DataModel.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		27709B331AC834E900F3D29C /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				27D7EB711AC83544007024AA /* MLEventEntity.h */,
+				27D7EB721AC83544007024AA /* MLEventEntity.m */,
+			);
+			name = Entities;
 			sourceTree = "<group>";
 		};
 		278377591A20B7B400C29996 = {
@@ -328,6 +359,7 @@
 		278377741A20B7B400C29996 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				27709B2F1AC8343B00F3D29C /* CoreData */,
 				AAA780ED1A25C42700E2E295 /* Interface */,
 				278377A61A20B7D400C29996 /* Images.xcassets */,
 				2783776E1A20B7B400C29996 /* InfoPlist.strings */,
@@ -357,6 +389,7 @@
 		278377771A20B7B400C29996 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				27D7EB741AC83754007024AA /* CoreData */,
 				2743419F1AAE1F84002AD9B5 /* Support */,
 				274341A01AAE1FC1002AD9B5 /* Results Controllers */,
 				27B7FA101AAB99BB0062430E /* Data Sources */,
@@ -383,12 +416,6 @@
 				278377821A20B7B400C29996 /* MLTableViewController.m */,
 				278377841A20B7B400C29996 /* MLCollectionViewController.h */,
 				278377851A20B7B400C29996 /* MLCollectionViewController.m */,
-				278377921A20B7B400C29996 /* MLFetchedViewController.h */,
-				278377931A20B7B400C29996 /* MLFetchedViewController.m */,
-				278377951A20B7B400C29996 /* MLFetchedTableViewController.h */,
-				278377961A20B7B400C29996 /* MLFetchedTableViewController.m */,
-				278377981A20B7B400C29996 /* MLFetchedCollectionViewController.h */,
-				278377991A20B7B400C29996 /* MLFetchedCollectionViewController.m */,
 			);
 			name = "Abstract Base";
 			sourceTree = "<group>";
@@ -510,6 +537,16 @@
 			name = "Data Sources";
 			sourceTree = "<group>";
 		};
+		27D7EB741AC83754007024AA /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				27709B331AC834E900F3D29C /* Entities */,
+				27D7EB751AC83B7C007024AA /* MLDataStack.h */,
+				27D7EB761AC83B7C007024AA /* MLDataStack.m */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
 		86EAF2D25404F7923B86D684 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -523,7 +560,7 @@
 			isa = PBXGroup;
 			children = (
 			);
-			name = Interface;
+			path = Interface;
 			sourceTree = "<group>";
 		};
 		AAA780EE1A25C46F00E2E295 /* Extensions */ = {
@@ -657,6 +694,7 @@
 				AAA780F71A25EC2500E2E295 /* MLContactTableViewCell.m in Sources */,
 				277808C71AAB261C00D4C410 /* MLContactsCollectionViewController.m in Sources */,
 				278377C31A20C58300C29996 /* MLCustomCollectionViewController.m in Sources */,
+				27D7EB771AC83B7C007024AA /* MLDataStack.m in Sources */,
 				276CA85F1AC0D936002A90B3 /* MLLoadableViewController.m in Sources */,
 				2783777C1A20B7B400C29996 /* MLConstants.m in Sources */,
 				2743419E1AAE1F58002AD9B5 /* MLBaseResultsController.m in Sources */,
@@ -669,29 +707,29 @@
 				278377861A20B7B400C29996 /* MLCollectionViewController.m in Sources */,
 				278377CE1A20E35200C29996 /* MLLayoutViewController.m in Sources */,
 				278377AF1A20B95B00C29996 /* MLTabBarController.m in Sources */,
+				27709B2B1AC82E8200F3D29C /* MLArrayCollectionViewController.m in Sources */,
 				278377B51A20BAB200C29996 /* MLSplitViewController.m in Sources */,
 				276CA8651AC0DF73002A90B3 /* MLLoadableSettingsViewController.m in Sources */,
 				278377DB1A20F6D800C29996 /* MLCustomCollectionReusableView.m in Sources */,
-				278377941A20B7B400C29996 /* MLFetchedViewController.m in Sources */,
+				27709B321AC8349700F3D29C /* DataModel.xcdatamodeld in Sources */,
 				278377A01A20B7B400C29996 /* MLAppDelegate.m in Sources */,
 				275646831A96A35C00D1847A /* MLRotationViewController.m in Sources */,
 				27B7FA161AAB9A180062430E /* MLCollectionViewDataSource.m in Sources */,
 				278377801A20B7B400C29996 /* MLViewController.m in Sources */,
-				2783779A1A20B7B400C29996 /* MLFetchedCollectionViewController.m in Sources */,
 				278377831A20B7B400C29996 /* MLTableViewController.m in Sources */,
 				27AEDEC01ABA13C700E018EE /* MLStateMachine.m in Sources */,
 				27B7FA1B1AABC3530062430E /* MLFetchedResultsController.m in Sources */,
 				278377D81A20F1F500C29996 /* MLCollectionReusableView.m in Sources */,
-				278377971A20B7B400C29996 /* MLFetchedTableViewController.m in Sources */,
 				2743419B1AAE1E3D002AD9B5 /* MLCollectionListController.m in Sources */,
 				27B7FA131AAB9A040062430E /* MLTableViewDataSource.m in Sources */,
 				278377891A20B7B400C29996 /* MLNavigationController.m in Sources */,
 				278377C01A20C51600C29996 /* MLCustomTableViewController.m in Sources */,
 				AAA780F11A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m in Sources */,
 				2783778D1A20B7B400C29996 /* MLTableViewCell.m in Sources */,
+				27D7EB731AC83544007024AA /* MLEventEntity.m in Sources */,
 				278377D41A20ECE800C29996 /* MLCustomCollectionViewCell.m in Sources */,
 				278377721A20B7B400C29996 /* main.m in Sources */,
-				274341981AAE1C7A002AD9B5 /* MLArrayDataTableViewController.m in Sources */,
+				27709B2E1AC82E9C00F3D29C /* MLFetchedCollectionViewController.m in Sources */,
 				AAA780FD1A25F28D00E2E295 /* MLContactsTableViewController.m in Sources */,
 				278377BB1A20BB7400C29996 /* MLMainTableViewController.m in Sources */,
 				278377C61A20C5B300C29996 /* MLCustomViewController.m in Sources */,
@@ -699,6 +737,8 @@
 				276CA8621AC0DF54002A90B3 /* MLLoadableTableViewController.m in Sources */,
 				27251AE01ABF5D80004C1743 /* MLLoadableContent.m in Sources */,
 				27251AD91ABEFBAB004C1743 /* MLLoadingTableViewCell.m in Sources */,
+				27709B281AC82C7800F3D29C /* MLFetchedTableViewController.m in Sources */,
+				27709B251AC82C5800F3D29C /* MLArrayTableViewController.m in Sources */,
 				277808CA1AAB28A600D4C410 /* MLContactCollectionViewCell.m in Sources */,
 				277808C41AAB1D2100D4C410 /* MLUniformFlowLayout.m in Sources */,
 			);
@@ -838,6 +878,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		27709B301AC8349700F3D29C /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				27709B311AC8349700F3D29C /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 27709B311AC8349700F3D29C /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 2783775A1A20B7B400C29996 /* Project object */;
 }

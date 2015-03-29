@@ -10,6 +10,7 @@
 
 #import "MLNavigationController.h"
 #import "MLMainTableViewController.h"
+#import "MLDataStack.h"
 
 @implementation MLAppDelegate
 
@@ -18,6 +19,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    // Setup active record
+    NSManagedObjectModel * model = [NSManagedObjectModel ml_managedObjectModelNamed:@"DataModel.momd"];
+    MLCoreDataStack * stack = [[MLDataStack alloc] initWithModel:model];
+    [MLCoreDataStack setDefaultStack:stack];
+    
+    // Setup navigation controller
     UIViewController * viewController = [[MLMainTableViewController alloc] init];
     UINavigationController * navigationController = [[MLNavigationController alloc] initWithRootViewController:viewController];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

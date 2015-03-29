@@ -1,5 +1,5 @@
 //
-//  MLFetchedCollectionViewController.h
+//  MLArrayCollectionViewController.h
 //  ViewControllers
 //
 //  Created by Joachim Kret on 29.03.2015.
@@ -8,6 +8,6 @@
 
 #import "MLCollectionViewController.h"
 
-@interface MLFetchedCollectionViewController : MLCollectionViewController
+@interface MLArrayCollectionViewController : MLCollectionViewController
 
 @end

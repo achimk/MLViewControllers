@@ -10,6 +10,9 @@
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
 
+    // Active Record
+    #import <MLActiveRecord/MLActiveRecord.h>
+
     // Defines and Constants
     #import "MLDefines.h"
     #import "MLConstants.h"
