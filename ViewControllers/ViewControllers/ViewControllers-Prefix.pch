@@ -19,5 +19,7 @@
 
     // Categories
     #import "UINavigationController+MLCustomConfiguration.h"
+    #import "UIColor+MLPFlatColors.h"
+    #import "UIImage+MLColors.h"
 #endif
 

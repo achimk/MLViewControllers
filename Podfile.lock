@@ -1,10 +1,12 @@
 PODS:
   - MLActiveRecord (1.0.0)
   - RZCollectionList (0.7.1)
+  - UIColor+MLPFlatColors (1.0)
 
 DEPENDENCIES:
   - MLActiveRecord (from `git@github.com:achimk/MLActiveRecord.git`)
   - RZCollectionList (from `git@github.com:Raizlabs/RZCollectionList.git`)
+  - UIColor+MLPFlatColors (= 1.0)
 
 EXTERNAL SOURCES:
   MLActiveRecord:
@@ -23,5 +25,6 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   MLActiveRecord: 3f04a9258e0cc1577eade3d355da016f2155cac0
   RZCollectionList: 63024ce078ba952a6a15ef6e877423c4f4ad66d9
+  UIColor+MLPFlatColors: 14deb8f28da06ab8918c14231d4ff49ca7cd384a
 
 COCOAPODS: 0.35.0

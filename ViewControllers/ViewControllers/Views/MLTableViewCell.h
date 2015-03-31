@@ -33,6 +33,12 @@ typedef NS_ENUM(NSUInteger, MLTableViewCellConfigureType) {
 
 @interface MLTableViewCell : UITableViewCell <MLTableViewCellProtocol>
 
+// Corresponding table view found in responder chain
+@property (nonatomic, readonly, weak) UITableView * tableView;
+
+// Corresponding view controller found in responder chain
+@property (nonatomic, readonly, weak) UIViewController * viewController;
+
 // Register cell with table view.
 + (void)registerCellWithTableView:(UITableView *)tableView;
 

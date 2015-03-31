@@ -10,9 +10,9 @@
 #import "MLCollectionViewDataSource.h"
 #import "MLCollectionListController.h"
 #import "RZCollectionList.h"
-#import "MLUniformFlowLayout.h"
+#import "MLCollectionViewFlowLayout.h"
 #import "MLCustomCollectionReusableView.h"
-#import "MLCustomCollectionViewCell.h"
+#import "MLButtonCollectionViewCell.h"
 
 #pragma mark - MLArrayCollectionViewController
 
@@ -28,7 +28,7 @@
 @implementation MLArrayCollectionViewController
 
 + (Class)defaultCollectionViewLayoutClass {
-    return [MLUniformFlowLayout class];
+    return [MLCollectionViewFlowLayout class];
 }
 
 #pragma mark View
@@ -38,14 +38,7 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.collectionView.backgroundColor = [UIColor whiteColor];
-    
-    MLUniformFlowLayout * uniformLayout = (MLUniformFlowLayout *)self.collectionViewLayout;
-    uniformLayout.interItemSpacing = MLInterItemSpacingMake(5.0f, 5.0f);
-    uniformLayout.enableStickyHeader = NO;
-    
-    [self.collectionView registerClass:[MLCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
-    [self.collectionView registerClass:[MLCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
-    [MLCustomCollectionViewCell registerCellWithCollectionView:self.collectionView];
+    [MLButtonCollectionViewCell registerCellWithCollectionView:self.collectionView];
     
     RZArrayCollectionList * collectionList = [[RZArrayCollectionList alloc] initWithArray:@[] sectionNameKeyPath:nil];
     self.collectionListController = [[MLCollectionListController alloc] initWithCollectionList:collectionList];
@@ -71,49 +64,16 @@
     [self.arrayCollectionList addObject:[NSDate date] toSection:0];
 }
 
-#pragma mark MLUniformFlowLayoutDelegate
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(MLUniformFlowLayout *)layout itemHeightInSection:(NSInteger)section {
-    return 44.0f;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(MLUniformFlowLayout *)layout headerHeightInSection:(NSInteger)section; {
-    return 0.0f;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(MLUniformFlowLayout *)layout footerHeightInSection:(NSInteger)section {
-    return 0.0f;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView sectionSpacingForlayout:(MLUniformFlowLayout *)layout {
-    return 10.0f;
-}
-
-- (NSUInteger)collectionView:(UICollectionView *)collectionView layout:(MLUniformFlowLayout *)layout numberOfColumnsInSection:(NSInteger)section {
-    return 1;
+- (void)removeCellAtIndexPath:(NSIndexPath *)indexPath {
+    [self.arrayCollectionList removeObjectAtIndexPath:indexPath];
 }
 
 #pragma mark MLCollectionViewDataSourceDelegate
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForObject:(id)object atIndexPath:(NSIndexPath *)indexPath {
-    MLCustomCollectionViewCell * cell = [MLCustomCollectionViewCell cellForCollectionView:collectionView indexPath:indexPath];
+    MLButtonCollectionViewCell * cell = [MLButtonCollectionViewCell cellForCollectionView:collectionView indexPath:indexPath];
     cell.textLabel.text = [object description];
     return cell;
-}
-
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    UICollectionReusableView * reusableView = nil;
-    
-    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-        MLCollectionReusableView * headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"header" forIndexPath:indexPath];
-        reusableView = headerView;
-    }
-    else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
-        MLCollectionReusableView * footerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"footer" forIndexPath:indexPath];
-        reusableView = footerView;
-    }
-    
-    return reusableView;
 }
 
 @end

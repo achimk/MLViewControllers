@@ -33,6 +33,12 @@ typedef NS_ENUM(NSUInteger, MLCollectionViewCellConfigureType) {
 
 @interface MLCollectionViewCell : UICollectionViewCell <MLCollectionViewCellProtocol>
 
+// Corresponding collection view found in responder chain
+@property (nonatomic, readonly, weak) UICollectionView * collectionView;
+
+// Corresponding view controller found in responder chain
+@property (nonatomic, readonly, weak) UIViewController * viewController;
+
 // Register cell with collection view.
 + (void)registerCellWithCollectionView:(UICollectionView *)collectionView;
 

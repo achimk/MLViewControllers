@@ -62,6 +62,9 @@
 		27B7FA1B1AABC3530062430E /* MLFetchedResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B7FA1A1AABC3530062430E /* MLFetchedResultsController.m */; };
 		27D7EB731AC83544007024AA /* MLEventEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D7EB721AC83544007024AA /* MLEventEntity.m */; };
 		27D7EB771AC83B7C007024AA /* MLDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D7EB761AC83B7C007024AA /* MLDataStack.m */; };
+		27D8B0F01ACB1EE6003EFCEB /* MLButtonCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D8B0EF1ACB1EE6003EFCEB /* MLButtonCollectionViewCell.m */; };
+		27E2E7991ACB258100EA2DFF /* UIImage+MLColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E2E7981ACB258100EA2DFF /* UIImage+MLColors.m */; };
+		27E2E79C1ACB27BB00EA2DFF /* MLCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E2E79B1ACB27BB00EA2DFF /* MLCollectionViewFlowLayout.m */; };
 		AAA780F11A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA780F01A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m */; };
 		AAA780F71A25EC2500E2E295 /* MLContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA780F61A25EC2500E2E295 /* MLContactTableViewCell.m */; };
 		AAA780F91A25F21900E2E295 /* Contacts.json in Resources */ = {isa = PBXBuildFile; fileRef = AAA780F81A25F21900E2E295 /* Contacts.json */; };
@@ -178,6 +181,12 @@
 		27D7EB721AC83544007024AA /* MLEventEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLEventEntity.m; sourceTree = "<group>"; };
 		27D7EB751AC83B7C007024AA /* MLDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLDataStack.h; sourceTree = "<group>"; };
 		27D7EB761AC83B7C007024AA /* MLDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLDataStack.m; sourceTree = "<group>"; };
+		27D8B0EE1ACB1EE6003EFCEB /* MLButtonCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLButtonCollectionViewCell.h; sourceTree = "<group>"; };
+		27D8B0EF1ACB1EE6003EFCEB /* MLButtonCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLButtonCollectionViewCell.m; sourceTree = "<group>"; };
+		27E2E7971ACB258100EA2DFF /* UIImage+MLColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+MLColors.h"; sourceTree = "<group>"; };
+		27E2E7981ACB258100EA2DFF /* UIImage+MLColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+MLColors.m"; sourceTree = "<group>"; };
+		27E2E79A1ACB27BB00EA2DFF /* MLCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		27E2E79B1ACB27BB00EA2DFF /* MLCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		39EA6D112DF10EA65BC5006F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C8F14662890BF7E9EA7B8E7 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		AAA780EF1A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+MLCustomConfiguration.h"; sourceTree = "<group>"; };
@@ -371,6 +380,8 @@
 		278377751A20B7B400C29996 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				27E2E7971ACB258100EA2DFF /* UIImage+MLColors.h */,
+				27E2E7981ACB258100EA2DFF /* UIImage+MLColors.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -440,6 +451,8 @@
 				278377901A20B7B400C29996 /* MLCollectionViewCell.m */,
 				278377D21A20ECE800C29996 /* MLCustomCollectionViewCell.h */,
 				278377D31A20ECE800C29996 /* MLCustomCollectionViewCell.m */,
+				27D8B0EE1ACB1EE6003EFCEB /* MLButtonCollectionViewCell.h */,
+				27D8B0EF1ACB1EE6003EFCEB /* MLButtonCollectionViewCell.m */,
 				277808C81AAB28A600D4C410 /* MLContactCollectionViewCell.h */,
 				277808C91AAB28A600D4C410 /* MLContactCollectionViewCell.m */,
 				279164A01AC21C59002439F2 /* MLLoadingCollectionViewCell.h */,
@@ -506,6 +519,8 @@
 		278377C71A20D3C500C29996 /* UICollectionView Layouts */ = {
 			isa = PBXGroup;
 			children = (
+				27E2E79A1ACB27BB00EA2DFF /* MLCollectionViewFlowLayout.h */,
+				27E2E79B1ACB27BB00EA2DFF /* MLCollectionViewFlowLayout.m */,
 				277808C21AAB1D2100D4C410 /* MLUniformFlowLayout.h */,
 				277808C31AAB1D2100D4C410 /* MLUniformFlowLayout.m */,
 				278377C81A20D64600C29996 /* MLCollectionViewStickyLayout.h */,
@@ -695,6 +710,7 @@
 				277808C71AAB261C00D4C410 /* MLContactsCollectionViewController.m in Sources */,
 				278377C31A20C58300C29996 /* MLCustomCollectionViewController.m in Sources */,
 				27D7EB771AC83B7C007024AA /* MLDataStack.m in Sources */,
+				27E2E7991ACB258100EA2DFF /* UIImage+MLColors.m in Sources */,
 				276CA85F1AC0D936002A90B3 /* MLLoadableViewController.m in Sources */,
 				2783777C1A20B7B400C29996 /* MLConstants.m in Sources */,
 				2743419E1AAE1F58002AD9B5 /* MLBaseResultsController.m in Sources */,
@@ -705,6 +721,7 @@
 				278377911A20B7B400C29996 /* MLCollectionViewCell.m in Sources */,
 				27251ADD1ABF547B004C1743 /* MLLoadToken.m in Sources */,
 				278377861A20B7B400C29996 /* MLCollectionViewController.m in Sources */,
+				27D8B0F01ACB1EE6003EFCEB /* MLButtonCollectionViewCell.m in Sources */,
 				278377CE1A20E35200C29996 /* MLLayoutViewController.m in Sources */,
 				278377AF1A20B95B00C29996 /* MLTabBarController.m in Sources */,
 				27709B2B1AC82E8200F3D29C /* MLArrayCollectionViewController.m in Sources */,
@@ -739,6 +756,7 @@
 				27251AD91ABEFBAB004C1743 /* MLLoadingTableViewCell.m in Sources */,
 				27709B281AC82C7800F3D29C /* MLFetchedTableViewController.m in Sources */,
 				27709B251AC82C5800F3D29C /* MLArrayTableViewController.m in Sources */,
+				27E2E79C1ACB27BB00EA2DFF /* MLCollectionViewFlowLayout.m in Sources */,
 				277808CA1AAB28A600D4C410 /* MLContactCollectionViewCell.m in Sources */,
 				277808C41AAB1D2100D4C410 /* MLUniformFlowLayout.m in Sources */,
 			);

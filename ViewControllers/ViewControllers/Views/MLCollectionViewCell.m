@@ -10,6 +10,9 @@
 
 @implementation MLCollectionViewCell
 
+@dynamic collectionView;
+@dynamic viewController;
+
 + (NSString *)defaultCollectionViewCellIdentifier {
     return NSStringFromClass([self class]);
 }
@@ -56,6 +59,16 @@
 
 - (void)finishInitialize {
     // Sublcasses can override this method
+}
+
+#pragma mark Accessors
+
+- (UICollectionView *)collectionView {
+    return (UICollectionView *)[self findResponderForClass:[UICollectionView class] responder:self];
+}
+
+- (UIViewController *)viewController {
+    return (UIViewController *)[self findResponderForClass:[UIViewController class] responder:self];
 }
 
 #pragma mark MLCollectionViewCellProtocol
@@ -183,6 +196,20 @@
 
 - (void)configureForData:(id)dataObject collectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath type:(MLCollectionViewCellConfigureType)type {
     // Sublcasses can override this method
+}
+
+#pragma mark Private Methods
+
+- (UIResponder *)findResponderForClass:(Class)class responder:(UIResponder *)responder {
+    NSParameterAssert(responder);
+    
+    while ((responder = [responder nextResponder])) {
+        if ([responder isKindOfClass:class]) {
+            return responder;
+        }
+    }
+    
+    return nil;
 }
 
 @end

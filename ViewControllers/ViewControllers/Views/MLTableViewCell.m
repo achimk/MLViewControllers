@@ -10,6 +10,9 @@
 
 @implementation MLTableViewCell
 
+@dynamic tableView;
+@dynamic viewController;
+
 + (UITableViewCellStyle)defaultTableViewCellStyle {
     return UITableViewCellStyleDefault;
 }
@@ -68,6 +71,16 @@
 
 - (void)finishInitialize {
     // Subclasses can override this method
+}
+
+#pragma mark Accessors
+
+- (UITableView *)tableView {
+    return (UITableView *)[self findResponderForClass:[UITableView class] responder:self];
+}
+
+- (UIViewController *)viewController {
+    return (UIViewController *)[self findResponderForClass:[UIViewController class] responder:self];
 }
 
 #pragma mark MLTableViewCellProtocol
@@ -202,6 +215,20 @@
 
 - (void)configureForData:(id)dataObject tableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath type:(MLTableViewCellConfigureType)type {
     // Subclasses can override this method
+}
+
+#pragma mark Private Methods
+
+- (UIResponder *)findResponderForClass:(Class)class responder:(UIResponder *)responder {
+    NSParameterAssert(responder);
+    
+    while ((responder = [responder nextResponder])) {
+        if ([responder isKindOfClass:class]) {
+            return responder;
+        }
+    }
+    
+    return nil;
 }
 
 @end
