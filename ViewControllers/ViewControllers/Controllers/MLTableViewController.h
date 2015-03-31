@@ -17,7 +17,7 @@
 @property (nonatomic, readwrite, assign) BOOL reloadOnAppearsFirstTime;
 @property (nonatomic, readwrite, assign) BOOL showsBackgroundView;
 
-- (id)initWithStyle:(UITableViewStyle)style;
+- (instancetype)initWithStyle:(UITableViewStyle)style;
 
 - (void)setNeedsReload;
 - (BOOL)needsReload;

@@ -29,7 +29,7 @@
 
 #pragma mark Init / Dealloc
 
-- (id)initWithStyle:(UITableViewStyle)style {
+- (instancetype)initWithStyle:(UITableViewStyle)style {
     if (self = [self initWithNibName:nil bundle:nil]) {
         self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:style];
     }

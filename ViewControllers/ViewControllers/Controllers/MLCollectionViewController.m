@@ -30,7 +30,7 @@
 
 #pragma mark Init / Dealloc
 
-- (id)initWithCollectionViewLayout:(UICollectionViewLayout *)layout {
+- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout {
     NSParameterAssert(layout);
     
     if (self = [self initWithNibName:nil bundle:nil]) {

@@ -18,7 +18,7 @@
 @property (nonatomic, readwrite, assign) BOOL reloadOnAppearsFirstTime;
 @property (nonatomic, readwrite, assign) BOOL showsBackgroundView;
 
-- (id)initWithCollectionViewLayout:(UICollectionViewLayout *)layout;
+- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout;
 
 - (void)setNeedsReload;
 - (BOOL)needsReload;
