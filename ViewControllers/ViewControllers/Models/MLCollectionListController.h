@@ -15,6 +15,6 @@
 
 + (instancetype)controllerWithCollectionList:(id <RZCollectionList>)collectionList;
 
-- (instancetype)initWithCollectionList:(id <RZCollectionList>)collectionList;
+- (instancetype)initWithCollectionList:(id <RZCollectionList>)collectionList NS_DESIGNATED_INITIALIZER;
 
 @end

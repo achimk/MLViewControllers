@@ -25,11 +25,6 @@
 
 #pragma mark Init
 
-- (instancetype)init {
-    METHOD_USE_DESIGNATED_INIT;
-    return nil;
-}
-
 - (instancetype)initWithCollectionView:(UICollectionView *)collectionView resultsController:(id <MLResultsController>)resultsController delegate:(id <MLCollectionViewDataSourceDelegate>)delegate {
     NSParameterAssert(collectionView);
     

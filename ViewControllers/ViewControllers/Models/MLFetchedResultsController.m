@@ -84,11 +84,6 @@
 
 #pragma mark Init
 
-- (instancetype)init {
-    METHOD_USE_DESIGNATED_INIT;
-    return nil;
-}
-
 - (instancetype)initWithFetchRequest:(NSFetchRequest *)fetchRequest managedObjectContext:(NSManagedObjectContext *)context sectionNameKeyPath:(NSString *)sectionNameKeyPath cacheName:(NSString *)name {
     NSParameterAssert(fetchRequest);
     NSParameterAssert(context);

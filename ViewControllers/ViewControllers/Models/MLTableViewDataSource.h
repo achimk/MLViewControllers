@@ -57,7 +57,7 @@
 @property (nonatomic, readwrite, assign) UITableViewRowAnimation removeObjectAnimation;
 @property (nonatomic, readwrite, assign) UITableViewRowAnimation updateObjectAnimation;
 
-- (instancetype)initWithTableView:(UITableView *)tableView resultsController:(id <MLResultsController>)resultsController delegate:(id <MLTableViewDataSourceDelegate>)delegate;
+- (instancetype)initWithTableView:(UITableView *)tableView resultsController:(id <MLResultsController>)resultsController delegate:(id <MLTableViewDataSourceDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 
 - (void)setAllAnimations:(UITableViewRowAnimation)animation;
 - (void)setAllSectionAnimations:(UITableViewRowAnimation)animation;

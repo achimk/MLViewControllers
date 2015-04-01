@@ -21,11 +21,6 @@
 
 @implementation MLTableViewDataSource
 
-- (instancetype)init {
-    METHOD_USE_DESIGNATED_INIT;
-    return nil;
-}
-
 - (instancetype)initWithTableView:(UITableView *)tableView resultsController:(id <MLResultsController>)resultsController delegate:(id <MLTableViewDataSourceDelegate>)delegate {
     NSParameterAssert(tableView);
     

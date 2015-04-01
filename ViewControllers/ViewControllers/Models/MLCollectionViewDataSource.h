@@ -47,7 +47,7 @@
 @property (nonatomic, readwrite, assign, getter = shouldUseBatchUpdating) BOOL useBatchUpdating;
 @property (nonatomic, readwrite, assign, getter = shouldAnimateCollectionChanges) BOOL animateCollectionChanges;
 
-- (instancetype)initWithCollectionView:(UICollectionView *)collectionView resultsController:(id <MLResultsController>)resultsController delegate:(id <MLCollectionViewDataSourceDelegate>)delegate;
+- (instancetype)initWithCollectionView:(UICollectionView *)collectionView resultsController:(id <MLResultsController>)resultsController delegate:(id <MLCollectionViewDataSourceDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 
 - (void)reloadData;
 

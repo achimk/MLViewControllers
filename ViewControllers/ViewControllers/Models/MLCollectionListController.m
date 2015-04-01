@@ -70,11 +70,6 @@
 
 #pragma mark Init
 
-- (instancetype)init {
-    METHOD_USE_DESIGNATED_INIT;
-    return nil;
-}
-
 - (instancetype)initWithCollectionList:(id <RZCollectionList>)collectionList {
     NSParameterAssert(collectionList);
     
