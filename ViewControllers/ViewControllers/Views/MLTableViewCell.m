@@ -10,9 +10,6 @@
 
 @implementation MLTableViewCell
 
-@dynamic tableView;
-@dynamic viewController;
-
 + (UITableViewCellStyle)defaultTableViewCellStyle {
     return UITableViewCellStyleDefault;
 }

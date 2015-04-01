@@ -23,8 +23,8 @@ CHECKOUT OPTIONS:
     :git: git@github.com:Raizlabs/RZCollectionList.git
 
 SPEC CHECKSUMS:
-  MLActiveRecord: 3f04a9258e0cc1577eade3d355da016f2155cac0
-  RZCollectionList: 63024ce078ba952a6a15ef6e877423c4f4ad66d9
+  MLActiveRecord: 3e5ffb658a702340f94b36585ff19c7a13b520ad
+  RZCollectionList: a7e5df9b559d6e23623103d0b5ea0e8610130ed5
   UIColor+MLPFlatColors: 14deb8f28da06ab8918c14231d4ff49ca7cd384a
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.36.3

@@ -10,9 +10,6 @@
 
 @implementation MLCollectionViewCell
 
-@dynamic collectionView;
-@dynamic viewController;
-
 + (NSString *)defaultCollectionViewCellIdentifier {
     return NSStringFromClass([self class]);
 }
