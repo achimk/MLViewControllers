@@ -8,6 +8,3 @@
                     
 #import "MLConstants.h"
                 
-const NSUInteger MLFetchedResultsBatchSize       = 20;
-
-                

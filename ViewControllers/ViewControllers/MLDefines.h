@@ -36,7 +36,4 @@
 #define METHOD_USE_DESIGNATED_INIT  METHOD(@"%@: Use designated initializer.")
 #define METHOD(MSG) @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:[NSString stringWithFormat:MSG, NSStringFromSelector(_cmd)] userInfo:nil];
 
-// Default size for dynamic resizable cells
-#define DEFAULT_CELL_SIZE (CGSize){[[UIScreen mainScreen] bounds].size.width, 120.0f}
-
 #endif
