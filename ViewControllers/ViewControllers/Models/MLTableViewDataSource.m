@@ -21,6 +21,8 @@
 
 @implementation MLTableViewDataSource
 
+#pragma mark Init / Dealloc
+
 - (instancetype)initWithTableView:(UITableView *)tableView resultsController:(id <MLResultsController>)resultsController delegate:(id <MLTableViewDataSourceDelegate>)delegate {
     NSParameterAssert(tableView);
     
@@ -129,6 +131,7 @@
 #pragma mark Reload Data
 
 - (void)reloadData {
+    NSAssert2([NSThread isMainThread], @"%@: %@ must be called on main thread!", [self class], NSStringFromSelector(_cmd));
     self.showLoadingCell = self.shouldShowLoadingCell;
     
     if (self.clearsSelectionOnReloadData) {
@@ -266,7 +269,6 @@
 }
 
 - (void)resultsController:(id<MLResultsController>)resultsController didChangeSection:(id<MLResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(MLResultsChangeType)type {
-
     if (!self.animateTableChanges) {
         return;
     }
@@ -281,12 +283,13 @@
         } break;
             
         case MLResultsChangeTypeMove:
-        case MLResultsChangeTypeUpdate: break;
+        case MLResultsChangeTypeUpdate: {
+            // Nothing to do...
+        }break;
     }
 }
 
 - (void)resultsController:(id<MLResultsController>)resultsController didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(MLResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-
     if (!self.animateTableChanges) {
         return;
     }

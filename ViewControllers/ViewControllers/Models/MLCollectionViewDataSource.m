@@ -23,7 +23,7 @@
 
 @implementation MLCollectionViewDataSource
 
-#pragma mark Init
+#pragma mark Init / Dealloc
 
 - (instancetype)initWithCollectionView:(UICollectionView *)collectionView resultsController:(id <MLResultsController>)resultsController delegate:(id <MLCollectionViewDataSourceDelegate>)delegate {
     NSParameterAssert(collectionView);
@@ -114,6 +114,7 @@
 #pragma mark Reload Data
 
 - (void)reloadData {
+    NSAssert2([NSThread isMainThread], @"%@: %@ must be called on main thread!", [self class], NSStringFromSelector(_cmd));
     self.showLoadingCell = self.shouldShowLoadingCell;
     
     if (self.clearsSelectionOnReloadData) {

@@ -217,6 +217,7 @@
 }
 
 - (void)reloadData {
+    NSAssert2([NSThread isMainThread], @"%@: %@ must be called on main thread!", [self class], NSStringFromSelector(_cmd));
     _needsReload = NO;
     
     if (self.isViewVisible) {
@@ -251,7 +252,6 @@
 #pragma mark UICollectionViewDataSource
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    METHOD_NOT_IMPLEMENTED;
     return nil;
 }
 

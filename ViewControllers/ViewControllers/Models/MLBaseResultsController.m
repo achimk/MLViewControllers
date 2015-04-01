@@ -8,8 +8,6 @@
 
 #import "MLBaseResultsController.h"
 
-NSString * const MLResultsControllerMissingProtocolMethodException = @"MLResultsControllerMissingProtocolMethodException";
-
 #pragma mark - MLBaseResultsController
 
 @interface MLBaseResultsController () {
@@ -35,15 +33,7 @@ NSString * const MLResultsControllerMissingProtocolMethodException = @"MLResults
 #pragma mark Observers
 
 - (NSUInteger)indexOfObserver:(id)observer {
-    __block NSUInteger index = NSNotFound;
-    [_arrayOfObservers.allObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if (obj == observer) {
-            index = idx;
-            *stop = YES;
-        }
-    }];
-    
-    return index;
+    return [_arrayOfObservers.allObjects indexOfObject:observer];
 }
 
 - (NSArray *)arrayOfObservers {
@@ -67,27 +57,23 @@ NSString * const MLResultsControllerMissingProtocolMethodException = @"MLResults
 #pragma mark MLResultsController
 
 - (NSArray *)allObjects {
-    @throw [self missingProtocolMethodExceptionWithSelector:_cmd];
+    NSAssert1(NO, @"You must override method: '%@' in subclass.", NSStringFromSelector(_cmd));
+    return nil;
 }
 
 - (NSArray *)sections {
-    @throw [self missingProtocolMethodExceptionWithSelector:_cmd];
+    NSAssert1(NO, @"You must override method: '%@' in subclass.", NSStringFromSelector(_cmd));
+    return nil;
 }
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath {
-    @throw [self missingProtocolMethodExceptionWithSelector:_cmd];
+    NSAssert1(NO, @"You must override method: '%@' in subclass.", NSStringFromSelector(_cmd));
+    return nil;
 }
 
 - (NSIndexPath *)indexPathForObject:(id)object {
-    @throw [self missingProtocolMethodExceptionWithSelector:_cmd];
-}
-
-#pragma mark Private Methods
-
-- (NSException *)missingProtocolMethodExceptionWithSelector:(SEL)selector {
-    return [NSException exceptionWithName:MLResultsControllerMissingProtocolMethodException
-                                   reason:[NSString stringWithFormat:@"%@ class doesn't implement required method: %@", [self class], NSStringFromSelector(selector)]
-                                 userInfo:nil];
+    NSAssert1(NO, @"You must override method: '%@' in subclass.", NSStringFromSelector(_cmd));
+    return nil;
 }
 
 @end

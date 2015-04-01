@@ -214,6 +214,7 @@
 }
 
 - (void)reloadData {
+    NSAssert2([NSThread isMainThread], @"%@: %@ must be called on main thread!", [self class], NSStringFromSelector(_cmd));
     _needsReload = NO;
     
     if (self.isViewVisible) {
@@ -248,7 +249,6 @@
 #pragma mark UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    METHOD_NOT_IMPLEMENTED;
     return nil;
 }
 

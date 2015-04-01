@@ -270,6 +270,7 @@
 		274341A01AAE1FC1002AD9B5 /* Results Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				27B7FA181AABAFBC0062430E /* MLResultsControllerProtocol.h */,
 				2743419C1AAE1F58002AD9B5 /* MLBaseResultsController.h */,
 				2743419D1AAE1F58002AD9B5 /* MLBaseResultsController.m */,
 				274341991AAE1E3D002AD9B5 /* MLCollectionListController.h */,
@@ -402,8 +403,8 @@
 			children = (
 				27D7EB741AC83754007024AA /* CoreData */,
 				2743419F1AAE1F84002AD9B5 /* Support */,
-				274341A01AAE1FC1002AD9B5 /* Results Controllers */,
 				27B7FA101AAB99BB0062430E /* Data Sources */,
+				274341A01AAE1FC1002AD9B5 /* Results Controllers */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -543,7 +544,6 @@
 		27B7FA101AAB99BB0062430E /* Data Sources */ = {
 			isa = PBXGroup;
 			children = (
-				27B7FA181AABAFBC0062430E /* MLResultsControllerProtocol.h */,
 				27B7FA111AAB9A040062430E /* MLTableViewDataSource.h */,
 				27B7FA121AAB9A040062430E /* MLTableViewDataSource.m */,
 				27B7FA141AAB9A180062430E /* MLCollectionViewDataSource.h */,

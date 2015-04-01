@@ -14,10 +14,10 @@
 
 @protocol MLResultsSectionInfo <NSObject>
 
-@property (nonatomic, readonly) NSString * name;
-@property (nonatomic, readonly) NSString * indexTitle;
-@property (nonatomic, readonly) NSUInteger numberOfObjects;
-@property (nonatomic, readonly) NSArray * objects;
+@property (nonatomic, readonly, strong) NSString * name;
+@property (nonatomic, readonly, strong) NSString * indexTitle;
+@property (nonatomic, readonly, assign) NSUInteger numberOfObjects;
+@property (nonatomic, readonly, strong) NSArray * objects;
 
 @end
 
@@ -25,8 +25,8 @@
 
 @protocol MLResultsController <NSObject>
 
-@property (nonatomic, readonly) NSArray * allObjects;
-@property (nonatomic, readonly) NSArray * sections;
+@property (nonatomic, readonly, strong) NSArray * allObjects;
+@property (nonatomic, readonly, strong) NSArray * sections;
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
 - (NSIndexPath *)indexPathForObject:(id)object;
