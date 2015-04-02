@@ -164,13 +164,9 @@
             NSAssert2([nibObjects count] > 0 && [[nibObjects objectAtIndex:0] isKindOfClass:[self class]], @"Nib '%@' doesn't appear to contain a valid %@", [self nibName], [self class]);
             cell = (MLTableViewCell *)[nibObjects objectAtIndex:0];
         }
-        else if ([[self class] reuseIdentifier]) {
+        else {
             cell = [[[self class] alloc] initWithStyle:[self defaultTableViewCellStyle] reuseIdentifier:[self reuseIdentifier]];
             cell.frame = CGRectMake(0.0f, 0.0f, tableView.bounds.size.width, 44.0f);
-        }
-        else {
-            NSAssert(NO, @"Can't create cell without nib name or identifier");
-            return CGSizeZero;
         }
         
         [dictionaryOfCells setObject:cell forKey:className];

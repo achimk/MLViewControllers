@@ -167,12 +167,8 @@
             NSAssert2([nibObjects count] > 0 && [[nibObjects objectAtIndex:0] isKindOfClass:[self class]], @"Nib '%@' doesn't appear to contain a valid %@", [self nibName], [self class]);
             reusableView = (MLCollectionReusableView *)[nibObjects objectAtIndex:0];
         }
-        else if ([[self class] reuseIdentifier]) {
-            reusableView = [[[self class] alloc] initWithFrame:CGRectMake(0.0f, 0.0f, collectionView.bounds.size.width, 100.0f)];
-        }
         else {
-            NSAssert(NO, @"Can't create cell without nib name or identifier");
-            return CGSizeZero;
+            reusableView = [[[self class] alloc] initWithFrame:CGRectMake(0.0f, 0.0f, collectionView.bounds.size.width, 100.0f)];
         }
         
         [dictionaryOfReusableViews setObject:reusableView forKey:className];

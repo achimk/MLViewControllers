@@ -23,10 +23,10 @@
 // Dequeue registered reusable view for collection view by kind.
 + (id)reusableViewOfKind:(NSString *)kind forCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath;
 
-// Corresponding collection view found in responder chain
+// Corresponding collection view found in responder chain.
 - (UICollectionView *)collectionView;
 
-// Corresponding view controller found in responder chain
+// Corresponding view controller found in responder chain.
 - (UIViewController *)viewController;
 
 @end
