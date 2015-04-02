@@ -112,6 +112,7 @@
 		277808C61AAB261C00D4C410 /* MLContactsCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLContactsCollectionViewController.m; sourceTree = "<group>"; };
 		277808C81AAB28A600D4C410 /* MLContactCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLContactCollectionViewCell.h; sourceTree = "<group>"; };
 		277808C91AAB28A600D4C410 /* MLContactCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLContactCollectionViewCell.m; sourceTree = "<group>"; };
+		278309AC1ACDD3D4000A48F3 /* MLCellConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCellConfiguration.h; sourceTree = "<group>"; };
 		278377621A20B7B400C29996 /* ViewControllers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ViewControllers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		278377651A20B7B400C29996 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		278377671A20B7B400C29996 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -309,6 +310,20 @@
 			name = Entities;
 			sourceTree = "<group>";
 		};
+		278309AB1ACDD355000A48F3 /* Base Cells */ = {
+			isa = PBXGroup;
+			children = (
+				278309AC1ACDD3D4000A48F3 /* MLCellConfiguration.h */,
+				2783778B1A20B7B400C29996 /* MLTableViewCell.h */,
+				2783778C1A20B7B400C29996 /* MLTableViewCell.m */,
+				2783778F1A20B7B400C29996 /* MLCollectionViewCell.h */,
+				278377901A20B7B400C29996 /* MLCollectionViewCell.m */,
+				278377D61A20F1F500C29996 /* MLCollectionReusableView.h */,
+				278377D71A20F1F500C29996 /* MLCollectionReusableView.m */,
+			);
+			name = "Base Cells";
+			sourceTree = "<group>";
+		};
 		278377591A20B7B400C29996 = {
 			isa = PBXGroup;
 			children = (
@@ -390,6 +405,7 @@
 		278377761A20B7B400C29996 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				278309AB1ACDD355000A48F3 /* Base Cells */,
 				2783778A1A20B7B400C29996 /* UITableView Cells */,
 				278377C71A20D3C500C29996 /* UICollectionView Layouts */,
 				278377D51A20F1CC00C29996 /* UICollectionView ReusableViews */,
@@ -435,8 +451,6 @@
 		2783778A1A20B7B400C29996 /* UITableView Cells */ = {
 			isa = PBXGroup;
 			children = (
-				2783778B1A20B7B400C29996 /* MLTableViewCell.h */,
-				2783778C1A20B7B400C29996 /* MLTableViewCell.m */,
 				AAA780F51A25EC2500E2E295 /* MLContactTableViewCell.h */,
 				AAA780F61A25EC2500E2E295 /* MLContactTableViewCell.m */,
 				27251AD71ABEFBAB004C1743 /* MLLoadingTableViewCell.h */,
@@ -448,8 +462,6 @@
 		2783778E1A20B7B400C29996 /* UICollectionView Cells */ = {
 			isa = PBXGroup;
 			children = (
-				2783778F1A20B7B400C29996 /* MLCollectionViewCell.h */,
-				278377901A20B7B400C29996 /* MLCollectionViewCell.m */,
 				278377D21A20ECE800C29996 /* MLCustomCollectionViewCell.h */,
 				278377D31A20ECE800C29996 /* MLCustomCollectionViewCell.m */,
 				27D8B0EE1ACB1EE6003EFCEB /* MLButtonCollectionViewCell.h */,
@@ -533,8 +545,6 @@
 		278377D51A20F1CC00C29996 /* UICollectionView ReusableViews */ = {
 			isa = PBXGroup;
 			children = (
-				278377D61A20F1F500C29996 /* MLCollectionReusableView.h */,
-				278377D71A20F1F500C29996 /* MLCollectionReusableView.m */,
 				278377D91A20F6D800C29996 /* MLCustomCollectionReusableView.h */,
 				278377DA1A20F6D800C29996 /* MLCustomCollectionReusableView.m */,
 			);

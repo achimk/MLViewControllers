@@ -8,44 +8,44 @@
 
 #import "MLTableViewCell.h"
 
+#pragma mark - MLTableViewCell
+
 @implementation MLTableViewCell
 
 + (UITableViewCellStyle)defaultTableViewCellStyle {
     return UITableViewCellStyleDefault;
 }
 
-+ (NSString *)defaultTableViewCellIdentifier {
++ (NSString *)reuseIdentifier {
     return NSStringFromClass([self class]);
 }
 
-+ (NSString *)defaultTableViewCellNibName {
++ (NSString *)nibName {
     return nil;
 }
 
 + (void)registerCellWithTableView:(UITableView *)tableView {
     NSParameterAssert(tableView);
     
-    if ([self defaultTableViewCellNibName]) {
+    if ([self nibName]) {
         NSBundle * bundle = [NSBundle bundleForClass:[self class]];
-        UINib * nib = [UINib nibWithNibName:[self defaultTableViewCellNibName] bundle:bundle];
-        [tableView registerNib:nib forCellReuseIdentifier:[self defaultTableViewCellNibName]];
+        UINib * nib = [UINib nibWithNibName:[self nibName] bundle:bundle];
+        [tableView registerNib:nib forCellReuseIdentifier:[self reuseIdentifier]];
     }
     else {
-        [tableView registerClass:[self class] forCellReuseIdentifier:[self defaultTableViewCellIdentifier]];
+        [tableView registerClass:[self class] forCellReuseIdentifier:[self reuseIdentifier]];
     }
 }
 
 + (id)cellForTableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
     NSParameterAssert(tableView);
-    
-    NSString * cellIdentifier = ([self defaultTableViewCellNibName]) ?: [self defaultTableViewCellIdentifier];
     UITableViewCell * cell = nil;
     
     if (indexPath) {
-        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+        cell = [tableView dequeueReusableCellWithIdentifier:[self reuseIdentifier] forIndexPath:indexPath];
     }
     else {
-        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        cell = [tableView dequeueReusableCellWithIdentifier:[self reuseIdentifier]];
     }
     
     return cell;
@@ -80,10 +80,38 @@
     return (UIViewController *)[self findResponderForClass:[UIViewController class] responder:self];
 }
 
-#pragma mark MLTableViewCellProtocol
+#pragma mark Configure Cell 
+
+- (void)configureWithObject:(id)anObject indexPath:(NSIndexPath *)indexPath {
+    [self configureWithObject:anObject indexPath:indexPath type:MLCellConfigurationTypeDefault];
+}
+
+- (void)configureWithObject:(id)anObject indexPath:(NSIndexPath *)indexPath type:(MLCellConfigurationType)type {
+    // Subclasses should override this method.
+}
+
+#pragma mark Private Methods
+
+- (UIResponder *)findResponderForClass:(Class)class responder:(UIResponder *)responder {
+    NSParameterAssert(responder);
+    
+    while ((responder = [responder nextResponder])) {
+        if ([responder isKindOfClass:class]) {
+            return responder;
+        }
+    }
+    
+    return nil;
+}
+
+@end
+
+#pragma mark - MLTableViewCell (MLCellSize)
+
+@implementation MLTableViewCell (MLCellSize)
 
 + (CGSize)cellSize {
-    NSString * nibName = [self defaultTableViewCellNibName];
+    NSString * nibName = [self nibName];
     
     if (!nibName) {
         return CGSizeZero;
@@ -113,37 +141,31 @@
     return (sizeValue) ? sizeValue.CGSizeValue : CGSizeZero;
 }
 
-+ (CGSize)cellSizeForData:(id)dataObject tableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
++ (CGSize)cellSizeWithObject:(id)anObject tableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
     NSParameterAssert(tableView);
     NSParameterAssert(indexPath);
     
-    static NSMutableArray * arrayOfCells = nil;
+    static NSMutableDictionary * dictionaryOfCells = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        arrayOfCells = [[NSMutableArray alloc] init];
+        dictionaryOfCells = [[NSMutableDictionary alloc] init];
     });
-    
-    MLTableViewCell * cell = nil;
-    
+
     // dequeue cached cell
-    for (MLTableViewCell * tempCell in arrayOfCells) {
-        if ([cell isKindOfClass:[[self class] class]]) {
-            cell = tempCell;
-            break;
-        }
-    }
+    NSString * className = NSStringFromClass([self class]);
+    MLTableViewCell * cell = dictionaryOfCells[className];
     
     // create and cache cell
     if (!cell) {
-        if ([[self class] defaultTableViewCellNibName]) {
+        if ([[self class] nibName]) {
             NSBundle * bundle = [NSBundle bundleForClass:[self class]];
-            UINib * nib = [UINib nibWithNibName:[self defaultTableViewCellNibName] bundle:bundle];
+            UINib * nib = [UINib nibWithNibName:[self nibName] bundle:bundle];
             NSArray * nibObjects = [nib instantiateWithOwner:nil options:nil];
-            NSAssert2([nibObjects count] > 0 && [[nibObjects objectAtIndex:0] isKindOfClass:[self class]], @"Nib '%@' doesn't appear to contain a valid %@", [self defaultTableViewCellNibName], [self class]);
+            NSAssert2([nibObjects count] > 0 && [[nibObjects objectAtIndex:0] isKindOfClass:[self class]], @"Nib '%@' doesn't appear to contain a valid %@", [self nibName], [self class]);
             cell = (MLTableViewCell *)[nibObjects objectAtIndex:0];
         }
-        else if ([[self class] defaultTableViewCellIdentifier]) {
-            cell = [[[self class] alloc] initWithStyle:[self defaultTableViewCellStyle] reuseIdentifier:[self defaultTableViewCellIdentifier]];
+        else if ([[self class] reuseIdentifier]) {
+            cell = [[[self class] alloc] initWithStyle:[self defaultTableViewCellStyle] reuseIdentifier:[self reuseIdentifier]];
             cell.frame = CGRectMake(0.0f, 0.0f, tableView.bounds.size.width, 44.0f);
         }
         else {
@@ -151,11 +173,11 @@
             return CGSizeZero;
         }
         
-        [arrayOfCells addObject:cell];
+        [dictionaryOfCells setObject:cell forKey:className];
     }
     
     // configure cell with data
-    [cell configureForData:dataObject tableView:tableView indexPath:indexPath type:MLTableViewCellConfigureDynamicResize];
+    [cell configureWithObject:anObject indexPath:indexPath type:MLCellConfigurationTypeSize];
     
     // Make sure the constraints have been added to this cell, since it may have just been created from scratch
     [cell setNeedsUpdateConstraints];
@@ -196,36 +218,11 @@
     
     // Add an extra point to the height to account for the cell separator, which is added between the bottom
     // of the cell's contentView and the bottom of the table view cell.
-    if (SYSTEM_VERSION_LESS_THAN(@"8.0")) {
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] == NSOrderedAscending) {
         size.height += 1.0f;
     }
     
     return size;
-}
-
-- (void)configureForData:(id)dataObject tableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
-    [self configureForData:dataObject
-                 tableView:tableView
-                 indexPath:indexPath
-                      type:MLTableViewCellConfigureDefault];
-}
-
-- (void)configureForData:(id)dataObject tableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath type:(MLTableViewCellConfigureType)type {
-    // Subclasses can override this method
-}
-
-#pragma mark Private Methods
-
-- (UIResponder *)findResponderForClass:(Class)class responder:(UIResponder *)responder {
-    NSParameterAssert(responder);
-    
-    while ((responder = [responder nextResponder])) {
-        if ([responder isKindOfClass:class]) {
-            return responder;
-        }
-    }
-    
-    return nil;
 }
 
 @end

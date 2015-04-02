@@ -7,20 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MLCellConfiguration.h"
 
-@protocol MLCollectionReusableViewProtocol <NSObject>
-
-@required
-// Default reusable view size. Returns size of reusable view when loaded from nib file otherwise CGSizeZero.
-+ (CGSize)reusableViewSize;
-
-// Configure cell for data.
-- (void)configureForData:(id)data collectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath;
-
-@end
-
-
-@interface MLCollectionReusableView : UICollectionReusableView <MLCollectionReusableViewProtocol>
+@interface MLCollectionReusableView : UICollectionReusableView <MLCellConfiguration>
 
 // Register reuseable view with collection view (using default kind of suplementary view).
 + (void)registerReusableViewWithCollectionView:(UICollectionView *)collectionView;
@@ -34,18 +23,28 @@
 // Dequeue registered reusable view for collection view by kind.
 + (id)reusableViewOfKind:(NSString *)kind forCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath;
 
+// Corresponding collection view found in responder chain
+- (UICollectionView *)collectionView;
+
+// Corresponding view controller found in responder chain
+- (UIViewController *)viewController;
+
+@end
+
+@interface MLCollectionReusableView (MLReusableViewSize)
+
+// Default reusable view size. Returns size of reusable view when loaded from nib file otherwise CGSizeZero.
++ (CGSize)reusableViewSize;
+
+// Dynamic reusable view size. Populate with data and compute the size by autolayout.
++ (CGSize)reusableViewSizeWithObject:(id)anObject collectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath;
+
 @end
 
 @interface MLCollectionReusableView (MLSubclassOnly)
 
 // Default kind of suplementary view.
 + (NSString *)defaultSuplementaryViewOfKind;
-
-// Define default reusable view identifier. Used for register and dequeue class of reusable view from collection view.
-+ (NSString *)defaultReusableViewIdentifier;
-
-// Define default reusable view nib name. Used for register and dequeue nib of reusable view from collection view.
-+ (NSString *)defaultReusableViewNibName;
 
 // Common initializer for initWithFrame: and awakeFromNib. You don't need to call super implementation.
 - (void)finishInitialize;

@@ -8,26 +8,28 @@
 
 #import "MLCollectionViewCell.h"
 
+#pragma mark - MLCollectionViewCell
+
 @implementation MLCollectionViewCell
 
-+ (NSString *)defaultCollectionViewCellIdentifier {
++ (NSString *)reuseIdentifier {
     return NSStringFromClass([self class]);
 }
 
-+ (NSString *)defaultCollectionViewCellNibName {
++ (NSString *)nibName {
     return nil;
 }
 
 + (void)registerCellWithCollectionView:(UICollectionView *)collectionView {
     NSParameterAssert(collectionView);
     
-    if ([self defaultCollectionViewCellNibName]) {
+    if ([self nibName]) {
         NSBundle * bundle = [NSBundle bundleForClass:[self class]];
-        UINib * nib = [UINib nibWithNibName:[self defaultCollectionViewCellNibName] bundle:bundle];
-        [collectionView registerNib:nib forCellWithReuseIdentifier:[self defaultCollectionViewCellNibName]];
+        UINib * nib = [UINib nibWithNibName:[self nibName] bundle:bundle];
+        [collectionView registerNib:nib forCellWithReuseIdentifier:[self reuseIdentifier]];
     }
     else {
-        [collectionView registerClass:[self class] forCellWithReuseIdentifier:[self defaultCollectionViewCellIdentifier]];
+        [collectionView registerClass:[self class] forCellWithReuseIdentifier:[self reuseIdentifier]];
     }
 }
 
@@ -35,8 +37,7 @@
     NSParameterAssert(collectionView);
     NSParameterAssert(indexPath);
     
-    NSString * cellIdentifier = ([self defaultCollectionViewCellNibName]) ?: [self defaultCollectionViewCellIdentifier];
-    return [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    return [collectionView dequeueReusableCellWithReuseIdentifier:[self reuseIdentifier] forIndexPath:indexPath];
 }
 
 #pragma mark Initialize
@@ -68,10 +69,38 @@
     return (UIViewController *)[self findResponderForClass:[UIViewController class] responder:self];
 }
 
-#pragma mark MLCollectionViewCellProtocol
+#pragma mark Configure Cell
+
+- (void)configureWithObject:(id)anObject indexPath:(NSIndexPath *)indexPath {
+    [self configureWithObject:anObject indexPath:indexPath type:MLCellConfigurationTypeDefault];
+}
+
+- (void)configureWithObject:(id)anObject indexPath:(NSIndexPath *)indexPath type:(MLCellConfigurationType)type {
+    // Subclasses should override this method.
+}
+
+#pragma mark Private Methods
+
+- (UIResponder *)findResponderForClass:(Class)class responder:(UIResponder *)responder {
+    NSParameterAssert(responder);
+    
+    while ((responder = [responder nextResponder])) {
+        if ([responder isKindOfClass:class]) {
+            return responder;
+        }
+    }
+    
+    return nil;
+}
+
+@end
+
+#pragma mark - MLCollectionViewCell (MLCellSize)
+
+@implementation MLCollectionViewCell (MLCellSize)
 
 + (CGSize)cellSize {
-    NSString * nibName = [self defaultCollectionViewCellNibName];
+    NSString * nibName = [self nibName];
     
     if (!nibName) {
         return CGSizeZero;
@@ -101,36 +130,30 @@
     return (sizeValue) ? sizeValue.CGSizeValue : CGSizeZero;
 }
 
-+ (CGSize)cellSizeForData:(id)dataObject collectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath {
++ (CGSize)cellSizeWithObject:(id)anObject collectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath {
     NSParameterAssert(collectionView);
     NSParameterAssert(indexPath);
     
-    static NSMutableArray * arrayOfCells = nil;
+    static NSMutableDictionary * dictionaryOfCells = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        arrayOfCells = [[NSMutableArray alloc] init];
+        dictionaryOfCells = [[NSMutableDictionary alloc] init];
     });
     
-    MLCollectionViewCell * cell = nil;
-    
     // dequeue cached cell
-    for (MLCollectionViewCell * tempCell in arrayOfCells) {
-        if ([cell isKindOfClass:[[self class] class]]) {
-            cell = tempCell;
-            break;
-        }
-    }
-    
+    NSString * className = NSStringFromClass([self class]);
+    MLCollectionViewCell * cell = dictionaryOfCells[className];
+
     // create and cache cell
     if (!cell) {
-        if ([[self class] defaultCollectionViewCellNibName]) {
+        if ([[self class] nibName]) {
             NSBundle * bundle = [NSBundle bundleForClass:[self class]];
-            UINib * nib = [UINib nibWithNibName:[self defaultCollectionViewCellNibName] bundle:bundle];
+            UINib * nib = [UINib nibWithNibName:[self nibName] bundle:bundle];
             NSArray * nibObjects = [nib instantiateWithOwner:nil options:nil];
-            NSAssert2([nibObjects count] > 0 && [[nibObjects objectAtIndex:0] isKindOfClass:[self class]], @"Nib '%@' doesn't appear to contain a valid %@", [self defaultCollectionViewCellNibName], [self class]);
+            NSAssert2([nibObjects count] > 0 && [[nibObjects objectAtIndex:0] isKindOfClass:[self class]], @"Nib '%@' doesn't appear to contain a valid %@", [self nibName], [self class]);
             cell = (MLCollectionViewCell *)[nibObjects objectAtIndex:0];
         }
-        else if ([[self class] defaultCollectionViewCellIdentifier]) {
+        else if ([[self class] reuseIdentifier]) {
             cell = [[[self class] alloc] initWithFrame:CGRectMake(0.0f, 0.0f, collectionView.bounds.size.width, 100.0f)];
         }
         else {
@@ -138,11 +161,11 @@
             return CGSizeZero;
         }
         
-        [arrayOfCells addObject:cell];
+        [dictionaryOfCells setObject:cell forKey:className];
     }
     
     // configure cell with data
-    [cell configureForData:dataObject collectionView:collectionView indexPath:indexPath type:MLCollectionViewCellConfigureDynamicResize];
+    [cell configureWithObject:anObject indexPath:indexPath type:MLCellConfigurationTypeSize];
     
     // Make sure the constraints have been added to this cell, since it may have just been created from scratch
     [cell setNeedsUpdateConstraints];
@@ -182,31 +205,6 @@
     size.width = MAX(collectionView.bounds.size.width, size.width);
     
     return size;
-}
-
-- (void)configureForData:(id)dataObject collectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath {
-    [self configureForData:dataObject
-            collectionView:collectionView
-                 indexPath:indexPath
-                      type:MLCollectionViewCellConfigureDefault];
-}
-
-- (void)configureForData:(id)dataObject collectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath type:(MLCollectionViewCellConfigureType)type {
-    // Sublcasses can override this method
-}
-
-#pragma mark Private Methods
-
-- (UIResponder *)findResponderForClass:(Class)class responder:(UIResponder *)responder {
-    NSParameterAssert(responder);
-    
-    while ((responder = [responder nextResponder])) {
-        if ([responder isKindOfClass:class]) {
-            return responder;
-        }
-    }
-    
-    return nil;
 }
 
 @end
