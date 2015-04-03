@@ -171,6 +171,9 @@
         
         [dictionaryOfCells setObject:cell forKey:className];
     }
+    else {
+        [cell prepareForReuse];
+    }
     
     // configure cell with data
     [cell configureWithObject:anObject indexPath:indexPath type:MLCellConfigurationTypeSize];

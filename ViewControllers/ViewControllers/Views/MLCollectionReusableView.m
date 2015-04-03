@@ -173,6 +173,9 @@
         
         [dictionaryOfReusableViews setObject:reusableView forKey:className];
     }
+    else {
+        [reusableView prepareForReuse];
+    }
     
     // configure cell with data
     [reusableView configureWithObject:anObject indexPath:indexPath type:MLCellConfigurationTypeSize];
