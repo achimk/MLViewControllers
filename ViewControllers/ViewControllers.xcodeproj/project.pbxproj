@@ -65,6 +65,7 @@
 		27D8B0F01ACB1EE6003EFCEB /* MLButtonCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D8B0EF1ACB1EE6003EFCEB /* MLButtonCollectionViewCell.m */; };
 		27E2E7991ACB258100EA2DFF /* UIImage+MLColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E2E7981ACB258100EA2DFF /* UIImage+MLColors.m */; };
 		27E2E79C1ACB27BB00EA2DFF /* MLCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E2E79B1ACB27BB00EA2DFF /* MLCollectionViewFlowLayout.m */; };
+		AA6BCE9A1ACEBFCE00AD0E81 /* MLObserversManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6BCE991ACEBFCE00AD0E81 /* MLObserversManager.m */; };
 		AAA780F11A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA780F01A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m */; };
 		AAA780F71A25EC2500E2E295 /* MLContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA780F61A25EC2500E2E295 /* MLContactTableViewCell.m */; };
 		AAA780F91A25F21900E2E295 /* Contacts.json in Resources */ = {isa = PBXBuildFile; fileRef = AAA780F81A25F21900E2E295 /* Contacts.json */; };
@@ -190,6 +191,8 @@
 		27E2E79B1ACB27BB00EA2DFF /* MLCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		39EA6D112DF10EA65BC5006F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C8F14662890BF7E9EA7B8E7 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		AA6BCE981ACEBFCE00AD0E81 /* MLObserversManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLObserversManager.h; sourceTree = "<group>"; };
+		AA6BCE991ACEBFCE00AD0E81 /* MLObserversManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLObserversManager.m; sourceTree = "<group>"; };
 		AAA780EF1A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+MLCustomConfiguration.h"; sourceTree = "<group>"; };
 		AAA780F01A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+MLCustomConfiguration.m"; sourceTree = "<group>"; };
 		AAA780F51A25EC2500E2E295 /* MLContactTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLContactTableViewCell.h; sourceTree = "<group>"; };
@@ -365,6 +368,7 @@
 				278377771A20B7B400C29996 /* Models */,
 				278377761A20B7B400C29996 /* Views */,
 				278377751A20B7B400C29996 /* Categories */,
+				AA6BCE971ACEBFA000AD0E81 /* Utilities */,
 				278377741A20B7B400C29996 /* Resources */,
 				2783776C1A20B7B400C29996 /* Supporting Files */,
 			);
@@ -581,6 +585,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		AA6BCE971ACEBFA000AD0E81 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				AA6BCE981ACEBFCE00AD0E81 /* MLObserversManager.h */,
+				AA6BCE991ACEBFCE00AD0E81 /* MLObserversManager.m */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		AAA780ED1A25C42700E2E295 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
@@ -718,6 +731,7 @@
 				2718AA271AA1150600F4938C /* MLRotationSwitchViewController.m in Sources */,
 				AAA780F71A25EC2500E2E295 /* MLContactTableViewCell.m in Sources */,
 				277808C71AAB261C00D4C410 /* MLContactsCollectionViewController.m in Sources */,
+				AA6BCE9A1ACEBFCE00AD0E81 /* MLObserversManager.m in Sources */,
 				278377C31A20C58300C29996 /* MLCustomCollectionViewController.m in Sources */,
 				27D7EB771AC83B7C007024AA /* MLDataStack.m in Sources */,
 				27E2E7991ACB258100EA2DFF /* UIImage+MLColors.m in Sources */,

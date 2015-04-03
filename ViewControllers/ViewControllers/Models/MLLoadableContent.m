@@ -110,7 +110,13 @@ NSString * const MLContentStateError            = @"ErrorState";
         __weak typeof(self) weakSelf = self;
         MLLoadToken * token = [MLLoadToken token];
         [token addSuccessHandler:^(id responseObjects) {
-            if (responseObjects) {
+            BOOL hasContent = (nil != responseObjects);
+            
+            if ([responseObjects isKindOfClass:[NSNumber class]]) {
+                hasContent = ([responseObjects boolValue]);
+            }
+            
+            if (hasContent) {
                 [weakSelf applyState:MLContentStateLoaded];
             }
             else {

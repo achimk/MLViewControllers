@@ -62,6 +62,7 @@
 - (void)setAllAnimations:(UITableViewRowAnimation)animation;
 - (void)setAllSectionAnimations:(UITableViewRowAnimation)animation;
 - (void)setAllObjectAnimations:(UITableViewRowAnimation)animation;
+- (BOOL)isLoadingIndexPath:(NSIndexPath *)indexPath;
 
 - (void)reloadData;
 

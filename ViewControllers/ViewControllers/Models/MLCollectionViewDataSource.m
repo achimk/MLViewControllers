@@ -334,6 +334,14 @@
     }
 }
 
+- (BOOL)isLoadingIndexPath:(NSIndexPath *)indexPath {
+    if (self.showLoadingCell && indexPath) {
+        return [indexPath isEqual:self.loadingIndexPath];
+    }
+    
+    return NO;
+}
+
 - (NSIndexPath *)loadingIndexPath {
     NSUInteger sections = [self.resultsController.sections count];
     
