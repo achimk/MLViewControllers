@@ -104,6 +104,10 @@ NSString * const MLContentStateError            = @"ErrorState";
              [state isEqualToString:MLContentStateLoading] ||
              [state isEqualToString:MLContentStatePaging], @"Unsupported load content state: %@", state);
     
+    if (!self.dataSource) {
+        return NO;
+    }
+    
     BOOL applyState = [self applyState:state];
     
     if (applyState) {
@@ -124,7 +128,7 @@ NSString * const MLContentStateError            = @"ErrorState";
         [self.loadToken ignore];
         self.loadToken = token;
      
-        [self.delegate loadableContent:self loadDataWithLoadToken:token];
+        [self.dataSource loadableContent:self loadDataWithLoadToken:token];
     }
     
     return applyState;

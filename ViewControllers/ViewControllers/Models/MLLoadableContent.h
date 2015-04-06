@@ -35,9 +35,6 @@ typedef NS_ENUM(NSUInteger, MLLoadableContentType) {
  */
 @protocol MLLoadableContentDelegate <NSObject>
 
-@required
-- (void)loadableContent:(MLLoadableContent *)loadableContent loadDataWithLoadToken:(MLLoadToken *)loadToken;
-
 @optional
 - (void)loadableContentWillChangeState:(MLLoadableContent *)loadableContent;
 - (void)loadableContentDidChangeState:(MLLoadableContent *)loadableContent;
@@ -51,6 +48,16 @@ typedef NS_ENUM(NSUInteger, MLLoadableContentType) {
 @end
 
 /**
+ MLLoadableContentDataSource
+ */
+@protocol MLLoadableContentDataSource <NSObject>
+
+@required
+- (void)loadableContent:(MLLoadableContent *)loadableContent loadDataWithLoadToken:(MLLoadToken *)loadToken;
+
+@end
+
+/**
  MLLoadableContent
  */
 @interface MLLoadableContent : NSObject
@@ -59,6 +66,7 @@ typedef NS_ENUM(NSUInteger, MLLoadableContentType) {
 @property (nonatomic, readonly, strong) MLLoadToken * loadToken;
 @property (nonatomic, readonly, assign) MLLoadableContentType type;
 @property (nonatomic, readwrite, weak) id <MLLoadableContentDelegate> delegate;
+@property (nonatomic, readwrite, weak) id <MLLoadableContentDataSource> dataSource;
 
 - (instancetype)initWithType:(MLLoadableContentType)type;
 

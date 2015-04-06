@@ -19,7 +19,7 @@
 
 #pragma mark - MLLoadableViewController
 
-@interface MLLoadableViewController () <MLLoadableContentDelegate> {
+@interface MLLoadableViewController () <MLLoadableContentDataSource> {
     BOOL _segmentedControlConstraintsNeedsUpdate;
 }
 
@@ -44,7 +44,7 @@
     
     MLLoadableContentType type = MLLoadableContentTypePaging;
     _loadableContent = [[MLLoadableContent alloc] initWithType:type];
-    _loadableContent.delegate = self;
+    _loadableContent.dataSource = self;
     
     RZArrayCollectionList * collectionList = [[RZArrayCollectionList alloc] initWithArray:@[] sectionNameKeyPath:nil];
     _collectionListController = [[MLCollectionListController alloc] initWithCollectionList:collectionList];
@@ -151,7 +151,7 @@
     [self.loadableContent refreshContent];
 }
 
-#pragma mark MLLoadableContentDelegate
+#pragma mark MLLoadableContentDataSource
 
 - (void)loadableContent:(MLLoadableContent *)loadableContent loadDataWithLoadToken:(MLLoadToken *)loadToken {
     BOOL refreshItems = ([loadableContent.currentState isEqualToString:MLContentStateRefreshing]);
