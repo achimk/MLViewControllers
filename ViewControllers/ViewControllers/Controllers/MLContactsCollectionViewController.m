@@ -75,7 +75,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MLContactCollectionViewCell * cell = [MLContactCollectionViewCell cellForCollectionView:collectionView indexPath:indexPath];
-    [cell configureForData:[self.arrayOfContacts objectAtIndex:indexPath.row] collectionView:collectionView indexPath:indexPath];
+    [cell configureWithObject:[self.arrayOfContacts objectAtIndex:indexPath.row] indexPath:indexPath];
     cell.contentView.backgroundColor = [UIColor whiteColor];
     return cell;
 }
@@ -111,9 +111,9 @@
     NSNumber * height = [self.cacheOfCellHeights objectForKey:@(indexPath.row)];
     
     if (!height) {
-        CGSize size = [MLContactCollectionViewCell cellSizeForData:data
-                                                    collectionView:collectionView
-                                                         indexPath:indexPath];
+        CGSize size = [MLContactCollectionViewCell cellSizeWithObject:data
+                                                       collectionView:collectionView
+                                                            indexPath:indexPath];
         height = @(size.height);
 #if !IGNORE_CACHE
         [self.cacheOfCellHeights setObject:height forKey:@(indexPath.row)];

@@ -116,13 +116,12 @@
     self.labelAbout.text = nil;
 }
 
-#pragma mark Configure
+#pragma mark Configure Cell
 
-- (void)configureForData:(id)dataObject tableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath type:(MLTableViewCellConfigureType)type {
-    
-    self.labelName.text = dataObject[@"name"];
-    self.labelDate.text = dataObject[@"registered"];
-    self.labelAbout.text = dataObject[@"about"];
+- (void)configureWithObject:(id)anObject indexPath:(NSIndexPath *)indexPath type:(MLCellConfigurationType)type {
+    self.labelName.text = anObject[@"name"];
+    self.labelDate.text = anObject[@"registered"];
+    self.labelAbout.text = anObject[@"about"];
 }
 
 @end

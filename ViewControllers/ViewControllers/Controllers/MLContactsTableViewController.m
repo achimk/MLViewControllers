@@ -72,7 +72,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MLContactTableViewCell * cell = [MLContactTableViewCell cellForTableView:tableView indexPath:indexPath];
-    [cell configureForData:[self.arrayOfContacts objectAtIndex:indexPath.row] tableView:tableView indexPath:indexPath];
+    [cell configureWithObject:[self.arrayOfContacts objectAtIndex:indexPath.row] indexPath:indexPath];
     return cell;
 }
 
@@ -104,9 +104,9 @@
     NSNumber * height = [self.cacheOfCellHeights objectForKey:@(indexPath.row)];
     
     if (!height) {
-        CGSize size = [MLContactTableViewCell cellSizeForData:data
-                                                    tableView:tableView
-                                                    indexPath:indexPath];
+        CGSize size = [MLContactTableViewCell cellSizeWithObject:data
+                                                       tableView:tableView
+                                                       indexPath:indexPath];
         height = @(size.height);
 #if !IGNORE_CACHE
         [self.cacheOfCellHeights setObject:height forKey:@(indexPath.row)];
