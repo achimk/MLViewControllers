@@ -10,7 +10,7 @@
 
 typedef NS_ENUM(NSUInteger, MLObserversManagerType) {
     MLObserversManagerTypeDefault,          // forward to all observers
-    MLObserversManagerTypeForwardFirst      // forward only to first
+    MLObserversManagerTypeForwardFirst      // forward to first responds selector observer
 };
 
 @interface MLObserversManager : NSObject

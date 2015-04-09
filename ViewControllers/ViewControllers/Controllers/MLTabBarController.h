@@ -19,6 +19,6 @@
 
 @interface MLTabBarController (MLSubclassOnly)
 
-- (void)finishInitialize;
+- (void)finishInitialize NS_REQUIRES_SUPER;
 
 @end
