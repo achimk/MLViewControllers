@@ -106,15 +106,47 @@
     [self.lock unlock];
 }
 
-#pragma mark Subclass Methods
+#pragma mark NSOpearion Subclass Methods
 
-- (void)onExecute {
-    for (void(^block)(void) in _arrayOfExecutionBlocks) {
-        block();
+- (void)main {
+    BOOL isAsynchronous = NO;
+    
+    [self.lock lock];
+    isAsynchronous = self.isAsynchronous;
+    NSAssert2(!isAsynchronous, @"Method: '%@' should be never called for asynchronous operation: %@", NSStringFromSelector(_cmd), [self description]);
+    
+    if (!isAsynchronous) {
+        if (!self.isCancelled) {
+            self.state = MLOperationStateExecuting;
+            [self onExecute];
+            
+            for (void(^block)(void) in _arrayOfExecutionBlocks) {
+                block();
+            }
+        }
     }
+    
+    [self.lock unlock];
 }
 
-- (void)onCancel {
+- (void)start {
+    [self.lock lock];
+    
+    if (!self.isCancelled) {
+        self.state = MLOperationStateExecuting;
+        [self onExecute];
+        
+        for (void(^block)(void) in _arrayOfExecutionBlocks) {
+            block();
+        }
+    }
+    
+    [self.lock unlock];
+}
+
+- (void)cancelOperation {
+    [super cancelOperation];
+
     for (void(^block)(void) in _arrayOfCancellationBlocks) {
         block();
     }

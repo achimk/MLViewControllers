@@ -299,10 +299,10 @@
 			children = (
 				2755E72E1AD731C500A9DFE3 /* MLOperation.h */,
 				2755E72F1AD731C500A9DFE3 /* MLOperation.m */,
-				2755E7311AD749A700A9DFE3 /* MLBlockOperation.h */,
-				2755E7321AD749A700A9DFE3 /* MLBlockOperation.m */,
 				2755E7341AD752BF00A9DFE3 /* MLAsynchronousOperation.h */,
 				2755E7351AD752BF00A9DFE3 /* MLAsynchronousOperation.m */,
+				2755E7311AD749A700A9DFE3 /* MLBlockOperation.h */,
+				2755E7321AD749A700A9DFE3 /* MLBlockOperation.m */,
 			);
 			name = Operations;
 			sourceTree = "<group>";

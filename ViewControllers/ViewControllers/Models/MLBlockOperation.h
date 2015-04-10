@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Joachim Kret. All rights reserved.
 //
 
-#import "MLOperation.h"
+#import "MLAsynchronousOperation.h"
 
 /**
- MLBlockOperation - block based operation class (non-concurrent).
+ MLBlockOperation - block based operation class (concurrent).
  */
 @interface MLBlockOperation : MLOperation
 

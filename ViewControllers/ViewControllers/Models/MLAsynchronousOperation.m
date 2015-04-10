@@ -61,13 +61,7 @@
 }
 
 - (MLOperationState)state {
-    MLOperationState state = MLOperationStateUnknown;
-    
-    [self.lock lock];
-    state = _state;
-    [self.lock unlock];
-    
-    return state;
+    return _state;
 }
 
 #pragma mark NSOperation Subclass Methods
