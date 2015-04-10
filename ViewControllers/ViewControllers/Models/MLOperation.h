@@ -6,20 +6,21 @@
 //  Copyright (c) 2015 Joachim Kret. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
 // Default error domain for MLOperation.
 extern NSString * const MLOperationErrorDomain;
 
 /**
- Operation error codes.
+ Operation's error codes.
  */
 typedef NS_ENUM(NSUInteger, MLOperationErrorCode) {
     MLOperationErrorCodeCancelled   = 0 // Operation was cancelled.
 };
 
 /**
- Operation states.
+ Operation's states.
  */
 typedef NS_ENUM(NSUInteger, MLOperationState) {
     MLOperationStateUnknown,    // Unknown

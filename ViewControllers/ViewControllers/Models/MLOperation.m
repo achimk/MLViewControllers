@@ -11,7 +11,6 @@
 #import <libkern/OSAtomic.h>
 #endif
 
-
 NSString * const MLOpetationQueueName       = @"com.controllers.operation.queue";
 NSString * const MLOperationLockName        = @"com.controllers.operation.lock";
 NSString * const MLOperationErrorDomain     = @"MLOperationErrorDomain";
@@ -49,7 +48,6 @@ static dispatch_group_t MLOperationDispatchGroup() {
 @property (nonatomic, readonly, strong) NSRecursiveLock * lock;
 @property (nonatomic, readwrite, assign) MLOperationState state;
 
-- (void)cancelOperation;
 - (void)endBackgroundTask;
 
 @end
@@ -74,6 +72,7 @@ static dispatch_group_t MLOperationDispatchGroup() {
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
     if (self = [super init]) {
+        _state = MLOperationStateUnknown;
         _backgroundTaskIdentifier = UIBackgroundTaskInvalid;
         _identifier = (identifier && identifier.length) ? [identifier copy] : [[NSUUID UUID] UUIDString];
         _lock = [[NSRecursiveLock alloc] init];
@@ -122,11 +121,19 @@ static dispatch_group_t MLOperationDispatchGroup() {
 
 #pragma mark NSOperation Subclass Methods
 
+- (BOOL)isAsynchronous {
+    return NO;
+}
+
 - (void)main {
     [self.lock lock];
     
     if (!self.isCancelled) {
         [self onExecute];
+    }
+
+    if (self.isCancelled) {
+        [self onCancel];
     }
     
     [self.lock unlock];
@@ -136,23 +143,18 @@ static dispatch_group_t MLOperationDispatchGroup() {
     [self.lock lock];
     
     if (!self.isFinished && !self.isCancelled) {
+#if DEBUG
+        if (!OSAtomicCompareAndSwap32(0, 1, &_cancelOnce)) {
+            NSAssert(NO, @"%@: '%@' method called more than once!", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+        }
+#endif
         [super cancel];
-        [self cancelOperation];
+        _error = [NSError errorWithDomain:MLOperationErrorDomain
+                                     code:MLOperationErrorCodeCancelled
+                                 userInfo:nil];
     }
     
     [self.lock unlock];
-}
-
-- (void)cancelOperation {
-#if DEBUG
-    if (!OSAtomicCompareAndSwap32(0, 1, &_cancelOnce)) {
-        NSAssert(NO, @"%@: '%@' method called more than once!", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    }
-#endif
-    _error = [NSError errorWithDomain:MLOperationErrorDomain
-                                 code:MLOperationErrorCodeCancelled
-                             userInfo:nil];
-    [self onCancel];
 }
 
 #pragma mark Subclass Methods
@@ -273,7 +275,6 @@ static dispatch_group_t MLOperationDispatchGroup() {
 
 @implementation MLOperation (MLBatchOperations)
 
-// Batch of operations implementation - returns array of operations with dependencies setup.
 + (NSArray *)batchOfOperations:(NSArray *)operations
                  progressBlock:(void (^)(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations))progressBlock
                completionBlock:(void (^)(NSArray * operations))completionBlock {

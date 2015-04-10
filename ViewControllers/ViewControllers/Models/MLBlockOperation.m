@@ -10,16 +10,10 @@
 
 #pragma mark - MLOperation
 
-@interface MLOperation () {
-@protected
-    MLOperationState _state;
-}
+@interface MLOperation ()
 
 @property (nonatomic, readonly, strong) NSRecursiveLock * lock;
 @property (nonatomic, readwrite, assign) MLOperationState state;
-
-- (void)cancelOperation;
-- (void)endBackgroundTask;
 
 @end
 
@@ -108,48 +102,30 @@
 
 #pragma mark NSOpearion Subclass Methods
 
-- (void)main {
-    BOOL isAsynchronous = NO;
-    
+- (void)start {
     [self.lock lock];
-    isAsynchronous = self.isAsynchronous;
-    NSAssert2(!isAsynchronous, @"Method: '%@' should be never called for asynchronous operation: %@", NSStringFromSelector(_cmd), [self description]);
+    self.state = MLOperationStateExecuting;
     
-    if (!isAsynchronous) {
+    if (!self.isCancelled) {
+        [self onExecute];
+        
         if (!self.isCancelled) {
-            self.state = MLOperationStateExecuting;
-            [self onExecute];
-            
             for (void(^block)(void) in _arrayOfExecutionBlocks) {
                 block();
             }
         }
     }
-    
-    [self.lock unlock];
-}
 
-- (void)start {
-    [self.lock lock];
-    
-    if (!self.isCancelled) {
-        self.state = MLOperationStateExecuting;
-        [self onExecute];
+    if (self.isCancelled) {
+        [self onCancel];
         
-        for (void(^block)(void) in _arrayOfExecutionBlocks) {
+        for (void(^block)(void) in _arrayOfCancellationBlocks) {
             block();
         }
     }
     
+    self.state = MLOperationStateFinished;
     [self.lock unlock];
-}
-
-- (void)cancelOperation {
-    [super cancelOperation];
-
-    for (void(^block)(void) in _arrayOfCancellationBlocks) {
-        block();
-    }
 }
 
 @end

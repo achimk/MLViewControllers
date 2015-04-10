@@ -18,9 +18,6 @@
 @property (nonatomic, readonly, strong) NSRecursiveLock * lock;
 @property (nonatomic, readwrite, assign) MLOperationState state;
 
-- (void)cancelOperation;
-- (void)endBackgroundTask;
-
 @end
 
 #pragma mark - MLAsynchronousOperation
@@ -82,37 +79,20 @@
     return (MLOperationStateFinished == self.state);
 }
 
-- (void)main {
-    BOOL isAsynchronous = NO;
-    
-    [self.lock lock];
-    isAsynchronous = self.isAsynchronous;
-    NSAssert1(!isAsynchronous, @"Method should be never called for asynchronous operation: %@", [self description]);
-    
-    if (!isAsynchronous) {
-        if (!self.isCancelled) {
-            self.state = MLOperationStateExecuting;
-            [self onExecute];
-        }
-    }
-    
-    [self.lock unlock];
-}
-
 - (void)start {
     [self.lock lock];
+    self.state = MLOperationStateExecuting;
     
     if (!self.isCancelled) {
-        self.state = MLOperationStateExecuting;
         [self onExecute];
     }
-    
-    [self.lock unlock];
-}
 
-- (void)cancelOperation {
+    if (self.isCancelled) {
+        [self onCancel];
+    }
+    
     self.state = MLOperationStateFinished;
-    [super cancelOperation];
+    [self.lock unlock];
 }
 
 #pragma mark Private Methods

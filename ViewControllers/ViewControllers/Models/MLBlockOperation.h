@@ -9,9 +9,9 @@
 #import "MLAsynchronousOperation.h"
 
 /**
- MLBlockOperation - block based operation class (concurrent).
+ MLBlockOperation - block based operation class.
  */
-@interface MLBlockOperation : MLOperation
+@interface MLBlockOperation : MLAsynchronousOperation
 
 @property (nonatomic, readonly, copy) NSArray * executionBlocks;    // Retruns copy of execution blocks.
 @property (nonatomic, readonly, copy) NSArray * cancellationBlocks; // Returns copy of cancellation blocks.

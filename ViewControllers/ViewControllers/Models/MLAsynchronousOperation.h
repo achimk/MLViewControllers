@@ -9,7 +9,7 @@
 #import "MLOperation.h"
 
 /**
- MLAsynchronousOperation - asynchronous operation class (concurrent).
+ MLAsynchronousOperation - asynchronous operation class.
  */
 @interface MLAsynchronousOperation : MLOperation
 
