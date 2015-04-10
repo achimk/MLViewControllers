@@ -1,11 +1,37 @@
 PODS:
+  - AFNetworking (2.5.2):
+    - AFNetworking/NSURLConnection (= 2.5.2)
+    - AFNetworking/NSURLSession (= 2.5.2)
+    - AFNetworking/Reachability (= 2.5.2)
+    - AFNetworking/Security (= 2.5.2)
+    - AFNetworking/Serialization (= 2.5.2)
+    - AFNetworking/UIKit (= 2.5.2)
+  - AFNetworking/NSURLConnection (2.5.2):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.5.2):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.5.2)
+  - AFNetworking/Security (2.5.2)
+  - AFNetworking/Serialization (2.5.2)
+  - AFNetworking/UIKit (2.5.2):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - Mantle (1.5.4):
+    - Mantle/extobjc (= 1.5.4)
+  - Mantle/extobjc (1.5.4)
   - MLActiveRecord (1.0.0)
-  - RZCollectionList (0.7.1)
+  - RZCollectionList (0.7.0)
   - UIColor+MLPFlatColors (1.0)
 
 DEPENDENCIES:
+  - AFNetworking (= 2.5.2)
+  - Mantle (= 1.5.4)
   - MLActiveRecord (from `git@github.com:achimk/MLActiveRecord.git`)
-  - RZCollectionList (from `git@github.com:Raizlabs/RZCollectionList.git`)
+  - RZCollectionList (from `git@github.com:Raizlabs/RZCollectionList.git`, tag `0.7.1`)
   - UIColor+MLPFlatColors (= 1.0)
 
 EXTERNAL SOURCES:
@@ -13,18 +39,21 @@ EXTERNAL SOURCES:
     :git: git@github.com:achimk/MLActiveRecord.git
   RZCollectionList:
     :git: git@github.com:Raizlabs/RZCollectionList.git
+    :tag: 0.7.1
 
 CHECKOUT OPTIONS:
   MLActiveRecord:
     :commit: f1e4a38d9545d62b6ff2a65a346353144ee418c6
     :git: git@github.com:achimk/MLActiveRecord.git
   RZCollectionList:
-    :commit: 4f2e1f953310a2d9c7e01d32156fa7b83e3f6bc7
     :git: git@github.com:Raizlabs/RZCollectionList.git
+    :tag: 0.7.1
 
 SPEC CHECKSUMS:
+  AFNetworking: fefbce9660acb17f48ae0011292d4da0f457bf36
+  Mantle: 60acd0cd363e27d945bda0a6b8e90577112d28f3
   MLActiveRecord: 3e5ffb658a702340f94b36585ff19c7a13b520ad
-  RZCollectionList: a7e5df9b559d6e23623103d0b5ea0e8610130ed5
+  RZCollectionList: e858029e069be05048ee8d43e889bad70230619c
   UIColor+MLPFlatColors: 14deb8f28da06ab8918c14231d4ff49ca7cd384a
 
 COCOAPODS: 0.36.3
