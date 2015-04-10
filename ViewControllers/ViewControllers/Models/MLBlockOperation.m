@@ -76,28 +76,34 @@
     return cancellationBlocks;
 }
 
-- (void)addExecutionBlock:(void (^)(void))block {
+- (BOOL)addExecutionBlock:(void (^)(void))block {
     NSParameterAssert(block);
     
     [self.lock lock];
     
-    if (!self.isFinished && !self.isCancelled && !self.isExecuting) {
+    BOOL addExecutionBlock = (!self.isFinished && !self.isCancelled && !self.isExecuting);
+    if (addExecutionBlock) {
         [_arrayOfExecutionBlocks addObject:block];
     }
     
     [self.lock unlock];
+    
+    return addExecutionBlock;
 }
 
-- (void)addCancellationBlock:(void (^)(void))block {
+- (BOOL)addCancellationBlock:(void (^)(void))block {
     NSParameterAssert(block);
     
     [self.lock lock];
     
-    if (!self.isFinished && !self.isCancelled) {
+    BOOL addCancellationBlock = (!self.isFinished && !self.isCancelled);
+    if (addCancellationBlock) {
         [_arrayOfCancellationBlocks addObject:block];
     }
     
     [self.lock unlock];
+    
+    return addCancellationBlock;
 }
 
 #pragma mark NSOpearion Subclass Methods

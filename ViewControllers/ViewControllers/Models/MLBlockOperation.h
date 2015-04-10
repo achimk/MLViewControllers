@@ -20,10 +20,10 @@
 + (instancetype)blockOperationWithBlock:(void (^)(void))block;
 - (instancetype)initWithBlock:(void (^)(void))block;
 
-// Method for adding execution block (fire when operation transit to isExecuting state).
-- (void)addExecutionBlock:(void (^)(void))block;
+// Method for adding execution block (fire when operation transit to executing state).
+- (BOOL)addExecutionBlock:(void (^)(void))block;
 
-// Method for adding cancellation block (fire when cancel method trigerred).
-- (void)addCancellationBlock:(void (^)(void))block;
+// Method for adding cancellation block (fire when operation is cancelled and transit to executing state).
+- (BOOL)addCancellationBlock:(void (^)(void))block;
 
 @end
