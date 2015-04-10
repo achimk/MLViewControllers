@@ -60,6 +60,16 @@
     [self.lock unlock];
 }
 
+- (MLOperationState)state {
+    MLOperationState state = MLOperationStateUnknown;
+    
+    [self.lock lock];
+    state = _state;
+    [self.lock unlock];
+    
+    return state;
+}
+
 #pragma mark NSOperation Subclass Methods
 
 - (BOOL)isAsynchronous {
