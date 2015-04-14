@@ -74,6 +74,9 @@
 		27E36EEC1AD7F71F00C7B984 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278377671A20B7B400C29996 /* UIKit.framework */; };
 		27E36EED1AD7F72600C7B984 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278377651A20B7B400C29996 /* Foundation.framework */; };
 		27E36EEF1AD7F78D00C7B984 /* MLOperationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E36EEE1AD7F78D00C7B984 /* MLOperationTestCase.m */; };
+		AA66372A1ADD30F6000D3BB4 /* MLCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6637291ADD30F6000D3BB4 /* MLCenterViewController.m */; };
+		AA66372C1ADD323D000D3BB4 /* MLCenterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA66372B1ADD323D000D3BB4 /* MLCenterViewController.xib */; };
+		AA66372F1ADD33AE000D3BB4 /* MLCenterView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA66372E1ADD33AE000D3BB4 /* MLCenterView.m */; };
 		AA6BCE9A1ACEBFCE00AD0E81 /* MLObserversManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6BCE991ACEBFCE00AD0E81 /* MLObserversManager.m */; };
 		AAA780F11A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA780F01A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m */; };
 		AAA780F71A25EC2500E2E295 /* MLContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA780F61A25EC2500E2E295 /* MLContactTableViewCell.m */; };
@@ -209,6 +212,11 @@
 		27E36EEE1AD7F78D00C7B984 /* MLOperationTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLOperationTestCase.m; sourceTree = "<group>"; };
 		39EA6D112DF10EA65BC5006F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C8F14662890BF7E9EA7B8E7 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		AA6637281ADD30F6000D3BB4 /* MLCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCenterViewController.h; sourceTree = "<group>"; };
+		AA6637291ADD30F6000D3BB4 /* MLCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCenterViewController.m; sourceTree = "<group>"; };
+		AA66372B1ADD323D000D3BB4 /* MLCenterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLCenterViewController.xib; sourceTree = "<group>"; };
+		AA66372D1ADD33AE000D3BB4 /* MLCenterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCenterView.h; sourceTree = "<group>"; };
+		AA66372E1ADD33AE000D3BB4 /* MLCenterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCenterView.m; sourceTree = "<group>"; };
 		AA6BCE981ACEBFCE00AD0E81 /* MLObserversManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLObserversManager.h; sourceTree = "<group>"; };
 		AA6BCE991ACEBFCE00AD0E81 /* MLObserversManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLObserversManager.m; sourceTree = "<group>"; };
 		AAA780EF1A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+MLCustomConfiguration.h"; sourceTree = "<group>"; };
@@ -549,6 +557,7 @@
 				27251ADA1ABF37F0004C1743 /* Loading Controllers */,
 				2718AA211AA10CF200F4938C /* Container Controllers */,
 				275646801A96A30600D1847A /* Misc Controllers */,
+				AA6637271ADD30DE000D3BB4 /* Test Controllers */,
 				AAA780EE1A25C46F00E2E295 /* Extensions */,
 				278377B91A20BB7400C29996 /* MLMainTableViewController.h */,
 				278377BA1A20BB7400C29996 /* MLMainTableViewController.m */,
@@ -653,6 +662,17 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		AA6637271ADD30DE000D3BB4 /* Test Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				AA6637281ADD30F6000D3BB4 /* MLCenterViewController.h */,
+				AA6637291ADD30F6000D3BB4 /* MLCenterViewController.m */,
+				AA66372D1ADD33AE000D3BB4 /* MLCenterView.h */,
+				AA66372E1ADD33AE000D3BB4 /* MLCenterView.m */,
+			);
+			name = "Test Controllers";
+			sourceTree = "<group>";
+		};
 		AA6BCE971ACEBFA000AD0E81 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -665,6 +685,7 @@
 		AAA780ED1A25C42700E2E295 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				AA66372B1ADD323D000D3BB4 /* MLCenterViewController.xib */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -773,6 +794,7 @@
 				AAA780F91A25F21900E2E295 /* Contacts.json in Resources */,
 				278377701A20B7B400C29996 /* InfoPlist.strings in Resources */,
 				278377A71A20B7D400C29996 /* Images.xcassets in Resources */,
+				AA66372C1ADD323D000D3BB4 /* MLCenterViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -841,6 +863,7 @@
 				2718AA241AA10DB000F4938C /* MLRotationTabBarController.m in Sources */,
 				278377911A20B7B400C29996 /* MLCollectionViewCell.m in Sources */,
 				2755E7301AD731C500A9DFE3 /* MLOperation.m in Sources */,
+				AA66372F1ADD33AE000D3BB4 /* MLCenterView.m in Sources */,
 				27251ADD1ABF547B004C1743 /* MLLoadToken.m in Sources */,
 				2755E7331AD749A700A9DFE3 /* MLBlockOperation.m in Sources */,
 				278377861A20B7B400C29996 /* MLCollectionViewController.m in Sources */,
@@ -867,6 +890,7 @@
 				AAA780F11A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m in Sources */,
 				2783778D1A20B7B400C29996 /* MLTableViewCell.m in Sources */,
 				27D7EB731AC83544007024AA /* MLEventEntity.m in Sources */,
+				AA66372A1ADD30F6000D3BB4 /* MLCenterViewController.m in Sources */,
 				278377D41A20ECE800C29996 /* MLCustomCollectionViewCell.m in Sources */,
 				278377721A20B7B400C29996 /* main.m in Sources */,
 				27709B2E1AC82E9C00F3D29C /* MLFetchedCollectionViewController.m in Sources */,
@@ -1072,6 +1096,7 @@
 				27E36EE81AD7F66600C7B984 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
