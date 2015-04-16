@@ -74,6 +74,8 @@
 		27E36EEC1AD7F71F00C7B984 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278377671A20B7B400C29996 /* UIKit.framework */; };
 		27E36EED1AD7F72600C7B984 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278377651A20B7B400C29996 /* Foundation.framework */; };
 		27E36EEF1AD7F78D00C7B984 /* MLOperationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E36EEE1AD7F78D00C7B984 /* MLOperationTestCase.m */; };
+		27E36F0A1AD8314E00C7B984 /* MLHTTPServiceOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E36F091AD8314E00C7B984 /* MLHTTPServiceOperation.m */; };
+		27E36F0D1AD8317C00C7B984 /* MLTaskServiceOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E36F0C1AD8317C00C7B984 /* MLTaskServiceOperation.m */; };
 		AA6BCE9A1ACEBFCE00AD0E81 /* MLObserversManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6BCE991ACEBFCE00AD0E81 /* MLObserversManager.m */; };
 		AAA780F11A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA780F01A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m */; };
 		AAA780F71A25EC2500E2E295 /* MLContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA780F61A25EC2500E2E295 /* MLContactTableViewCell.m */; };
@@ -207,6 +209,12 @@
 		27E36EE01AD7F66600C7B984 /* ViewControllersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ViewControllersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		27E36EE31AD7F66600C7B984 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27E36EEE1AD7F78D00C7B984 /* MLOperationTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLOperationTestCase.m; sourceTree = "<group>"; };
+		27E36EF21AD829A500C7B984 /* MLServiceQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLServiceQuery.h; sourceTree = "<group>"; };
+		27E36EF31AD82B1A00C7B984 /* MLServiceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLServiceModel.h; sourceTree = "<group>"; };
+		27E36F081AD8314E00C7B984 /* MLHTTPServiceOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLHTTPServiceOperation.h; sourceTree = "<group>"; };
+		27E36F091AD8314E00C7B984 /* MLHTTPServiceOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLHTTPServiceOperation.m; sourceTree = "<group>"; };
+		27E36F0B1AD8317C00C7B984 /* MLTaskServiceOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTaskServiceOperation.h; sourceTree = "<group>"; };
+		27E36F0C1AD8317C00C7B984 /* MLTaskServiceOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLTaskServiceOperation.m; sourceTree = "<group>"; };
 		39EA6D112DF10EA65BC5006F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C8F14662890BF7E9EA7B8E7 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		AA6BCE981ACEBFCE00AD0E81 /* MLObserversManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLObserversManager.h; sourceTree = "<group>"; };
@@ -409,6 +417,7 @@
 				278377781A20B7B400C29996 /* Controllers */,
 				278377771A20B7B400C29996 /* Models */,
 				278377761A20B7B400C29996 /* Views */,
+				27E36EF11AD8293200C7B984 /* Services */,
 				278377751A20B7B400C29996 /* Categories */,
 				AA6BCE971ACEBFA000AD0E81 /* Utilities */,
 				278377741A20B7B400C29996 /* Resources */,
@@ -644,6 +653,43 @@
 			name = Tests;
 			sourceTree = "<group>";
 		};
+		27E36EF11AD8293200C7B984 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				27E36EF61AD82D0C00C7B984 /* Queries */,
+				27E36EF81AD82D2C00C7B984 /* Operations */,
+				27E36EF71AD82D1F00C7B984 /* Models */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		27E36EF61AD82D0C00C7B984 /* Queries */ = {
+			isa = PBXGroup;
+			children = (
+				27E36EF21AD829A500C7B984 /* MLServiceQuery.h */,
+			);
+			name = Queries;
+			sourceTree = "<group>";
+		};
+		27E36EF71AD82D1F00C7B984 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				27E36EF31AD82B1A00C7B984 /* MLServiceModel.h */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		27E36EF81AD82D2C00C7B984 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				27E36F081AD8314E00C7B984 /* MLHTTPServiceOperation.h */,
+				27E36F091AD8314E00C7B984 /* MLHTTPServiceOperation.m */,
+				27E36F0B1AD8317C00C7B984 /* MLTaskServiceOperation.h */,
+				27E36F0C1AD8317C00C7B984 /* MLTaskServiceOperation.m */,
+			);
+			name = Operations;
+			sourceTree = "<group>";
+		};
 		86EAF2D25404F7923B86D684 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -845,6 +891,7 @@
 				2755E7331AD749A700A9DFE3 /* MLBlockOperation.m in Sources */,
 				278377861A20B7B400C29996 /* MLCollectionViewController.m in Sources */,
 				27D8B0F01ACB1EE6003EFCEB /* MLButtonCollectionViewCell.m in Sources */,
+				27E36F0D1AD8317C00C7B984 /* MLTaskServiceOperation.m in Sources */,
 				278377CE1A20E35200C29996 /* MLLayoutViewController.m in Sources */,
 				278377AF1A20B95B00C29996 /* MLTabBarController.m in Sources */,
 				27709B2B1AC82E8200F3D29C /* MLArrayCollectionViewController.m in Sources */,
@@ -861,6 +908,7 @@
 				27B7FA1B1AABC3530062430E /* MLFetchedResultsController.m in Sources */,
 				278377D81A20F1F500C29996 /* MLCollectionReusableView.m in Sources */,
 				2743419B1AAE1E3D002AD9B5 /* MLCollectionListController.m in Sources */,
+				27E36F0A1AD8314E00C7B984 /* MLHTTPServiceOperation.m in Sources */,
 				27B7FA131AAB9A040062430E /* MLTableViewDataSource.m in Sources */,
 				278377891A20B7B400C29996 /* MLNavigationController.m in Sources */,
 				278377C01A20C51600C29996 /* MLCustomTableViewController.m in Sources */,

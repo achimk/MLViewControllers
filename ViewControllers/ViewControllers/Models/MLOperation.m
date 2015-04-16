@@ -46,6 +46,7 @@ static dispatch_group_t MLOperationDispatchGroup() {
 }
 
 @property (nonatomic, readonly, strong) NSRecursiveLock * lock;
+@property (nonatomic, readwrite, strong) NSError * error;
 @property (nonatomic, readwrite, assign) MLOperationState state;
 
 - (void)endBackgroundTask;
@@ -87,6 +88,12 @@ static dispatch_group_t MLOperationDispatchGroup() {
 }
 
 #pragma mark Accessors
+
+- (void)setError:(NSError *)error {
+    [self.lock lock];
+    _error = error;
+    [self.lock unlock];
+}
 
 - (MLOperationState)state {
     if (self.isReady) {
@@ -149,9 +156,12 @@ static dispatch_group_t MLOperationDispatchGroup() {
         }
 #endif
         [super cancel];
-        _error = [NSError errorWithDomain:MLOperationErrorDomain
-                                     code:MLOperationErrorCodeCancelled
-                                 userInfo:nil];
+        
+        if (!self.error) {
+            self.error = [NSError errorWithDomain:MLOperationErrorDomain
+                                             code:MLOperationErrorCodeCancelled
+                                         userInfo:nil];
+        }
     }
     
     [self.lock unlock];
