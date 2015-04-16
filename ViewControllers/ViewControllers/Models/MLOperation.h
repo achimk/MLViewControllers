@@ -20,23 +20,12 @@ typedef NS_ENUM(NSUInteger, MLOperationErrorCode) {
 };
 
 /**
- Operation's states.
- */
-typedef NS_ENUM(NSUInteger, MLOperationState) {
-    MLOperationStateUnknown,    // Unknown
-    MLOperationStateReady,      // Ready
-    MLOperationStateExecuting,  // Executing
-    MLOperationStateFinished    // Finished
-};
-
-/**
  MLOperation - base operation class (non-concurrent).
  */
 @interface MLOperation : NSOperation
 
 @property (nonatomic, readonly, copy) NSString * identifier;    // Operation's unique identifier.
 @property (nonatomic, readonly, strong) NSError * error;    // Returns encountered error.
-@property (nonatomic, readonly, assign) MLOperationState state; // Returns current operation state.
 @property (nonatomic, readonly, assign) UIBackgroundTaskIdentifier backgroundTaskIdentifier;    // Background indetifier task for expiration handler.
 @property (nonatomic, readwrite, strong) dispatch_queue_t completionQueue;  // Completion queue on which completion block will be called (default is nil and calls completion block on main queue).
 @property (nonatomic, readwrite, strong) dispatch_group_t completionGroup; // Completion group on which completion block will operate (default is nil and performs completion block on dynamically created dispatch group).

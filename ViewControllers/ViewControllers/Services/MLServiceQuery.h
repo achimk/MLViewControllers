@@ -13,6 +13,6 @@
 @required
 - (instancetype)initWithConfigurationBlock:(void (^)(id query))block;
 - (NSDictionary *)parameters;
-- (class)serializeClass;
+- (Class)serializeClass;
 
 @end

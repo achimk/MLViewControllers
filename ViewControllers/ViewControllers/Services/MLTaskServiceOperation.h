@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Joachim Kret. All rights reserved.
 //
 
-#import "MLServiceOperation.h"
+#import "MLAsynchronousOperation.h"
 
-@interface MLTaskServiceOperation : MLServiceOperation
+@interface MLTaskServiceOperation : MLAsynchronousOperation
 
 @end

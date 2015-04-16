@@ -13,7 +13,6 @@
 @interface MLOperation ()
 
 @property (nonatomic, readonly, strong) NSRecursiveLock * lock;
-@property (nonatomic, readwrite, assign) MLOperationState state;
 
 @end
 
@@ -108,29 +107,31 @@
 
 #pragma mark NSOpearion Subclass Methods
 
-- (void)start {
+- (void)main {
     [self.lock lock];
-    self.state = MLOperationStateExecuting;
     
     if (!self.isCancelled) {
-        [self onExecute];
-        
-        if (!self.isCancelled) {
-            for (void(^block)(void) in _arrayOfExecutionBlocks) {
-                block();
+        @autoreleasepool {
+            [self onExecute];
+            
+            if (!self.isCancelled) {
+                for (void(^block)(void) in _arrayOfExecutionBlocks) {
+                    block();
+                }
             }
         }
     }
 
     if (self.isCancelled) {
-        [self onCancel];
-        
-        for (void(^block)(void) in _arrayOfCancellationBlocks) {
-            block();
+        @autoreleasepool {
+            [self onCancel];
+            
+            for (void(^block)(void) in _arrayOfCancellationBlocks) {
+                block();
+            }
         }
     }
     
-    self.state = MLOperationStateFinished;
     [self.lock unlock];
 }
 

@@ -58,6 +58,9 @@
 		278377D41A20ECE800C29996 /* MLCustomCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 278377D31A20ECE800C29996 /* MLCustomCollectionViewCell.m */; };
 		278377D81A20F1F500C29996 /* MLCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 278377D71A20F1F500C29996 /* MLCollectionReusableView.m */; };
 		278377DB1A20F6D800C29996 /* MLCustomCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 278377DA1A20F6D800C29996 /* MLCustomCollectionReusableView.m */; };
+		278B3DD81AE01DF800FE809E /* MLTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 278B3DD71AE01DF800FE809E /* MLTestViewController.m */; };
+		278B3DDC1AE01FED00FE809E /* MLCollectionListSectionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 278B3DDB1AE01FED00FE809E /* MLCollectionListSectionInfo.m */; };
+		278B3DDF1AE0201800FE809E /* MLFetchedResultsSectionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 278B3DDE1AE0201800FE809E /* MLFetchedResultsSectionInfo.m */; };
 		279164A21AC21C59002439F2 /* MLLoadingCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 279164A11AC21C59002439F2 /* MLLoadingCollectionViewCell.m */; };
 		27AEDEC01ABA13C700E018EE /* MLStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 27AEDEBF1ABA13C700E018EE /* MLStateMachine.m */; };
 		27B7FA131AAB9A040062430E /* MLTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B7FA121AAB9A040062430E /* MLTableViewDataSource.m */; };
@@ -185,6 +188,12 @@
 		278377D91A20F6D800C29996 /* MLCustomCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCustomCollectionReusableView.h; sourceTree = "<group>"; };
 		278377DA1A20F6D800C29996 /* MLCustomCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCustomCollectionReusableView.m; sourceTree = "<group>"; };
 		278377DC1A20FFAB00C29996 /* MLAutorotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLAutorotation.h; sourceTree = "<group>"; };
+		278B3DD61AE01DF800FE809E /* MLTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTestViewController.h; sourceTree = "<group>"; };
+		278B3DD71AE01DF800FE809E /* MLTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLTestViewController.m; sourceTree = "<group>"; };
+		278B3DDA1AE01FED00FE809E /* MLCollectionListSectionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCollectionListSectionInfo.h; sourceTree = "<group>"; };
+		278B3DDB1AE01FED00FE809E /* MLCollectionListSectionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCollectionListSectionInfo.m; sourceTree = "<group>"; };
+		278B3DDD1AE0201800FE809E /* MLFetchedResultsSectionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLFetchedResultsSectionInfo.h; sourceTree = "<group>"; };
+		278B3DDE1AE0201800FE809E /* MLFetchedResultsSectionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLFetchedResultsSectionInfo.m; sourceTree = "<group>"; };
 		279164A01AC21C59002439F2 /* MLLoadingCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLoadingCollectionViewCell.h; sourceTree = "<group>"; };
 		279164A11AC21C59002439F2 /* MLLoadingCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLoadingCollectionViewCell.m; sourceTree = "<group>"; };
 		27AEDEBE1ABA13C700E018EE /* MLStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLStateMachine.h; sourceTree = "<group>"; };
@@ -309,6 +318,7 @@
 		274341A01AAE1FC1002AD9B5 /* Results Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				278B3DD91AE01FCB00FE809E /* Sections Info */,
 				27B7FA181AABAFBC0062430E /* MLResultsControllerProtocol.h */,
 				2743419C1AAE1F58002AD9B5 /* MLBaseResultsController.h */,
 				2743419D1AAE1F58002AD9B5 /* MLBaseResultsController.m */,
@@ -325,10 +335,10 @@
 			children = (
 				2755E72E1AD731C500A9DFE3 /* MLOperation.h */,
 				2755E72F1AD731C500A9DFE3 /* MLOperation.m */,
-				2755E7341AD752BF00A9DFE3 /* MLAsynchronousOperation.h */,
-				2755E7351AD752BF00A9DFE3 /* MLAsynchronousOperation.m */,
 				2755E7311AD749A700A9DFE3 /* MLBlockOperation.h */,
 				2755E7321AD749A700A9DFE3 /* MLBlockOperation.m */,
+				2755E7341AD752BF00A9DFE3 /* MLAsynchronousOperation.h */,
+				2755E7351AD752BF00A9DFE3 /* MLAsynchronousOperation.m */,
 			);
 			name = Operations;
 			sourceTree = "<group>";
@@ -558,6 +568,7 @@
 				27251ADA1ABF37F0004C1743 /* Loading Controllers */,
 				2718AA211AA10CF200F4938C /* Container Controllers */,
 				275646801A96A30600D1847A /* Misc Controllers */,
+				AA6637271ADD30DE000D3BB4 /* Test Controllers */,
 				AAA780EE1A25C46F00E2E295 /* Extensions */,
 				278377B91A20BB7400C29996 /* MLMainTableViewController.h */,
 				278377BA1A20BB7400C29996 /* MLMainTableViewController.m */,
@@ -605,6 +616,17 @@
 				278377DA1A20F6D800C29996 /* MLCustomCollectionReusableView.m */,
 			);
 			name = "UICollectionView ReusableViews";
+			sourceTree = "<group>";
+		};
+		278B3DD91AE01FCB00FE809E /* Sections Info */ = {
+			isa = PBXGroup;
+			children = (
+				278B3DDA1AE01FED00FE809E /* MLCollectionListSectionInfo.h */,
+				278B3DDB1AE01FED00FE809E /* MLCollectionListSectionInfo.m */,
+				278B3DDD1AE0201800FE809E /* MLFetchedResultsSectionInfo.h */,
+				278B3DDE1AE0201800FE809E /* MLFetchedResultsSectionInfo.m */,
+			);
+			name = "Sections Info";
 			sourceTree = "<group>";
 		};
 		27B7FA101AAB99BB0062430E /* Data Sources */ = {
@@ -697,6 +719,15 @@
 				3C8F14662890BF7E9EA7B8E7 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		AA6637271ADD30DE000D3BB4 /* Test Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				278B3DD61AE01DF800FE809E /* MLTestViewController.h */,
+				278B3DD71AE01DF800FE809E /* MLTestViewController.m */,
+			);
+			name = "Test Controllers";
 			sourceTree = "<group>";
 		};
 		AA6BCE971ACEBFA000AD0E81 /* Utilities */ = {
@@ -892,6 +923,7 @@
 				278377861A20B7B400C29996 /* MLCollectionViewController.m in Sources */,
 				27D8B0F01ACB1EE6003EFCEB /* MLButtonCollectionViewCell.m in Sources */,
 				27E36F0D1AD8317C00C7B984 /* MLTaskServiceOperation.m in Sources */,
+				278B3DDF1AE0201800FE809E /* MLFetchedResultsSectionInfo.m in Sources */,
 				278377CE1A20E35200C29996 /* MLLayoutViewController.m in Sources */,
 				278377AF1A20B95B00C29996 /* MLTabBarController.m in Sources */,
 				27709B2B1AC82E8200F3D29C /* MLArrayCollectionViewController.m in Sources */,
@@ -900,6 +932,7 @@
 				278377DB1A20F6D800C29996 /* MLCustomCollectionReusableView.m in Sources */,
 				27709B321AC8349700F3D29C /* DataModel.xcdatamodeld in Sources */,
 				278377A01A20B7B400C29996 /* MLAppDelegate.m in Sources */,
+				278B3DD81AE01DF800FE809E /* MLTestViewController.m in Sources */,
 				275646831A96A35C00D1847A /* MLRotationViewController.m in Sources */,
 				27B7FA161AAB9A180062430E /* MLCollectionViewDataSource.m in Sources */,
 				278377801A20B7B400C29996 /* MLViewController.m in Sources */,
@@ -908,6 +941,7 @@
 				27B7FA1B1AABC3530062430E /* MLFetchedResultsController.m in Sources */,
 				278377D81A20F1F500C29996 /* MLCollectionReusableView.m in Sources */,
 				2743419B1AAE1E3D002AD9B5 /* MLCollectionListController.m in Sources */,
+				278B3DDC1AE01FED00FE809E /* MLCollectionListSectionInfo.m in Sources */,
 				27E36F0A1AD8314E00C7B984 /* MLHTTPServiceOperation.m in Sources */,
 				27B7FA131AAB9A040062430E /* MLTableViewDataSource.m in Sources */,
 				278377891A20B7B400C29996 /* MLNavigationController.m in Sources */,
@@ -1120,6 +1154,7 @@
 				27E36EE81AD7F66600C7B984 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

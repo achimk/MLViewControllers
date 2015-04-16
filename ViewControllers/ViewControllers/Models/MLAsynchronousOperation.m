@@ -10,19 +10,17 @@
 
 #pragma mark - MLOperation
 
-@interface MLOperation () {
-@protected
-    MLOperationState _state;
-}
+@interface MLOperation ()
 
 @property (nonatomic, readonly, strong) NSRecursiveLock * lock;
-@property (nonatomic, readwrite, assign) MLOperationState state;
 
 @end
 
 #pragma mark - MLAsynchronousOperation
 
 @implementation MLAsynchronousOperation
+
+@synthesize state = _state;
 
 #pragma mark Init
 
@@ -84,11 +82,15 @@
     self.state = MLOperationStateExecuting;
     
     if (!self.isCancelled) {
-        [self onExecute];
+        @autoreleasepool {
+            [self onExecute];
+        }
     }
 
     if (self.isCancelled) {
-        [self onCancel];
+        @autoreleasepool {
+            [self onCancel];
+        }
     }
     
     self.state = MLOperationStateFinished;

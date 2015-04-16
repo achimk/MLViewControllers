@@ -9,8 +9,20 @@
 #import "MLOperation.h"
 
 /**
+ Operation's states.
+ */
+typedef NS_ENUM(NSUInteger, MLOperationState) {
+    MLOperationStateUnknown,    // Unknown
+    MLOperationStateReady,      // Ready
+    MLOperationStateExecuting,  // Executing
+    MLOperationStateFinished    // Finished
+};
+
+/**
  MLAsynchronousOperation - asynchronous operation class.
  */
 @interface MLAsynchronousOperation : MLOperation
+
+@property (nonatomic, readwrite, assign) MLOperationState state; // Property for change operation state.
 
 @end

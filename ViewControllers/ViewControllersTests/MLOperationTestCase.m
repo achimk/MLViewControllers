@@ -270,7 +270,7 @@
     for (MLTestBlockOperation * operation in operations) {
         XCTAssertTrue(operation.isCancelled);
         XCTAssertTrue(operation.isFinished);
-        XCTAssertEqual(operation.cancellationCounter, 1);
+        XCTAssertEqual(operation.cancellationCounter, 0);
         XCTAssertEqual(operation.executionCounter, 0);
     }
 }
@@ -285,7 +285,7 @@
     for (MLTestBlockOperation * operation in operations) {
         XCTAssertTrue(operation.isCancelled);
         XCTAssertTrue(operation.isFinished);
-        XCTAssertEqual(operation.cancellationCounter, 1);
+        XCTAssertEqual(operation.cancellationCounter, 0);
         XCTAssertEqual(operation.executionCounter, 0);
     }
 }

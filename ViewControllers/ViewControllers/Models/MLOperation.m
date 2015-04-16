@@ -42,12 +42,10 @@ static dispatch_group_t MLOperationDispatchGroup() {
 #if DEBUG
     int32_t _cancelOnce;
 #endif
-    MLOperationState _state;
 }
 
 @property (nonatomic, readonly, strong) NSRecursiveLock * lock;
 @property (nonatomic, readwrite, strong) NSError * error;
-@property (nonatomic, readwrite, assign) MLOperationState state;
 
 - (void)endBackgroundTask;
 
@@ -73,7 +71,6 @@ static dispatch_group_t MLOperationDispatchGroup() {
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
     if (self = [super init]) {
-        _state = MLOperationStateUnknown;
         _backgroundTaskIdentifier = UIBackgroundTaskInvalid;
         _identifier = (identifier && identifier.length) ? [identifier copy] : [[NSUUID UUID] UUIDString];
         _lock = [[NSRecursiveLock alloc] init];
@@ -93,21 +90,6 @@ static dispatch_group_t MLOperationDispatchGroup() {
     [self.lock lock];
     _error = error;
     [self.lock unlock];
-}
-
-- (MLOperationState)state {
-    if (self.isReady) {
-        return MLOperationStateReady;
-    }
-    else if (self.isExecuting) {
-        return MLOperationStateExecuting;
-    }
-    else if (self.isFinished) {
-        return MLOperationStateFinished;
-    }
-    else {
-        return MLOperationStateUnknown;
-    }
 }
 
 - (NSString *)description {
@@ -136,11 +118,15 @@ static dispatch_group_t MLOperationDispatchGroup() {
     [self.lock lock];
     
     if (!self.isCancelled) {
-        [self onExecute];
+        @autoreleasepool {
+            [self onExecute];
+        }
     }
 
     if (self.isCancelled) {
-        [self onCancel];
+        @autoreleasepool {
+            [self onCancel];
+        }
     }
     
     [self.lock unlock];
@@ -267,16 +253,18 @@ static dispatch_group_t MLOperationDispatchGroup() {
 #pragma mark Private Methods
 
 - (NSString *)stringFromCurrentState {
-    static NSDictionary * mapping = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        mapping = @{@(MLOperationStateUnknown)      : @"Unknown",
-                    @(MLOperationStateReady)        : @"Ready",
-                    @(MLOperationStateExecuting)    : @"Executing",
-                    @(MLOperationStateFinished)     : @"Finished"};
-    });
-    
-    return (mapping[@(self.state)]) ?: @"";
+    if (self.isReady) {
+        return @"Ready";
+    }
+    else if (self.isExecuting) {
+        return @"Executing";
+    }
+    else if (self.isFinished) {
+        return @"Finished";
+    }
+    else {
+        return @"Unknown";
+    }
 }
 
 @end

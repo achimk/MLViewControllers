@@ -47,13 +47,10 @@ typedef NS_ENUM(NSUInteger, MLResultsChangeType) {
     MLResultsChangeTypeUpdate   = 4
 };
 
-@required
-- (void)resultsControllerWillChangeContent:(id <MLResultsController>)resultsController;
-- (void)resultsControllerDidChangeContent:(id <MLResultsController>)resultsController;
-
 @optional
-
+- (void)resultsControllerWillChangeContent:(id <MLResultsController>)resultsController;
 - (void)resultsController:(id <MLResultsController>)resultsController didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(MLResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath;
 - (void)resultsController:(id <MLResultsController>)resultsController didChangeSection:(id <MLResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(MLResultsChangeType)type;
+- (void)resultsControllerDidChangeContent:(id <MLResultsController>)resultsController;
 
 @end

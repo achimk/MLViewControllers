@@ -6,12 +6,12 @@
 //  Copyright (c) 2015 Joachim Kret. All rights reserved.
 //
 
-#import "MLAsynchronousOperation.h"
+#import "MLOperation.h"
 
 /**
  MLBlockOperation - block based operation class.
  */
-@interface MLBlockOperation : MLAsynchronousOperation
+@interface MLBlockOperation : MLOperation
 
 @property (nonatomic, readonly, copy) NSArray * executionBlocks;    // Retruns copy of execution blocks.
 @property (nonatomic, readonly, copy) NSArray * cancellationBlocks; // Returns copy of cancellation blocks.

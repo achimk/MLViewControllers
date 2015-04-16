@@ -16,7 +16,7 @@
 
 + (UIImage *)ml_imageWithColor:(UIColor *)color size:(CGSize)size {
     NSParameterAssert(color);
-    NSAssert1(size.width && size.height, @"Invalid image size: %@", NSStringFromCGSize(size));
+    NSAssert1(isgreater(size.width, 0.0f) && isgreater(size.height, 0.0f), @"Invalid image size: %@", NSStringFromCGSize(size));
     
     CGRect rect = CGRectZero;
     rect.size = size;

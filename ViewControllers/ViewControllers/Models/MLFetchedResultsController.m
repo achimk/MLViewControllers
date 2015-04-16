@@ -7,57 +7,7 @@
 //
 
 #import "MLFetchedResultsController.h"
-
-#pragma mark - MLFetchedResultsSectionInfo
-
-@interface MLFetchedResultsSectionInfo : NSObject <MLResultsSectionInfo>
-
-@property (nonatomic, readonly, strong) id <NSFetchedResultsSectionInfo> section;
-
-- (instancetype)initWithFetchedResultsSectionInfo:(id <NSFetchedResultsSectionInfo>)section;
-
-@end
-
-#pragma mark -
-
-@implementation MLFetchedResultsSectionInfo
-
-@dynamic name;
-@dynamic indexTitle;
-@dynamic numberOfObjects;
-@dynamic objects;
-
-#pragma mark Init
-
-- (instancetype)initWithFetchedResultsSectionInfo:(id <NSFetchedResultsSectionInfo>)section {
-    NSParameterAssert(section);
-    
-    if (self = [super init]) {
-        _section = section;
-    }
-    
-    return self;
-}
-
-#pragma mark Accessors
-
-- (NSString *)name {
-    return self.section.name;
-}
-
-- (NSString *)indexTitle {
-    return self.section.indexTitle;
-}
-
-- (NSUInteger)numberOfObjects {
-    return self.section.numberOfObjects;
-}
-
-- (NSArray *)objects {
-    return self.section.objects;
-}
-
-@end
+#import "MLFetchedResultsSectionInfo.h"
 
 #pragma mark - MLFetchedResultsController
 
@@ -183,7 +133,9 @@
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     for (id <MLResultsControllerObserver> observer in self.arrayOfObservers) {
-        [observer resultsControllerWillChangeContent:self];
+        if ([observer respondsToSelector:@selector(resultsControllerWillChangeContent:)]) {
+            [observer resultsControllerWillChangeContent:self];
+        }
     }
 }
 
@@ -216,7 +168,9 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     for (id <MLResultsControllerObserver> observer in self.arrayOfObservers) {
-        [observer resultsControllerDidChangeContent:self];
+        if ([observer respondsToSelector:@selector(resultsControllerDidChangeContent:)]) {
+            [observer resultsControllerDidChangeContent:self];
+        }
     }
 }
 

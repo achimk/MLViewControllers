@@ -7,52 +7,7 @@
 //
 
 #import "MLCollectionListController.h"
-
-#pragma mark - MLCollectionListSectionInfo
-
-@interface MLCollectionListSectionInfo : NSObject <MLResultsSectionInfo>
-
-@property (nonatomic, readonly, strong) id <RZCollectionListSectionInfo> section;
-
-- (instancetype)initWithCollectionListSectionInfo:(id <RZCollectionListSectionInfo>)section;
-
-@end
-
-#pragma mark -
-
-@implementation MLCollectionListSectionInfo
-
-#pragma mark Init
-
-- (instancetype)initWithCollectionListSectionInfo:(id<RZCollectionListSectionInfo>)section {
-    NSParameterAssert(section);
-    
-    if (self = [super init]) {
-        _section = section;
-    }
-    
-    return self;
-}
-
-#pragma mark MLResultsSectionInfo
-
-- (NSString *)name {
-    return self.section.name;
-}
-
-- (NSString *)indexTitle {
-    return self.section.indexTitle;
-}
-
-- (NSUInteger)numberOfObjects {
-    return self.section.numberOfObjects;
-}
-
-- (NSArray *)objects {
-    return self.section.objects;
-}
-
-@end
+#import "MLCollectionListSectionInfo.h"
 
 #pragma mark - MLCollectionListController
 
@@ -119,7 +74,9 @@
  */
 - (void)collectionListWillChangeContent:(id<RZCollectionList>)collectionList {
     for (id <MLResultsControllerObserver> observer in self.arrayOfObservers) {
-        [observer resultsControllerWillChangeContent:self];
+        if ([observer respondsToSelector:@selector(resultsControllerWillChangeContent:)]) {
+            [observer resultsControllerWillChangeContent:self];
+        }
     }
 }
 
@@ -173,7 +130,9 @@
  */
 - (void)collectionListDidChangeContent:(id<RZCollectionList>)collectionList {
     for (id <MLResultsControllerObserver> observer in self.arrayOfObservers) {
-        [observer resultsControllerDidChangeContent:self];
+        if ([observer respondsToSelector:@selector(resultsControllerDidChangeContent:)]) {
+            [observer resultsControllerDidChangeContent:self];
+        }
     }
 }
 
