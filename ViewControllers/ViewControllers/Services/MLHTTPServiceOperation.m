@@ -8,16 +8,6 @@
 
 #import "MLHTTPServiceOperation.h"
 
-#pragma mark - MLOperation
-
-@interface MLOperation ()
-
-@property (nonatomic, readonly, strong) NSRecursiveLock * lock;
-@property (nonatomic, readwrite, assign) MLOperationState state;
-@property (nonatomic, readwrite, strong) NSError * error;
-
-@end
-
 #pragma mark - MLHTTPServiceOperation
 
 @interface MLHTTPServiceOperation ()

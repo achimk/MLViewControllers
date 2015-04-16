@@ -8,14 +8,6 @@
 
 #import "MLAsynchronousOperation.h"
 
-#pragma mark - MLOperation
-
-@interface MLOperation ()
-
-@property (nonatomic, readonly, strong) NSRecursiveLock * lock;
-
-@end
-
 #pragma mark - MLAsynchronousOperation
 
 @implementation MLAsynchronousOperation

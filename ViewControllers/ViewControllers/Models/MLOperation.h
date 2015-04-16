@@ -25,8 +25,10 @@ typedef NS_ENUM(NSUInteger, MLOperationErrorCode) {
 @interface MLOperation : NSOperation
 
 @property (nonatomic, readonly, copy) NSString * identifier;    // Operation's unique identifier.
-@property (nonatomic, readonly, strong) NSError * error;    // Returns encountered error.
 @property (nonatomic, readonly, assign) UIBackgroundTaskIdentifier backgroundTaskIdentifier;    // Background indetifier task for expiration handler.
+@property (nonatomic, readonly, strong) NSRecursiveLock * lock; // Operation's lock.
+@property (nonatomic, readwrite, strong) NSError * error;   // Encountered error during operation.
+@property (nonatomic, readwrite, strong) id result; // Operation's result.
 @property (nonatomic, readwrite, strong) dispatch_queue_t completionQueue;  // Completion queue on which completion block will be called (default is nil and calls completion block on main queue).
 @property (nonatomic, readwrite, strong) dispatch_group_t completionGroup; // Completion group on which completion block will operate (default is nil and performs completion block on dynamically created dispatch group).
 
@@ -36,8 +38,8 @@ typedef NS_ENUM(NSUInteger, MLOperationErrorCode) {
 - (instancetype)initWithIdentifier:(NSString *)identifier;
 
 // Set completion block with success or failure handler.
-- (void)setCompletionBlockWithSuccess:(void (^)(MLOperation * operation))success
-                              failure:(void (^)(MLOperation * operation))failure;
+- (void)setCompletionBlockWithSuccess:(void (^)(MLOperation * operation, id result))success
+                              failure:(void (^)(MLOperation * operation, NSError * error))failure;
 
 // Setup background task with expiration handler.
 - (void)setShouldExecuteAsBackgroundTaskWithExpirationHandler:(void (^)(void))handler;

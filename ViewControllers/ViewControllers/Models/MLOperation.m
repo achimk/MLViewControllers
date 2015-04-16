@@ -44,9 +44,6 @@ static dispatch_group_t MLOperationDispatchGroup() {
 #endif
 }
 
-@property (nonatomic, readonly, strong) NSRecursiveLock * lock;
-@property (nonatomic, readwrite, strong) NSError * error;
-
 - (void)endBackgroundTask;
 
 @end
@@ -88,7 +85,23 @@ static dispatch_group_t MLOperationDispatchGroup() {
 
 - (void)setError:(NSError *)error {
     [self.lock lock];
-    _error = error;
+    NSAssert1(!self.isFinished, @"Can't setup error for finished operation: %@", self.description);
+    
+    if (!self.isFinished) {
+        _error = error;
+    }
+    
+    [self.lock unlock];
+}
+
+- (void)setResult:(id)result {
+    [self.lock lock];
+    NSAssert1(!self.isFinished, @"Can't setup result for finished operation: %@", self.description);
+    
+    if (!self.isFinished) {
+        _result = result;
+    }
+    
     [self.lock unlock];
 }
 
@@ -141,13 +154,13 @@ static dispatch_group_t MLOperationDispatchGroup() {
             NSAssert(NO, @"%@: '%@' method called more than once!", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         }
 #endif
-        [super cancel];
-        
         if (!self.error) {
             self.error = [NSError errorWithDomain:MLOperationErrorDomain
                                              code:MLOperationErrorCodeCancelled
                                          userInfo:nil];
         }
+        
+        [super cancel];
     }
     
     [self.lock unlock];
@@ -187,7 +200,7 @@ static dispatch_group_t MLOperationDispatchGroup() {
     [self.lock unlock];
 }
 
-- (void)setCompletionBlockWithSuccess:(void (^)(MLOperation *))success failure:(void (^)(MLOperation *))failure {
+- (void)setCompletionBlockWithSuccess:(void (^)(MLOperation *, id))success failure:(void (^)(MLOperation *, NSError *))failure {
     __weak typeof(self)weakSelf = self;
     [self setCompletionBlock:^{
         __strong typeof(weakSelf)strongSelf = weakSelf;
@@ -201,14 +214,14 @@ static dispatch_group_t MLOperationDispatchGroup() {
         if (strongSelf.error) {
             if (failure) {
                 dispatch_group_async(group, queue, ^{
-                    failure(strongSelf);
+                    failure(strongSelf, strongSelf.result);
                 });
             }
         }
         else {
             if (success) {
                 dispatch_group_async(group, queue, ^{
-                    success(strongSelf);
+                    success(strongSelf, strongSelf.error);
                 });
             }
         }
