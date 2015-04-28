@@ -71,9 +71,10 @@
 
 - (void)start {
     [self.lock lock];
-    self.state = MLOperationStateExecuting;
     
     if (!self.isCancelled) {
+        self.state = MLOperationStateExecuting;
+        
         @autoreleasepool {
             [self onExecute];
         }

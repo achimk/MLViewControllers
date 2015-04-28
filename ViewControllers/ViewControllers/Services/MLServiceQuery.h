@@ -11,8 +11,7 @@
 @protocol MLServiceQuery <NSObject>
 
 @required
-- (instancetype)initWithConfigurationBlock:(void (^)(id query))block;
 - (NSDictionary *)parameters;
-- (Class)serializeClass;
+- (Class)serializingClass;
 
 @end

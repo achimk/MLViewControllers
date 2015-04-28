@@ -28,6 +28,7 @@
 		27709B2B1AC82E8200F3D29C /* MLArrayCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27709B2A1AC82E8200F3D29C /* MLArrayCollectionViewController.m */; };
 		27709B2E1AC82E9C00F3D29C /* MLFetchedCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27709B2D1AC82E9C00F3D29C /* MLFetchedCollectionViewController.m */; };
 		27709B321AC8349700F3D29C /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 27709B301AC8349700F3D29C /* DataModel.xcdatamodeld */; };
+		277769181AF02BAD001191F9 /* MLCellSizeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 277769171AF02BAD001191F9 /* MLCellSizeManager.m */; };
 		277808C41AAB1D2100D4C410 /* MLUniformFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 277808C31AAB1D2100D4C410 /* MLUniformFlowLayout.m */; };
 		277808C71AAB261C00D4C410 /* MLContactsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 277808C61AAB261C00D4C410 /* MLContactsCollectionViewController.m */; };
 		277808CA1AAB28A600D4C410 /* MLContactCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 277808C91AAB28A600D4C410 /* MLContactCollectionViewCell.m */; };
@@ -127,6 +128,8 @@
 		27709B2C1AC82E9C00F3D29C /* MLFetchedCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLFetchedCollectionViewController.h; sourceTree = "<group>"; };
 		27709B2D1AC82E9C00F3D29C /* MLFetchedCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLFetchedCollectionViewController.m; sourceTree = "<group>"; };
 		27709B311AC8349700F3D29C /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		277769161AF02BAD001191F9 /* MLCellSizeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCellSizeManager.h; sourceTree = "<group>"; };
+		277769171AF02BAD001191F9 /* MLCellSizeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCellSizeManager.m; sourceTree = "<group>"; };
 		277808C21AAB1D2100D4C410 /* MLUniformFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLUniformFlowLayout.h; sourceTree = "<group>"; };
 		277808C31AAB1D2100D4C410 /* MLUniformFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLUniformFlowLayout.m; sourceTree = "<group>"; };
 		277808C51AAB261C00D4C410 /* MLContactsCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLContactsCollectionViewController.h; sourceTree = "<group>"; };
@@ -371,6 +374,15 @@
 			name = Entities;
 			sourceTree = "<group>";
 		};
+		277769151AF02B4A001191F9 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				277769161AF02BAD001191F9 /* MLCellSizeManager.h */,
+				277769171AF02BAD001191F9 /* MLCellSizeManager.m */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		278309AB1ACDD355000A48F3 /* Base Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -426,6 +438,7 @@
 				2783779F1A20B7B400C29996 /* MLAppDelegate.m */,
 				278377781A20B7B400C29996 /* Controllers */,
 				278377771A20B7B400C29996 /* Models */,
+				277769151AF02B4A001191F9 /* Managers */,
 				278377761A20B7B400C29996 /* Views */,
 				27E36EF11AD8293200C7B984 /* Services */,
 				278377751A20B7B400C29996 /* Categories */,
@@ -963,6 +976,7 @@
 				27709B251AC82C5800F3D29C /* MLArrayTableViewController.m in Sources */,
 				27E2E79C1ACB27BB00EA2DFF /* MLCollectionViewFlowLayout.m in Sources */,
 				277808CA1AAB28A600D4C410 /* MLContactCollectionViewCell.m in Sources */,
+				277769181AF02BAD001191F9 /* MLCellSizeManager.m in Sources */,
 				277808C41AAB1D2100D4C410 /* MLUniformFlowLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

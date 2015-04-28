@@ -87,15 +87,15 @@ NSString * const MLContentStateError            = @"ErrorState";
 #pragma mark Accessors
 
 - (BOOL)isLoading {
-    return [self.currentState isEqualToString:TTVContentStateLoading];
+    return [self.currentState isEqualToString:MLContentStateLoading];
 }
 
 - (BOOL)isRefreshing {
-    return [self.currentState isEqualToString:TTVContentStateRefreshing];
+    return [self.currentState isEqualToString:MLContentStateRefreshing];
 }
 
 - (BOOL)isPaging {
-    return [self.currentState isEqualToString:TTVContentStatePaging];
+    return [self.currentState isEqualToString:MLContentStatePaging];
 }
 
 #pragma mark Content State

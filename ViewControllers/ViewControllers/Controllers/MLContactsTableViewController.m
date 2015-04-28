@@ -8,8 +8,10 @@
 
 #import "MLContactsTableViewController.h"
 #import "MLContactTableViewCell.h"
+#import "MLCellSizeManager.h"
 
-#define IGNORE_CACHE    0
+#define IGNORE_CACHE        1
+#define USE_SIZE_MANAGER    0
 
 #pragma mark - MLContactsTableViewController
 
@@ -17,6 +19,7 @@
 
 @property (nonatomic, readwrite, strong) NSArray * arrayOfContacts;
 @property (nonatomic, readwrite, strong) NSCache * cacheOfCellHeights;
+@property (nonatomic, readwrite, strong) MLCellSizeManager * sizeManager;
 
 @end
 
@@ -30,6 +33,7 @@
     [super finishInitialize];
     
     _cacheOfCellHeights = [[NSCache alloc] init];
+    _sizeManager = [[MLCellSizeManager alloc] init];
 }
 
 #pragma mark View
@@ -40,6 +44,9 @@
     [self arrayOfContacts];
     
     [MLContactTableViewCell registerCellWithTableView:self.tableView];
+    [self.sizeManager registerCellClass:[MLContactTableViewCell class] withSizeBlock:^(id cell, id anObject, NSIndexPath * indexPath) {
+        [cell configureWithObject:anObject indexPath:indexPath];
+    }];
 }
 
 #pragma mark Accessors
@@ -88,7 +95,13 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+#if USE_SIZE_MANAGER
+    [self.sizeManager invalidateCellSizeCache];
+#else
+#if !IGNORE_CACHE
     [self.cacheOfCellHeights removeAllObjects];
+#endif
+#endif
 }
 
 #pragma mark Private Methods
@@ -101,6 +114,10 @@
 }
 
 - (CGFloat)cacheCellHeightForData:(id)data tableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
+#if USE_SIZE_MANAGER
+    CGSize size = [self.sizeManager cellSizeForObject:data atIndexPath:indexPath];
+    return size.height;
+#else
     NSNumber * height = [self.cacheOfCellHeights objectForKey:@(indexPath.row)];
     
     if (!height) {
@@ -114,6 +131,7 @@
     }
     
     return (height) ? height.floatValue : 0.0f;
+#endif
 }
 
 @end
