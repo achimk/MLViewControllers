@@ -84,6 +84,20 @@ NSString * const MLContentStateError            = @"ErrorState";
     [self.loadToken ignore];
 }
 
+#pragma mark Accessors
+
+- (BOOL)isLoading {
+    return [self.currentState isEqualToString:TTVContentStateLoading];
+}
+
+- (BOOL)isRefreshing {
+    return [self.currentState isEqualToString:TTVContentStateRefreshing];
+}
+
+- (BOOL)isPaging {
+    return [self.currentState isEqualToString:TTVContentStatePaging];
+}
+
 #pragma mark Content State
 
 - (BOOL)loadContent {
