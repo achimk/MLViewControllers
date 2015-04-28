@@ -11,7 +11,7 @@
 #import "MLCellSizeManager.h"
 
 #define IGNORE_CACHE        1
-#define USE_SIZE_MANAGER    0
+#define USE_SIZE_MANAGER    1
 
 #pragma mark - MLContactsTableViewController
 
@@ -96,7 +96,7 @@
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 #if USE_SIZE_MANAGER
-    [self.sizeManager invalidateCellSizeCache];
+    self.sizeManager.overrideWidth = self.view.bounds.size.height;
 #else
 #if !IGNORE_CACHE
     [self.cacheOfCellHeights removeAllObjects];

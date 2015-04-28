@@ -17,6 +17,7 @@ typedef void (^MLCellSizeManagerSizeBlock)(id cell, id anObject, NSIndexPath * i
 @property (nonatomic, readwrite, assign) CGFloat overrideWidth; // Override cell width. Default static width is used.
 
 - (void)registerCellClass:(Class <MLCellConfiguration>)cellClass withSizeBlock:(MLCellSizeManagerSizeBlock)sizeBlock;
+- (void)registerCellClass:(Class)cellClass withNibName:(NSString *)nibNameOrNil reuseIdentifier:(NSString *)reuseIdentifier sizeBlock:(MLCellSizeManagerSizeBlock)sizeBlock;
 
 - (CGSize)cellSizeForObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath;
 - (CGSize)cellSizeForObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath withReuseIdentifier:(NSString *)reuseIdentifier;

@@ -139,6 +139,22 @@ const CGFloat MLCellSizeManagerDefaultCellHeightPadding     = 1.0f;
     [self.dictionaryOfCellConfigurations setObject:configuration forKey:cellClassName];
 }
 
+- (void)registerCellClass:(Class)cellClass withNibName:(NSString *)nibNameOrNil reuseIdentifier:(NSString *)reuseIdentifier sizeBlock:(MLCellSizeManagerSizeBlock)sizeBlock {
+    NSParameterAssert(cellClass);
+    NSParameterAssert(sizeBlock);
+    
+    NSString * cellClassName = NSStringFromClass(cellClass);
+    id cell = [self configureOffScreenCellWithCellClassName:cellClassName nibName:nibNameOrNil];
+    
+    MLCellSizeManagerCellConfiguration * configuration = [[MLCellSizeManagerCellConfiguration alloc] init];
+    configuration.cell = cell;
+    configuration.cellClass = cellClassName;
+    configuration.reuseIdentifier = reuseIdentifier;
+    configuration.sizeBlock = sizeBlock;
+    
+    [self.dictionaryOfCellConfigurations setObject:configuration forKey:cellClassName];
+}
+
 #pragma mark Sizes
 
 - (CGSize)cellSizeForObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath {
@@ -153,12 +169,31 @@ const CGFloat MLCellSizeManagerDefaultCellHeightPadding     = 1.0f;
     
     if (!sizeValue) {
         MLCellSizeManagerCellConfiguration * configuration = [self configurationForObject:anObject reuseIdentifier:reuseIdentifier];
-        BOOL validSize = NO;
         
         if (configuration.sizeBlock) {
-            [configuration.cell prepareForReuse];
+            id cell = configuration.cell;
+            [cell prepareForReuse];
+            
+            // configure cell with data
             configuration.sizeBlock(configuration.cell, anObject, indexPath);
-            UIView * contentView = [configuration.cell contentView];
+            
+            // Make sure the constraints have been added to this cell, since it may have just been created from scratch
+            [cell setNeedsUpdateConstraints];
+            [cell updateConstraintsIfNeeded];
+            
+            // The cell's width must be set to the same size it will end up at once it is in the table view.
+            // This is important so that we'll get the correct height for different table view widths, since our cell's
+            // height depends on its width due to the multi-line UILabel word wrapping. Don't need to do this above in
+            // -[tableView:cellForRowAtIndexPath:] because it happens automatically when the cell is used in the table view.
+//            CGSize size = [[UIScreen mainScreen] bounds].size;
+//            CGRect bounds = CGRectMake(0.0f, 0.0f, size.width, size.height);
+//            [cell setBounds:bounds];
+            
+            // Do the layout pass on the cell, which will calculate the frames for all the views based on the constraints
+            // (Note that the preferredMaxLayoutWidth is set on multi-line UILabels inside the -[layoutSubviews] method
+            // in the UITableViewCell subclass
+            [cell setNeedsLayout];
+            [cell layoutIfNeeded];
             
             // Determine size. If your constraints aren't setup correctly
             // this won't work. So make sure you:
@@ -175,17 +210,15 @@ const CGFloat MLCellSizeManagerDefaultCellHeightPadding     = 1.0f;
             //    intrinsic size of the image to calculate a constraint. So if your
             //    image isn't sized correctly it will produce an incorrect value.
             //
-            size = [contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            size = [[cell contentView] systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
             
-            // Adding padding for table view cell height
+            // Add an extra point to the height to account for the cell separator, which is added between the bottom
+            // of the cell's contentView and the bottom of the table view cell.
             if ([configuration.cell isKindOfClass:[UITableView class]]) {
                 size.height += self.cellHeightPadding;
             }
             
-            validSize = YES;
-        }
-        
-        if (validSize) {
+            // Cache cell size
             [self.cacheOfCellSizes setObject:[NSValue valueWithCGSize:size] forKey:indexPath];
         }
     }
@@ -237,9 +270,11 @@ const CGFloat MLCellSizeManagerDefaultCellHeightPadding     = 1.0f;
             cell = [[nib instantiateWithOwner:nil options:kNilOptions] objectAtIndex:0];
         }
         else {
-            cell = [[NSClassFromString(className) alloc] init];
+            CGSize size = [[UIScreen mainScreen] bounds].size;
+            CGRect frame = CGRectMake(0.0f, 0.0f, size.width, size.height);
+            cell = [[NSClassFromString(className) alloc] initWithFrame:frame];
         }
-        
+  
         [cell ml_moveConstraintsToContentView];
     }
     
