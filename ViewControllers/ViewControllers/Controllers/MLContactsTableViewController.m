@@ -40,7 +40,7 @@
     
     [MLContactTableViewCell registerCellWithTableView:self.tableView];
     [self.sizeManager registerCellClass:[MLContactTableViewCell class] withSizeBlock:^(id cell, id anObject, NSIndexPath * indexPath) {
-        [cell configureWithObject:anObject indexPath:indexPath];
+        [cell configureWithObject:anObject context:indexPath];
     }];
 }
 
@@ -74,7 +74,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MLContactTableViewCell * cell = [MLContactTableViewCell cellForTableView:tableView indexPath:indexPath];
-    [cell configureWithObject:[self.arrayOfContacts objectAtIndex:indexPath.row] indexPath:indexPath];
+    [cell configureWithObject:[self.arrayOfContacts objectAtIndex:indexPath.row] context:indexPath];
     return cell;
 }
 

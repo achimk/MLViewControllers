@@ -8,14 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, MLObserversManagerType) {
-    MLObserversManagerTypeDefault,          // forward to all observers
-    MLObserversManagerTypeForwardFirst      // forward to first responds selector observer
+typedef NS_ENUM(NSUInteger, MLObserversManagerMode) {
+    MLObserversManagerModeDefault,          // forward to all observers
+    MLObserversManagerModeForwardFirst      // forward to first responds selector observer
 };
 
 @interface MLObserversManager : NSObject
 
-@property (nonatomic, readwrite, assign) MLObserversManagerType type; // Default type: MLObserversManagerTypeDefault
+@property (nonatomic, readwrite, assign) MLObserversManagerMode mode; // Default mode is used
 
 - (instancetype)initWithObservers:(NSArray *)observers;
 - (instancetype)initWithProtocol:(Protocol *)protocol observers:(NSArray *)observers;

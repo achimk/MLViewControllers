@@ -7,9 +7,10 @@
 //
 
 #import "MLArrayCollectionViewController.h"
-#import "MLCollectionViewDataSource.h"
-#import "MLCollectionListController.h"
 #import "RZCollectionList.h"
+#import "RZBaseCollectionList+MLResultsController.h"
+#import "RZArrayCollectionList+MLResultsController.h"
+#import "MLCollectionViewDataSource.h"
 #import "MLCollectionViewFlowLayout.h"
 #import "MLCustomCollectionReusableView.h"
 #import "MLButtonCollectionViewCell.h"
@@ -18,7 +19,7 @@
 
 @interface MLArrayCollectionViewController () <MLCollectionViewDataSourceDelegate>
 
-@property (nonatomic, readwrite, strong) MLCollectionListController * collectionListController;
+@property (nonatomic, readwrite, strong) RZArrayCollectionList * resultsController;
 @property (nonatomic, readwrite, strong) MLCollectionViewDataSource * dataSource;
 
 @end
@@ -40,11 +41,9 @@
     self.collectionView.backgroundColor = [UIColor whiteColor];
     [MLButtonCollectionViewCell registerCellWithCollectionView:self.collectionView];
     
-    RZArrayCollectionList * collectionList = [[RZArrayCollectionList alloc] initWithArray:@[] sectionNameKeyPath:nil];
-    self.collectionListController = [[MLCollectionListController alloc] initWithCollectionList:collectionList];
-    
+    self.resultsController = [[RZArrayCollectionList alloc] initWithArray:@[] sectionNameKeyPath:nil];
     self.dataSource = [[MLCollectionViewDataSource alloc] initWithCollectionView:self.collectionView
-                                                               resultsController:self.collectionListController
+                                                               resultsController:self.resultsController
                                                                         delegate:self];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
@@ -52,20 +51,14 @@
                                                                                            action:@selector(addAction:)];
 }
 
-#pragma mark Accessors
-
-- (RZArrayCollectionList *)arrayCollectionList {
-    return self.collectionListController.collectionList;
-}
-
 #pragma mark Actions
 
 - (IBAction)addAction:(id)sender {
-    [self.arrayCollectionList addObject:[NSDate date] toSection:0];
+    [self.resultsController addObject:[NSDate date] toSection:0];
 }
 
 - (void)removeCellAtIndexPath:(NSIndexPath *)indexPath {
-    [self.arrayCollectionList removeObjectAtIndexPath:indexPath];
+    [self.resultsController removeObjectAtIndexPath:indexPath];
 }
 
 #pragma mark MLCollectionViewDataSourceDelegate

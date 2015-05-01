@@ -30,7 +30,7 @@
 
 - (instancetype)initWithProtocol:(Protocol *)protocol observers:(NSArray *)observers {
     if (self = [super init]) {
-        _type = MLObserversManagerTypeDefault;
+        _mode = MLObserversManagerModeDefault;
         _protocol = protocol;
         _arrayOfObservers = [[NSPointerArray alloc] initWithOptions:NSPointerFunctionsWeakMemory | NSPointerFunctionsObjectPointerPersonality];
         
@@ -130,7 +130,7 @@
         if ([observer respondsToSelector:selector]) {
             [anInvocation invokeWithTarget:observer];
             
-            if (MLObserversManagerTypeForwardFirst == self.type) {
+            if (MLObserversManagerModeForwardFirst == self.mode) {
                 break;
             }
         }

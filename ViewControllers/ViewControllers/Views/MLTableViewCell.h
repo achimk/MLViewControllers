@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MLCellConfiguration.h"
+#import "MLConfiguration.h"
 
 @interface MLTableViewCell : UITableViewCell <MLCellConfiguration>
 

@@ -42,7 +42,7 @@
     
     [MLContactCollectionViewCell registerCellWithCollectionView:self.collectionView];
     [self.sizeManager registerCellClass:[MLContactCollectionViewCell class] withSizeBlock:^(id cell, id anObject, NSIndexPath *indexPath) {
-        [cell configureWithObject:anObject indexPath:indexPath];
+        [cell configureWithObject:anObject context:indexPath];
     }];
 }
 
@@ -77,7 +77,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MLContactCollectionViewCell * cell = [MLContactCollectionViewCell cellForCollectionView:collectionView indexPath:indexPath];
-    [cell configureWithObject:[self.arrayOfContacts objectAtIndex:indexPath.row] indexPath:indexPath];
+    [cell configureWithObject:[self.arrayOfContacts objectAtIndex:indexPath.row] context:indexPath];
     cell.contentView.backgroundColor = [UIColor whiteColor];
     return cell;
 }

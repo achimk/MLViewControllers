@@ -14,3 +14,11 @@
 - (void)configureWithObject:(id)anObject context:(id)context;
 
 @end
+
+@protocol MLCellConfiguration <MLConfiguration>
+
+@required
++ (NSString *)reuseIdentifier;
++ (NSString *)nibName;
+
+@end

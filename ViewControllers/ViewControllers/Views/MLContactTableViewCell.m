@@ -118,7 +118,7 @@
 
 #pragma mark Configure Cell
 
-- (void)configureWithObject:(id)anObject indexPath:(NSIndexPath *)indexPath {
+- (void)configureWithObject:(id)anObject context:(id)context {
     self.labelName.text = anObject[@"name"];
     self.labelDate.text = anObject[@"registered"];
     self.labelAbout.text = anObject[@"about"];

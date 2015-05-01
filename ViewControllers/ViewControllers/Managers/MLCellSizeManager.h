@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MLCellConfiguration.h"
+#import "MLConfiguration.h"
 
 typedef void (^MLCellSizeManagerSizeBlock)(id cell, id anObject, NSIndexPath * indexPath);
 

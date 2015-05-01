@@ -7,16 +7,17 @@
 //
 
 #import "MLArrayTableViewController.h"
-#import "MLCollectionListController.h"
-#import "MLTableViewDataSource.h"
 #import "RZCollectionList.h"
+#import "RZBaseCollectionList+MLResultsController.h"
+#import "RZArrayCollectionList+MLResultsController.h"
+#import "MLTableViewDataSource.h"
 #import "MLTableViewCell.h"
 
 #pragma mark - MLArrayTableViewController
 
 @interface MLArrayTableViewController () <MLTableViewDataSourceDelegate>
 
-@property (nonatomic, readwrite, strong) MLCollectionListController * collectionListController;
+@property (nonatomic, readwrite, strong) RZArrayCollectionList * arrayResultsController;
 @property (nonatomic, readwrite, strong) MLTableViewDataSource * dataSource;
 
 @end
@@ -31,12 +32,9 @@
     [super viewDidLoad];
     
     [MLTableViewCell registerCellWithTableView:self.tableView];
-    
-    RZArrayCollectionList * collectionList = [[RZArrayCollectionList alloc] initWithArray:@[] sectionNameKeyPath:nil];
-    self.collectionListController = [[MLCollectionListController alloc] initWithCollectionList:collectionList];
-    
+    self.arrayResultsController = [[RZArrayCollectionList alloc] initWithArray:@[] sectionNameKeyPath:nil];
     self.dataSource = [[MLTableViewDataSource alloc] initWithTableView:self.tableView
-                                                     resultsController:self.collectionListController
+                                                     resultsController:self.arrayResultsController
                                                               delegate:self];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
@@ -44,16 +42,10 @@
                                                                                            action:@selector(addAction:)];
 }
 
-#pragma mark Accessors
-
-- (RZArrayCollectionList *)arrayCollectionList {
-    return self.collectionListController.collectionList;
-}
-
 #pragma mark Actions
 
 - (IBAction)addAction:(id)sender {
-    [self.arrayCollectionList addObject:[NSDate date] toSection:0];
+    [self.arrayResultsController addObject:[NSDate date] toSection:0];
 }
 
 #pragma mark MLTableViewDataSourceDelegate
@@ -70,7 +62,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (UITableViewCellEditingStyleDelete == editingStyle) {
-        [self.arrayCollectionList removeObjectAtIndexPath:indexPath];
+        [self.arrayResultsController removeObjectAtIndexPath:indexPath];
     }
 }
 

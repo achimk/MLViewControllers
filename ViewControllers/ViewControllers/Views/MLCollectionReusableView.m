@@ -85,7 +85,7 @@
 
 #pragma mark Configure Reusable View
 
-- (void)configureWithObject:(id)anObject indexPath:(NSIndexPath *)indexPath {
+- (void)configureWithObject:(id)anObject context:(id)context {
     // Subclasses can override this method
 }
 
