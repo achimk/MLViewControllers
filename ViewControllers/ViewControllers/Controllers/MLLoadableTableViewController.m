@@ -32,7 +32,7 @@
     self.dataSource = [[MLTableViewDataSource alloc] initWithTableView:self.tableView
                                                      resultsController:self.resultsController
                                                               delegate:self];
-    self.dataSource.animateTableChanges = NO;
+    self.dataSource.animateTableChanges = YES;
     
     [MLTableViewCell registerCellWithTableView:self.tableView];
     [MLLoadingTableViewCell registerCellWithTableView:self.tableView];

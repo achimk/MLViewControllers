@@ -12,8 +12,8 @@
 
 @interface MLCollectionViewDataSource () <MLResultsControllerObserver>
 
-@property (nonatomic, readwrite, strong) NSMutableArray *batchUpdates;
-@property (nonatomic, readwrite, strong) NSMutableArray *insertedSectionIndexes;
+@property (nonatomic, readwrite, strong) NSMutableArray * batchUpdates;
+@property (nonatomic, readwrite, strong) NSMutableArray * insertedSectionIndexes;
 @property (nonatomic, readwrite, assign) BOOL showLoadingCell;
 @property (nonatomic, readwrite, assign) BOOL reloadAfterAnimation;
 
@@ -140,8 +140,10 @@
 #pragma mark UICollectionViewDataSource
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.showLoadingCell && [indexPath isEqual:self.loadingIndexPath]) {
-        id <MLCollectionViewLoadingDataSourceDelegate> delegate = (id <MLCollectionViewLoadingDataSourceDelegate>) self.delegate;
+    NSUInteger numberOfSections = self.resultsController.sections.count;
+    
+    if (indexPath.section == numberOfSections) {
+        id <MLCollectionViewLoadingDataSourceDelegate> delegate = (id <MLCollectionViewLoadingDataSourceDelegate>)self.delegate;
         return [delegate collectionView:collectionView loadingCellAtIndexPath:indexPath];
     }
     
@@ -150,22 +152,24 @@
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return [self.resultsController.sections count];
+    NSUInteger numberOfSections = self.resultsController.sections.count;
+    
+    if (self.showLoadingCell) {
+        numberOfSections++;
+    }
+    
+    return numberOfSections;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    id <MLResultsSectionInfo> sectionInfo = [self.resultsController.sections objectAtIndex:section];
-    NSUInteger numberOfObjects = [sectionInfo numberOfObjects];
+    NSUInteger numberOfSections = self.resultsController.sections.count;
     
-    if (self.showLoadingCell) {
-        NSUInteger sections = [self.resultsController.sections count];
-        
-        if (section == (sections - 1)) {
-            numberOfObjects++;
-        }
+    if (section == numberOfSections) {
+        return 1;
     }
     
-    return numberOfObjects;
+    id <MLResultsSectionInfo> sectionInfo = [self.resultsController.sections objectAtIndex:section];
+    return [sectionInfo numberOfObjects];
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
@@ -287,6 +291,16 @@
 - (void)resultsControllerDidChangeContent:(id<MLResultsController>)resultsController {
     if (self.animateCollectionChanges && self.collectionView.window) {
         if (self.useBatchUpdating) {
+            BOOL showLoadingCell = self.shouldShowLoadingCell;
+            
+            if (showLoadingCell || showLoadingCell != self.showLoadingCell) {
+                void(^block)(void) = ^{
+                    [self setShowLoadingCell:showLoadingCell animated:YES];
+                };
+                
+                [self.batchUpdates addObject:[block copy]];
+            }
+            
             if (self.batchUpdates.count) {
                 [self.collectionView performBatchUpdates:^{
                     [self.batchUpdates enumerateObjectsUsingBlock:^(void (^changeBlock)(void), NSUInteger idx, BOOL *stop) {
@@ -302,9 +316,13 @@
                     self.batchUpdates = nil;
                 }];
             }
-            
-            self.insertedSectionIndexes = nil;
         }
+        else {
+            BOOL showLoadingCell = self.shouldShowLoadingCell;
+            [self setShowLoadingCell:showLoadingCell animated:YES];
+        }
+        
+        self.insertedSectionIndexes = nil;
     }
     else {
         [self reloadData];
@@ -319,19 +337,33 @@
 
 - (void)setShowLoadingCell:(BOOL)showLoadingCell animated:(BOOL)animated {
     if (_showLoadingCell != showLoadingCell) {
+        _showLoadingCell = showLoadingCell;
+        
         if (animated) {
             NSIndexPath * indexPath = self.loadingIndexPath;
             
             if (showLoadingCell) {
-                [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
+                if (![self.insertedSectionIndexes containsObject:@(indexPath.section)]) {
+                    [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:indexPath.section]];
+                }
+                else {
+                    [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
+                }
             }
             else {
                 [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+                [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section]];
             }
         }
-        
-        _showLoadingCell = showLoadingCell;
     }
+    else if (showLoadingCell && animated) {
+        NSIndexPath * indexPath = self.loadingIndexPath;
+        [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+    }
+}
+
+- (BOOL)isLoadingSection:(NSUInteger)section {
+    return (self.showLoadingCell && (section == self.loadingIndexPath.section));
 }
 
 - (BOOL)isLoadingIndexPath:(NSIndexPath *)indexPath {
@@ -344,14 +376,7 @@
 
 - (NSIndexPath *)loadingIndexPath {
     NSUInteger sections = [self.resultsController.sections count];
-    
-    if (!sections) {
-        return nil;
-    }
-    
-    NSUInteger rows = [[self.resultsController.sections objectAtIndex:(sections - 1)] numberOfObjects];
-    
-    return [NSIndexPath indexPathForRow:rows inSection:(sections - 1)];
+    return [NSIndexPath indexPathForRow:0 inSection:sections];
 }
 
 - (BOOL)shouldShowLoadingCell {

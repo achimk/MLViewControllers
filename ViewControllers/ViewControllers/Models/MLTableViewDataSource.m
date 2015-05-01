@@ -14,6 +14,7 @@
 
 @property (nonatomic, readwrite, assign) BOOL showLoadingCell;
 @property (nonatomic, readwrite, assign) BOOL reloadAfterAnimation;
+//@property (nonatomic, readwrite, assign) BOOL shouldAddLoadingSection;
 
 @end
 
@@ -34,6 +35,7 @@
         _clearsSelectionOnReloadData = NO;
         _reloadOnCurrentLocaleChange = NO;
         _addSectionAnimation = _removeSectionAnimation
+                             = _updateSectionAnimation
                              = _addObjectAnimation
                              = _updateObjectAnimation
                              = _removeSectionAnimation
@@ -71,6 +73,7 @@
         if (_resultsController) {
             [_resultsController removeResultsControllerObserver:self];
         }
+        
         _resultsController = resultsController;
         
         if (resultsController) {
@@ -108,6 +111,7 @@
 - (void)setAllSectionAnimations:(UITableViewRowAnimation)animation {
     self.addSectionAnimation = animation;
     self.removeSectionAnimation = animation;
+    self.updateObjectAnimation = animation;
 }
 
 - (void)setAllObjectAnimations:(UITableViewRowAnimation)animation {
@@ -157,7 +161,9 @@
 #pragma mark UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.showLoadingCell && [indexPath isEqual:self.loadingIndexPath]) {
+    NSUInteger numberOfSections = self.resultsController.sections.count;
+    
+    if (indexPath.section == numberOfSections) {
         id <MLTableViewLoadingDataSourceDelegate> delegate = (id <MLTableViewLoadingDataSourceDelegate>)self.delegate;
         return [delegate tableView:tableView loadingCellAtIndexPath:indexPath];
     }
@@ -167,22 +173,24 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self.resultsController.sections count];
+    NSUInteger numberOfSections = self.resultsController.sections.count;
+    
+    if (self.showLoadingCell) {
+        numberOfSections++;
+    }
+    
+    return numberOfSections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id <MLResultsSectionInfo> sectionInfo = [self.resultsController.sections objectAtIndex:section];
-    NSUInteger numberOfObjects = [sectionInfo numberOfObjects];
+    NSUInteger numberOfSections = self.resultsController.sections.count;
     
-    if (self.showLoadingCell) {
-        NSUInteger sections = [self.resultsController.sections count];
-        
-        if (section == (sections - 1)) {
-            numberOfObjects++;
-        }
+    if (section == numberOfSections) {
+        return 1;
     }
     
-    return numberOfObjects;
+    id <MLResultsSectionInfo> sectionInfo = [self.resultsController.sections objectAtIndex:section];
+    return [sectionInfo numberOfObjects];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -210,12 +218,11 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    BOOL canEdit = NO;
-    
     if (self.showLoadingCell && [indexPath isEqual:self.loadingIndexPath]) {
-        return canEdit;
+        return NO;
     }
     
+    BOOL canEdit = NO;
     if ([self.delegate respondsToSelector:@selector(tableView:canEditObject:atIndexPath:)]) {
         id object = [self.resultsController objectAtIndexPath:indexPath];
         canEdit = [self.delegate tableView:tableView canEditObject:object atIndexPath:indexPath];
@@ -225,12 +232,11 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    BOOL canMove = NO;
-    
     if (self.showLoadingCell && [indexPath isEqual:self.loadingIndexPath]) {
-        return canMove;
+        return NO;
     }
     
+    BOOL canMove = NO;
     if ([self.delegate respondsToSelector:@selector(tableView:canMoveObject:atIndexPath:)]) {
         id object = [self.resultsController objectAtIndexPath:indexPath];
         canMove = [self.delegate tableView:tableView canMoveObject:object atIndexPath:indexPath];
@@ -315,6 +321,7 @@
                     [self.delegate tableView:self.tableView updateCell:cell forObject:anObject atIndexPath:indexPath];
                 }
                 else {
+#warning Should we reload cell with animation instead reload whole table?
                     self.reloadAfterAnimation = YES;
                 }
             }
@@ -323,8 +330,6 @@
 }
 
 - (void)resultsControllerDidChangeContent:(id<MLResultsController>)resultsController {
-    BOOL showLoadingCell = self.shouldShowLoadingCell;
-    
     if (self.animateTableChanges) {
         if (self.reloadAfterAnimation) {
             [CATransaction begin];
@@ -333,6 +338,7 @@
             }];
         }
         else {
+            BOOL showLoadingCell = self.shouldShowLoadingCell;
             [self setShowLoadingCell:showLoadingCell animated:YES];
         }
         
@@ -356,19 +362,30 @@
 
 - (void)setShowLoadingCell:(BOOL)showLoadingCell animated:(BOOL)animated {
     if (_showLoadingCell != showLoadingCell) {
+        _showLoadingCell = showLoadingCell;
+        
         if (animated) {
             NSIndexPath * indexPath = self.loadingIndexPath;
             
             if (showLoadingCell) {
+                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:self.addSectionAnimation];
                 [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:self.addObjectAnimation];
             }
             else {
                 [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:self.removeObjectAnimation];
+                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:self.removeSectionAnimation];
             }
         }
-        
-        _showLoadingCell = showLoadingCell;
     }
+    else if (showLoadingCell && animated) {
+        NSIndexPath * indexPath = self.loadingIndexPath;
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:self.updateObjectAnimation];
+//        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:self.updateSectionAnimation];
+    }
+}
+
+- (BOOL)isLoadingSection:(NSUInteger)section {
+    return (self.showLoadingCell && (section == self.loadingIndexPath.section));
 }
 
 - (BOOL)isLoadingIndexPath:(NSIndexPath *)indexPath {
@@ -381,14 +398,7 @@
 
 - (NSIndexPath *)loadingIndexPath {
     NSUInteger sections = [self.resultsController.sections count];
-    
-    if (!sections) {
-        return nil;
-    }
-    
-    NSUInteger rows = [[self.resultsController.sections objectAtIndex:(sections - 1)] numberOfObjects];
-    
-    return [NSIndexPath indexPathForRow:rows inSection:(sections - 1)];
+    return [NSIndexPath indexPathForRow:0 inSection:sections];
 }
 
 - (BOOL)shouldShowLoadingCell {

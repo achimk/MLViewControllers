@@ -35,8 +35,10 @@
     [super viewDidLoad];
     
     self.reloadOnAppearsFirstTime = NO;
-    self.dataSource = [[MLCollectionViewDataSource alloc] initWithCollectionView:self.collectionView resultsController:self.resultsController delegate:self];
-    self.dataSource.animateCollectionChanges = NO;
+    self.dataSource = [[MLCollectionViewDataSource alloc] initWithCollectionView:self.collectionView
+                                                               resultsController:self.resultsController
+                                                                        delegate:self];
+    self.dataSource.animateCollectionChanges = YES;
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.collectionView.backgroundColor = [UIColor whiteColor];

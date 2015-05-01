@@ -49,6 +49,7 @@
 
 - (instancetype)initWithCollectionView:(UICollectionView *)collectionView resultsController:(id <MLResultsController>)resultsController delegate:(id <MLCollectionViewDataSourceDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 
+- (BOOL)isLoadingSection:(NSUInteger)section;
 - (BOOL)isLoadingIndexPath:(NSIndexPath *)indexPath;
 
 - (void)reloadData;

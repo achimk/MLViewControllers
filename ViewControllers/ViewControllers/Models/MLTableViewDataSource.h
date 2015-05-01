@@ -53,6 +53,7 @@
 @property (nonatomic, readwrite, assign, getter = shouldAnimateTableChanges) BOOL animateTableChanges;
 @property (nonatomic, readwrite, assign) UITableViewRowAnimation addSectionAnimation;
 @property (nonatomic, readwrite, assign) UITableViewRowAnimation removeSectionAnimation;
+@property (nonatomic, readwrite, assign) UITableViewRowAnimation updateSectionAnimation;
 @property (nonatomic, readwrite, assign) UITableViewRowAnimation addObjectAnimation;
 @property (nonatomic, readwrite, assign) UITableViewRowAnimation removeObjectAnimation;
 @property (nonatomic, readwrite, assign) UITableViewRowAnimation updateObjectAnimation;
@@ -62,6 +63,7 @@
 - (void)setAllAnimations:(UITableViewRowAnimation)animation;
 - (void)setAllSectionAnimations:(UITableViewRowAnimation)animation;
 - (void)setAllObjectAnimations:(UITableViewRowAnimation)animation;
+- (BOOL)isLoadingSection:(NSUInteger)section;
 - (BOOL)isLoadingIndexPath:(NSIndexPath *)indexPath;
 
 - (void)reloadData;

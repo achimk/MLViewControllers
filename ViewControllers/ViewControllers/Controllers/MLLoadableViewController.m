@@ -164,17 +164,25 @@
         [loadToken success:@(NUMBER_OF_LOAD_ITEMS)];
         
         RZArrayCollectionList * collectionList = [weakSelf arrayCollectionList];
-        [collectionList beginUpdates];
+
         
         if (refreshItems) {
+            [collectionList beginUpdates];
             [collectionList removeAllObjects];
+            [collectionList endUpdates];
         }
         
-        for (NSUInteger i = 0; i < NUMBER_OF_LOAD_ITEMS; i++) {
-            [collectionList addObject:[NSDate date] toSection:0];
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [collectionList beginUpdates];
+            
+            for (NSUInteger i = 0; i < NUMBER_OF_LOAD_ITEMS; i++) {
+                [collectionList addObject:[NSDate date] toSection:0];
+            }
+            
+            [collectionList endUpdates];
+        });
         
-        [collectionList endUpdates];
+        
     });
 }
 
