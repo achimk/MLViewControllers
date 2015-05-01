@@ -7,8 +7,6 @@
 //
 
 #import "MLMainTableViewController.h"
-
-#import "MLCustomConfiguration.h"
 #import "MLTableViewCell.h"
 #import "MLAutorotation.h"
 
@@ -147,7 +145,8 @@ typedef NS_ENUM(NSUInteger, MLRowTestControllers) {
         Class classObj = NSClassFromString((NSString *)obj);
         NSAssert1([classObj isSubclassOfClass:[UIViewController class]], @"Class '%@' is not subclass of UIViewController.", obj);
         UIViewController * viewController = [[classObj alloc] init];
-        [self.navigationController ml_pushViewController:viewController withConfiguration:configuration animated:YES];
+        
+        [self.navigationController ml_pushViewController:viewController withObject:configuration context:nil animated:YES];
     }
     else {
         NSLog(@"-> Unsupported selection for index path: %@", indexPath);

@@ -99,6 +99,7 @@
 		27251ADC1ABF547B004C1743 /* MLLoadToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLoadToken.m; sourceTree = "<group>"; };
 		27251ADE1ABF5D80004C1743 /* MLLoadableContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLoadableContent.h; sourceTree = "<group>"; };
 		27251ADF1ABF5D80004C1743 /* MLLoadableContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLoadableContent.m; sourceTree = "<group>"; };
+		273B4B041AF39BBA00F9DA6D /* MLConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLConfiguration.h; sourceTree = "<group>"; };
 		274341991AAE1E3D002AD9B5 /* MLCollectionListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCollectionListController.h; sourceTree = "<group>"; };
 		2743419A1AAE1E3D002AD9B5 /* MLCollectionListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCollectionListController.m; sourceTree = "<group>"; };
 		2743419C1AAE1F58002AD9B5 /* MLBaseResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLBaseResultsController.h; sourceTree = "<group>"; };
@@ -181,7 +182,6 @@
 		278377C51A20C5B300C29996 /* MLCustomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCustomViewController.m; sourceTree = "<group>"; };
 		278377C81A20D64600C29996 /* MLCollectionViewStickyLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCollectionViewStickyLayout.h; sourceTree = "<group>"; };
 		278377C91A20D64600C29996 /* MLCollectionViewStickyLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCollectionViewStickyLayout.m; sourceTree = "<group>"; };
-		278377CB1A20E19100C29996 /* MLCustomConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLCustomConfiguration.h; sourceTree = "<group>"; };
 		278377CC1A20E35200C29996 /* MLLayoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLayoutViewController.h; sourceTree = "<group>"; };
 		278377CD1A20E35200C29996 /* MLLayoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLayoutViewController.m; sourceTree = "<group>"; };
 		278377D21A20ECE800C29996 /* MLCustomCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCustomCollectionViewCell.h; sourceTree = "<group>"; };
@@ -762,7 +762,7 @@
 		AAA780EE1A25C46F00E2E295 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				278377CB1A20E19100C29996 /* MLCustomConfiguration.h */,
+				273B4B041AF39BBA00F9DA6D /* MLConfiguration.h */,
 				AAA780EF1A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.h */,
 				AAA780F01A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m */,
 			);

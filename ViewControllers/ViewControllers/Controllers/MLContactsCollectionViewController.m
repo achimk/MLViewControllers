@@ -11,14 +11,10 @@
 #import "MLAutorotation.h"
 #import "MLCellSizeManager.h"
 
-#define IGNORE_CACHE        1
-#define USE_SIZE_MANAGER    1
-
 #pragma mark - MLContactsCollectionViewController
 
 @interface MLContactsCollectionViewController ()
 
-@property (nonatomic, readwrite, strong) NSCache * cacheOfCellHeights;
 @property (nonatomic, readwrite, strong) NSArray * arrayOfContacts;
 @property (nonatomic, readwrite, strong) MLCellSizeManager * sizeManager;
 
@@ -32,8 +28,7 @@
 
 - (void)finishInitialize {
     [super finishInitialize];
-    
-    _cacheOfCellHeights = [[NSCache alloc] init];
+
     _sizeManager = [[MLCellSizeManager alloc] init];
 }
 
@@ -115,24 +110,8 @@
 }
 
 - (CGFloat)cacheCellHeightForData:(id)data collectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath {
-#if USE_SIZE_MANAGER
     CGSize size = [self.sizeManager cellSizeForObject:data atIndexPath:indexPath];
     return size.height;
-#else
-    NSNumber * height = [self.cacheOfCellHeights objectForKey:@(indexPath.row)];
-    
-    if (!height) {
-        CGSize size = [MLContactCollectionViewCell cellSizeWithObject:data
-                                                       collectionView:collectionView
-                                                            indexPath:indexPath];
-        height = @(size.height);
-#if !IGNORE_CACHE
-        [self.cacheOfCellHeights setObject:height forKey:@(indexPath.row)];
-#endif
-    }
-    
-    return (height) ? height.floatValue : 0.0f;
-#endif
 }
 
 @end

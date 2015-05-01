@@ -10,15 +10,11 @@
 #import "MLContactTableViewCell.h"
 #import "MLCellSizeManager.h"
 
-#define IGNORE_CACHE        1
-#define USE_SIZE_MANAGER    1
-
 #pragma mark - MLContactsTableViewController
 
 @interface MLContactsTableViewController ()
 
 @property (nonatomic, readwrite, strong) NSArray * arrayOfContacts;
-@property (nonatomic, readwrite, strong) NSCache * cacheOfCellHeights;
 @property (nonatomic, readwrite, strong) MLCellSizeManager * sizeManager;
 
 @end
@@ -32,7 +28,6 @@
 - (void)finishInitialize {
     [super finishInitialize];
     
-    _cacheOfCellHeights = [[NSCache alloc] init];
     _sizeManager = [[MLCellSizeManager alloc] init];
 }
 
@@ -95,13 +90,7 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-#if USE_SIZE_MANAGER
     self.sizeManager.overrideWidth = self.view.bounds.size.height;
-#else
-#if !IGNORE_CACHE
-    [self.cacheOfCellHeights removeAllObjects];
-#endif
-#endif
 }
 
 #pragma mark Private Methods
@@ -114,24 +103,8 @@
 }
 
 - (CGFloat)cacheCellHeightForData:(id)data tableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
-#if USE_SIZE_MANAGER
     CGSize size = [self.sizeManager cellSizeForObject:data atIndexPath:indexPath];
     return size.height;
-#else
-    NSNumber * height = [self.cacheOfCellHeights objectForKey:@(indexPath.row)];
-    
-    if (!height) {
-        CGSize size = [MLContactTableViewCell cellSizeWithObject:data
-                                                       tableView:tableView
-                                                       indexPath:indexPath];
-        height = @(size.height);
-#if !IGNORE_CACHE
-        [self.cacheOfCellHeights setObject:height forKey:@(indexPath.row)];
-#endif
-    }
-    
-    return (height) ? height.floatValue : 0.0f;
-#endif
 }
 
 @end

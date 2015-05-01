@@ -108,7 +108,7 @@
 
 #pragma mark Configure Cell
 
-- (void)configureWithObject:(id)anObject indexPath:(NSIndexPath *)indexPath type:(MLCellConfigurationType)type {
+- (void)configureWithObject:(id)anObject indexPath:(NSIndexPath *)indexPath {
     self.labelName.text = anObject[@"name"];
     self.labelDate.text = anObject[@"registered"];
     self.labelAbout.text = anObject[@"about"];

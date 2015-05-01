@@ -10,11 +10,6 @@
 
 @protocol MLCellConfiguration <NSObject>
 
-typedef NS_ENUM(NSUInteger, MLCellConfigurationType) {
-    MLCellConfigurationTypeDefault,     // Default type, when cell needs to be populated with all resources.
-    MLCellConfigurationTypeSize         // Size type, when needs to compute cell size and ignore to load all resources.
-};
-
 @required
 
 // Define reusable cell identifier.
@@ -25,8 +20,5 @@ typedef NS_ENUM(NSUInteger, MLCellConfigurationType) {
 
 // Configure cell with object. This method should call cell configuration with MLCellConfigurationTypeDefault type.
 - (void)configureWithObject:(id)anObject indexPath:(NSIndexPath *)indexPath;
-
-// Configure cell with object for type. Subclasses should override this method.
-- (void)configureWithObject:(id)anObject indexPath:(NSIndexPath *)indexPath type:(MLCellConfigurationType)type;
 
 @end

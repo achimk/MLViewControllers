@@ -67,12 +67,6 @@
                              loadableSettingsViewController];
 }
 
-#pragma mark Configure
-
-- (void)finishInitializeWithConfiguration:(NSDictionary *)dictionary {
-
-}
-
 #pragma mark View
 
 - (void)loadView {
@@ -103,6 +97,12 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
                                                                                            target:self
                                                                                            action:@selector(refreshAction:)];
+}
+
+#pragma mark MLConfiguration
+
+- (void)configureWithObject:(id)anObject context:(id)context {
+    // Nothing to do...
 }
 
 #pragma mark Constraints

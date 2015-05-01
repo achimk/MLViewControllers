@@ -38,18 +38,18 @@ typedef NS_ENUM(NSUInteger, MLLayoutTypes) {
     self.title = @"Layouts";
 }
 
-#pragma mark MLCustomConfiguration
-
-- (void)finishInitializeWithConfiguration:(NSDictionary *)dictionary {
-    self.useCoreData = [dictionary[@"useCoreData"] boolValue];
-}
-
 #pragma mark View
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [MLTableViewCell registerCellWithTableView:self.tableView];
+}
+
+#pragma mark MLConfiguration
+
+- (void)configureWithObject:(id)anObject context:(id)context {
+    self.useCoreData = [anObject[@"useCoreData"] boolValue];
 }
 
 #pragma mark UITableViewDelegate

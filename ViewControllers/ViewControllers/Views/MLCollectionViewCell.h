@@ -25,16 +25,6 @@
 
 @end
 
-@interface MLCollectionViewCell (MLCellSize)
-
-// Default cell size. Returns size of cell when loaded from nib file otherwise CGSizeZero.
-+ (CGSize)cellSize;
-
-// Dynamic cell size. Populate with data and compute the size by autolayout.
-+ (CGSize)cellSizeWithObject:(id)anObject collectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath;
-
-@end
-
 @interface MLCollectionViewCell (MLSubclassOnly)
 
 // Common initializer for initWithFrame: and awakeFromNib. You don't need to call super implementation.

@@ -7,8 +7,8 @@
 //
 
 #import "MLSwitchViewController.h"
-#import "MLCustomConfiguration.h"
+#import "MLConfiguration.h"
 
-@interface MLLoadableViewController : MLSwitchViewController <MLCustomConfiguration>
+@interface MLLoadableViewController : MLSwitchViewController <MLConfiguration>
 
 @end

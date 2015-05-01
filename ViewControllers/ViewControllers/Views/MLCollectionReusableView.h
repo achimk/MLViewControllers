@@ -31,16 +31,6 @@
 
 @end
 
-@interface MLCollectionReusableView (MLReusableViewSize)
-
-// Default reusable view size. Returns size of reusable view when loaded from nib file otherwise CGSizeZero.
-+ (CGSize)reusableViewSize;
-
-// Dynamic reusable view size. Populate with data and compute the size by autolayout.
-+ (CGSize)reusableViewSizeWithObject:(id)anObject collectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath;
-
-@end
-
 @interface MLCollectionReusableView (MLSubclassOnly)
 
 // Default kind of suplementary view.

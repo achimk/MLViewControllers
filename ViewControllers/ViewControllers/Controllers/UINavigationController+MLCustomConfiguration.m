@@ -7,28 +7,19 @@
 //
 
 #import "UINavigationController+MLCustomConfiguration.h"
-
-#import "MLCustomConfiguration.h"
+#import "MLConfiguration.h"
 
 @implementation UINavigationController (MLCustomConfiguration)
 
-- (void)ml_pushViewController:(UIViewController *)viewController withConfiguration:(NSDictionary *)configuration animated:(BOOL)animated {
+- (void)ml_pushViewController:(UIViewController *)viewController withObject:(id)anObject context:(id)context animated:(BOOL)animated {
     NSParameterAssert(viewController);
     
-    if (configuration && [viewController conformsToProtocol:@protocol(MLCustomConfiguration)]) {
-        id <MLCustomConfiguration> controller = (id <MLCustomConfiguration>)viewController;
-        
-        if (!viewController.isViewLoaded && [controller respondsToSelector:@selector(finishInitializeWithConfiguration:)]) {
-            [controller finishInitializeWithConfiguration:configuration];
-        }
-        
+    if ([viewController conformsToProtocol:@protocol(MLConfiguration)]) {
         if (!viewController.isViewLoaded) {
             [viewController view];
-            
-            if ([controller respondsToSelector:@selector(finishDidLoadWithConfiguration:)]) {
-                [controller finishDidLoadWithConfiguration:configuration];
-            }
         }
+        
+        [(id <MLConfiguration>)viewController configureWithObject:anObject context:context];
     }
     
     [self pushViewController:viewController animated:animated];

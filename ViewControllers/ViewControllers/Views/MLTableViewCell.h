@@ -25,16 +25,6 @@
 
 @end
 
-@interface MLTableViewCell (MLCellSize)
-
-// Default cell size. Returns size of cell when loaded from nib file otherwise CGSizeZero.
-+ (CGSize)cellSize;
-
-// Dynamic cell size. Populate with data and compute the size by autolayout.
-+ (CGSize)cellSizeWithObject:(id)anObject tableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath;
-
-@end
-
 @interface MLTableViewCell (MLSubclassOnly)
 
 // Define default cell style when registered from class.

@@ -7,9 +7,8 @@
 //
 
 #import "MLTableViewController.h"
+#import "MLConfiguration.h"
 
-#import "MLCustomConfiguration.h"
-
-@interface MLLayoutViewController : MLTableViewController <MLCustomConfiguration>
+@interface MLLayoutViewController : MLTableViewController <MLConfiguration>
 
 @end
