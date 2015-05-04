@@ -124,7 +124,14 @@
                                  @"right"           : @(inset.right)};
         NSDictionary * views = @{@"topGuide"        : self.topLayoutGuide,
                                  @"collectionView"  : self.collectionView};
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide]-(top)-[collectionView]-(bottom)-|" options:kNilOptions metrics:sizes views:views]];
+        
+        if (self.automaticallyAdjustsScrollViewInsets) {
+            [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(top)-[collectionView]-(bottom)-|" options:kNilOptions metrics:sizes views:views]];
+        }
+        else {
+            [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide]-(top)-[collectionView]-(bottom)-|" options:kNilOptions metrics:sizes views:views]];
+        }
+
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[collectionView]-(right)-|" options:kNilOptions metrics:sizes views:views]];
     }
 }
