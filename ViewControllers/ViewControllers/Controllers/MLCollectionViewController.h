@@ -32,6 +32,7 @@
 @interface MLCollectionViewController (MLSubclassOnly)
 
 + (Class)defaultCollectionViewLayoutClass;
++ (UIEdgeInsets)defaultCollectionViewInset;
 - (UIView *)backgroundViewForCollectionView:(UICollectionView *)collectionView;
 
 @end

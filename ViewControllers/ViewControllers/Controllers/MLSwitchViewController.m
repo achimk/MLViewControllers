@@ -58,7 +58,7 @@
     [super viewDidLoad];
     
     if (self.viewControllers.count && !self.selectedViewController) {
-        self.selectedViewController = self.viewControllers[0];
+        self.selectedIndex = 0;
     }
 }
 
@@ -88,20 +88,14 @@
         _containerConstraintsNeedsUpdate = NO;
         
         UIEdgeInsets inset = [[self class] defaultContainerViewInset];
-        NSDictionary * views = @{@"topGuide"        : self.topLayoutGuide,
-                                 @"containerView"   : self.containerView};
         NSDictionary * sizes = @{@"top"             : @(inset.top),
                                  @"bottom"          : @(inset.bottom),
                                  @"left"            : @(inset.left),
                                  @"right"           : @(inset.right)};
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide]-(top)-[containerView]-(bottom)-|"
-                                                                          options:0
-                                                                          metrics:sizes
-                                                                            views:views]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[containerView]-(right)-|"
-                                                                          options:0
-                                                                          metrics:sizes
-                                                                            views:views]];
+        NSDictionary * views = @{@"topGuide"        : self.topLayoutGuide,
+                                 @"containerView"   : self.containerView};
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide]-(top)-[containerView]-(bottom)-|" options:kNilOptions metrics:sizes views:views]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[containerView]-(right)-|" options:kNilOptions metrics:sizes views:views]];
     }
 }
 
@@ -128,16 +122,16 @@
     _viewControllers = [viewControllers copy];
     
     if (self.isViewLoaded && _viewControllers.count) {
-        self.selectedViewController = _viewControllers[0];
+        self.selectedIndex = 0;
     }
     else {
-        self.selectedViewController = nil;
+        self.selectedIndex = NSNotFound;
     }
 }
 
 - (void)setSelectedIndex:(NSUInteger)selectedIndex {
-    NSAssert1(0 <= selectedIndex && selectedIndex < self.viewControllers.count, @"Set selected index %ld out of bounds", selectedIndex);
-    self.selectedViewController = self.viewControllers[selectedIndex];
+    NSAssert1(0 <= selectedIndex && selectedIndex < self.viewControllers.count, @"Set selected index %@ out of bounds", @(selectedIndex));
+    self.selectedViewController = (NSNotFound != selectedIndex) ? self.viewControllers[selectedIndex] : nil;
 }
 
 - (NSUInteger)selectedIndex {
@@ -227,9 +221,13 @@
         if (!existingViewController && newViewController) {
             [newViewController willMoveToParentViewController:self];
             [self addChildViewController:newViewController];
-            newViewController.view.frame = containerView.bounds;
+            newViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
             [containerView addSubview:newViewController.view];
             [newViewController didMoveToParentViewController:self];
+            
+            NSDictionary * views = @{@"view" : newViewController.view};
+            [containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:kNilOptions metrics:nil views:views]];
+            [containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|" options:kNilOptions metrics:nil views:views]];
             
             if (completion) {
                 completion();
@@ -245,7 +243,7 @@
             if (completion) {
                 completion();
             }
-
+            
         }
         // Replace existing view controller with new view controller
         else if ((existingViewController != newViewController) && newViewController) {
@@ -254,9 +252,14 @@
             [existingViewController.view removeFromSuperview];
             [existingViewController removeFromParentViewController];
             [existingViewController didMoveToParentViewController:nil];
-            newViewController.view.frame = containerView.bounds;
+            newViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
             [self addChildViewController:newViewController];
             [containerView addSubview:newViewController.view];
+            
+            NSDictionary * views = @{@"view" : newViewController.view};
+            [containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:kNilOptions metrics:nil views:views]];
+            [containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|" options:kNilOptions metrics:nil views:views]];
+            
             [newViewController didMoveToParentViewController:self];
             
             if (completion) {
@@ -270,8 +273,13 @@
             [newViewController willMoveToParentViewController:self];
             [newViewController beginAppearanceTransition:YES animated:NO];
             [self addChildViewController:newViewController];
-            newViewController.view.frame = containerView.bounds;
+            newViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
             [containerView addSubview:newViewController.view];
+            
+            NSDictionary * views = @{@"view" : newViewController.view};
+            [containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:kNilOptions metrics:nil views:views]];
+            [containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|" options:kNilOptions metrics:nil views:views]];
+            
             [newViewController didMoveToParentViewController:self];
             [newViewController endAppearanceTransition];
             
@@ -302,9 +310,14 @@
             [existingViewController didMoveToParentViewController:nil];
             [existingViewController endAppearanceTransition];
             [newViewController beginAppearanceTransition:YES animated:NO];
-            newViewController.view.frame = containerView.bounds;
+            newViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
             [self addChildViewController:newViewController];
             [containerView addSubview:newViewController.view];
+            
+            NSDictionary * views = @{@"view" : newViewController.view};
+            [containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:kNilOptions metrics:nil views:views]];
+            [containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|" options:kNilOptions metrics:nil views:views]];
+            
             [newViewController didMoveToParentViewController:self];
             [newViewController endAppearanceTransition];
             

@@ -28,6 +28,10 @@
     return [UICollectionViewFlowLayout class];
 }
 
++ (UIEdgeInsets)defaultCollectionViewInset {
+    return UIEdgeInsetsZero;
+}
+
 #pragma mark Init / Dealloc
 
 - (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout {
@@ -113,9 +117,15 @@
     if (_collectionViewConstraintsNeedsUpdate) {
         _collectionViewConstraintsNeedsUpdate = NO;
         
-        NSDictionary * views = @{@"collectionView"  : self.collectionView};
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[collectionView]|" options:0 metrics:nil views:views]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[collectionView]|" options:0 metrics:nil views:views]];
+        UIEdgeInsets inset = [[self class] defaultCollectionViewInset];
+        NSDictionary * sizes = @{@"top"             : @(inset.top),
+                                 @"bottom"          : @(inset.bottom),
+                                 @"left"            : @(inset.left),
+                                 @"right"           : @(inset.right)};
+        NSDictionary * views = @{@"topGuide"        : self.topLayoutGuide,
+                                 @"collectionView"  : self.collectionView};
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide]-(top)-[collectionView]-(bottom)-|" options:kNilOptions metrics:sizes views:views]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[collectionView]-(right)-|" options:kNilOptions metrics:sizes views:views]];
     }
 }
 

@@ -31,6 +31,7 @@
 @interface MLTableViewController (MLSubclassOnly)
 
 + (UITableViewStyle)defaultTableViewStyle;
++ (UIEdgeInsets)defaultTableViewInset;
 - (UIView *)backgroundViewForTableView:(UITableView *)tableView;
 
 @end

@@ -27,6 +27,10 @@
     return UITableViewStylePlain;
 }
 
++ (UIEdgeInsets)defaultTableViewInset {
+    return UIEdgeInsetsZero;
+}
+
 #pragma mark Init / Dealloc
 
 - (instancetype)initWithStyle:(UITableViewStyle)style {
@@ -107,9 +111,15 @@
     if (_tableViewConstraintsNeedsUpdate) {
         _tableViewConstraintsNeedsUpdate = NO;
         
-        NSDictionary * views = @{@"tableView"   : self.tableView};
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[tableView]|" options:0 metrics:nil views:views]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[tableView]|" options:0 metrics:nil views:views]];
+        UIEdgeInsets inset = [[self class] defaultTableViewInset];
+        NSDictionary * sizes = @{@"top"         : @(inset.top),
+                                 @"bottom"      : @(inset.bottom),
+                                 @"left"        : @(inset.left),
+                                 @"right"       : @(inset.right)};
+        NSDictionary * views = @{@"topGuide"    : self.topLayoutGuide,
+                                 @"tableView"   : self.tableView};
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide]-(top)-[tableView]-(bottom)-|" options:0 metrics:sizes views:views]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[tableView]-(right)-|" options:0 metrics:sizes views:views]];
     }
 }
 
