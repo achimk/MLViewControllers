@@ -58,6 +58,30 @@ typedef NS_ENUM (NSUInteger, MLSection) {
     self.autorotationController.autorotationMode = self.mode;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    NSLog(@"-> %p, %@, %@", self, NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    NSLog(@"-> %p, %@, %@", self, NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+
+    NSLog(@"-> %p, %@, %@", self, NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    NSLog(@"-> %p, %@, %@", self, NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+}
+
 #pragma mark Accessors
 
 - (NSString *)title {

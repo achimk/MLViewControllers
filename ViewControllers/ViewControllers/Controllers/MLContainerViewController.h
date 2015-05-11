@@ -1,17 +1,21 @@
 //
-//  MLSwitchViewController.h
+//  MLContainerViewController.h
 //  ViewControllers
 //
-//  Created by Joachim Kret on 22.11.2014.
-//  Copyright (c) 2014 Joachim Kret. All rights reserved.
+//  Created by Joachim Kret on 09.05.2015.
+//  Copyright (c) 2015 Joachim Kret. All rights reserved.
 //
 
 #import "MLViewController.h"
 #import "MLAutorotation.h"
 
-@interface MLSwitchViewController : MLViewController <MLAutorotation>
+@interface MLContainerSegue : UIStoryboardSegue
+@end
+
+@interface MLContainerViewController : MLViewController <MLAutorotation>
 
 @property (nonatomic, readonly, strong) IBOutlet UIView * containerView;
+@property (nonatomic, readwrite, copy) NSArray * segueIdentifiers;
 @property (nonatomic, readwrite, copy) NSArray * viewControllers;
 @property (nonatomic, readwrite, strong) UIViewController * selectedViewController;
 @property (nonatomic, readwrite, assign) NSUInteger selectedIndex;
@@ -19,7 +23,7 @@
 
 @end
 
-@interface MLSwitchViewController (MLSubclassOnly)
+@interface MLContainerViewController (MLSubclassOnly)
 
 + (Class)defaultContainerViewClass;
 + (UIEdgeInsets)defaultContainerViewInset;

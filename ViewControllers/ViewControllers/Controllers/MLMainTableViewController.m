@@ -51,7 +51,7 @@ typedef NS_ENUM(NSUInteger, MLRowLoadableControllers) {
 typedef NS_ENUM(NSUInteger, MLRowContainerControllers) {
     MLRowContainerNavigationController,
     MLRowContainerTabBarController,
-    MLRowContainerSwitchViewController,
+    MLRowContainerViewController,
     MLRowContainerCount
 };
 
@@ -122,7 +122,7 @@ typedef NS_ENUM(NSUInteger, MLRowTestControllers) {
                     //MLSectionContainerControllers
                     INDEX(MLSectionContainerControllers, MLRowContainerNavigationController)            : @"MLRotationViewController",
                     INDEX(MLSectionContainerControllers, MLRowContainerTabBarController)                : @"MLRotationTabBarController",
-                    INDEX(MLSectionContainerControllers, MLRowContainerSwitchViewController)            : @"MLRotationSwitchViewController",
+                    INDEX(MLSectionContainerControllers, MLRowContainerViewController)                  : @"MLConfigurationContainerViewController",
                     
                     //MLSectionTestControllers
                     INDEX(MLSectionTestControllers, MLRowTestController)                                : @"MLTestViewController",
@@ -185,7 +185,7 @@ typedef NS_ENUM(NSUInteger, MLRowTestControllers) {
                     //MLSectionContainerControllers
                     INDEX(MLSectionContainerControllers, MLRowContainerNavigationController)            : @"Navigation",
                     INDEX(MLSectionContainerControllers, MLRowContainerTabBarController)                : @"TabBar",
-                    INDEX(MLSectionContainerControllers, MLRowContainerSwitchViewController)            : @"Switch",
+                    INDEX(MLSectionContainerControllers, MLRowContainerViewController)                  : @"Custom Container",
                     
                     //MLSectionTestControllers
                     INDEX(MLSectionTestControllers, MLRowTestController)                                : @"Test View Controller"

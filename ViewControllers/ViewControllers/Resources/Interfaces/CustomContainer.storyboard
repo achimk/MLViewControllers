@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="3ZB-T0-43Y">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <scenes>
+        <!--Rotation Container View Controller-->
+        <scene sceneID="dqY-H6-t5g">
+            <objects>
+                <viewController id="3ZB-T0-43Y" customClass="MLRotationContainerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WFN-o4-Uve"/>
+                        <viewControllerLayoutGuide type="bottom" id="S5g-K5-wYM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bYP-rs-0kl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="XpJ-KI-68z">
+                                <rect key="frame" x="10" y="74" width="300" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="RQ4-bu-jPr"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Item 1"/>
+                                    <segment title="Item 2"/>
+                                    <segment title="Item 3"/>
+                                    <segment title="Item 4"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changeContent:" destination="3ZB-T0-43Y" eventType="valueChanged" id="Aqw-0Q-Zgw"/>
+                                </connections>
+                            </segmentedControl>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WfK-Y1-Ehx">
+                                <rect key="frame" x="0.0" y="112" width="320" height="456"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="WfK-Y1-Ehx" firstAttribute="top" secondItem="XpJ-KI-68z" secondAttribute="bottom" constant="10" id="DJT-ni-nr6"/>
+                            <constraint firstItem="WfK-Y1-Ehx" firstAttribute="leading" secondItem="bYP-rs-0kl" secondAttribute="leading" id="L3Z-Sg-9fr"/>
+                            <constraint firstAttribute="trailing" secondItem="WfK-Y1-Ehx" secondAttribute="trailing" id="RMa-eF-gJR"/>
+                            <constraint firstItem="XpJ-KI-68z" firstAttribute="top" secondItem="WFN-o4-Uve" secondAttribute="bottom" constant="10" id="Rlm-RQ-XFy"/>
+                            <constraint firstItem="XpJ-KI-68z" firstAttribute="leading" secondItem="bYP-rs-0kl" secondAttribute="leading" constant="10" id="YGE-md-zTq"/>
+                            <constraint firstItem="S5g-K5-wYM" firstAttribute="top" secondItem="WfK-Y1-Ehx" secondAttribute="bottom" id="gev-B5-4Mm"/>
+                            <constraint firstAttribute="trailing" secondItem="XpJ-KI-68z" secondAttribute="trailing" constant="10" id="hbv-Lf-1zt"/>
+                        </constraints>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="containerView" destination="WfK-Y1-Ehx" id="Jux-y1-RVr"/>
+                        <outlet property="segmentedControl" destination="XpJ-KI-68z" id="tC3-Tz-myb"/>
+                        <segue destination="QB6-N6-hcy" kind="custom" identifier="Container4" customClass="MLContainerSegue" id="XLa-aN-ZDn"/>
+                        <segue destination="ndF-0H-sBp" kind="custom" identifier="Container1" customClass="MLContainerSegue" id="Lef-L5-wGw"/>
+                        <segue destination="NoN-nw-MHH" kind="custom" identifier="Container3" customClass="MLContainerSegue" id="NDM-xy-2aj"/>
+                        <segue destination="1k6-R2-uZs" kind="custom" identifier="Container2" customClass="MLContainerSegue" id="DFW-TR-yTl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cly-fB-Pp4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="113" y="672"/>
+        </scene>
+        <!--Rotation View Controller-->
+        <scene sceneID="yWJ-zG-bAs">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DXE-Zl-OCi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="ndF-0H-sBp" customClass="MLRotationViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="B3c-N3-GMV"/>
+                        <viewControllerLayoutGuide type="bottom" id="TjP-OP-49I"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="b8e-BU-cFq">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="614" y="54"/>
+        </scene>
+        <!--Rotation View Controller-->
+        <scene sceneID="Zcj-JQ-WAz">
+            <objects>
+                <viewController id="NoN-nw-MHH" customClass="MLRotationViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pO9-RY-TGR"/>
+                        <viewControllerLayoutGuide type="bottom" id="K4q-mC-Vfa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gyp-CC-3OX">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kdf-4E-GPk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1123" y="235"/>
+        </scene>
+        <!--Rotation View Controller-->
+        <scene sceneID="Va4-Je-Nl9">
+            <objects>
+                <viewController id="QB6-N6-hcy" customClass="MLRotationViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Njv-aB-PY9"/>
+                        <viewControllerLayoutGuide type="bottom" id="hdL-m2-0gk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XPP-Pe-eQ0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9un-cG-tGc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1123" y="1043"/>
+        </scene>
+        <!--Rotation View Controller-->
+        <scene sceneID="LA0-yc-moE">
+            <objects>
+                <viewController id="1k6-R2-uZs" customClass="MLRotationViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sde-QH-wYG"/>
+                        <viewControllerLayoutGuide type="bottom" id="BM8-Gi-pjr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iFL-Lw-NhU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sgg-ty-SCB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="614" y="1204"/>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

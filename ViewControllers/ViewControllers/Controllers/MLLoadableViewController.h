@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Joachim Kret. All rights reserved.
 //
 
-#import "MLSwitchViewController.h"
+#import "MLContainerViewController.h"
 #import "MLConfiguration.h"
 
-@interface MLLoadableViewController : MLSwitchViewController <MLConfiguration>
+@interface MLLoadableViewController : MLContainerViewController <MLConfiguration>
 
 @end

@@ -34,7 +34,7 @@
 @implementation MLLoadableViewController
 
 + (UIEdgeInsets)defaultContainerViewInset {
-    return UIEdgeInsetsMake(50.0f, 0.0f, 0.0f, 0.0f);
+    return UIEdgeInsetsMake(48.0f, 0.0f, 0.0f, 0.0f);
 }
 
 #pragma mark Init
@@ -131,7 +131,7 @@
                                                                  toItem:nil
                                                               attribute:NSLayoutAttributeNotAnAttribute
                                                              multiplier:1.0f
-                                                               constant:30.0f]];
+                                                               constant:28.0f]];
     }
 }
 
