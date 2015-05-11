@@ -18,7 +18,7 @@
 
 @implementation MLViewController
 
-#pragma mark Init / Dealloc
+#pragma mark Init
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {

@@ -58,7 +58,7 @@
 }
 
 - (void)dealloc {
-    self.controller.delegate = nil;
+    _controller.delegate = nil;
 }
 
 #pragma mark Accessors

@@ -12,6 +12,8 @@
 		27251AD91ABEFBAB004C1743 /* MLLoadingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27251AD81ABEFBAB004C1743 /* MLLoadingTableViewCell.m */; };
 		27251ADD1ABF547B004C1743 /* MLLoadToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 27251ADC1ABF547B004C1743 /* MLLoadToken.m */; };
 		27251AE01ABF5D80004C1743 /* MLLoadableContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 27251ADF1ABF5D80004C1743 /* MLLoadableContent.m */; };
+		274012CE1B015653001179DE /* MLSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274012CD1B015653001179DE /* MLSwitchViewController.m */; };
+		274012D11B01569B001179DE /* MLRotationSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274012D01B01569B001179DE /* MLRotationSwitchViewController.m */; };
 		2743419B1AAE1E3D002AD9B5 /* MLCollectionListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2743419A1AAE1E3D002AD9B5 /* MLCollectionListController.m */; };
 		2743419E1AAE1F58002AD9B5 /* MLBaseResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2743419D1AAE1F58002AD9B5 /* MLBaseResultsController.m */; };
 		2755E7301AD731C500A9DFE3 /* MLOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2755E72F1AD731C500A9DFE3 /* MLOperation.m */; };
@@ -102,6 +104,10 @@
 		27251ADC1ABF547B004C1743 /* MLLoadToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLoadToken.m; sourceTree = "<group>"; };
 		27251ADE1ABF5D80004C1743 /* MLLoadableContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLoadableContent.h; sourceTree = "<group>"; };
 		27251ADF1ABF5D80004C1743 /* MLLoadableContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLoadableContent.m; sourceTree = "<group>"; };
+		274012CC1B015653001179DE /* MLSwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLSwitchViewController.h; sourceTree = "<group>"; };
+		274012CD1B015653001179DE /* MLSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLSwitchViewController.m; sourceTree = "<group>"; };
+		274012CF1B01569B001179DE /* MLRotationSwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLRotationSwitchViewController.h; sourceTree = "<group>"; };
+		274012D01B01569B001179DE /* MLRotationSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLRotationSwitchViewController.m; sourceTree = "<group>"; };
 		274341991AAE1E3D002AD9B5 /* MLCollectionListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCollectionListController.h; sourceTree = "<group>"; };
 		2743419A1AAE1E3D002AD9B5 /* MLCollectionListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCollectionListController.m; sourceTree = "<group>"; };
 		2743419C1AAE1F58002AD9B5 /* MLBaseResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLBaseResultsController.h; sourceTree = "<group>"; };
@@ -284,6 +290,8 @@
 				2718AA231AA10DB000F4938C /* MLRotationTabBarController.m */,
 				277D20251AFE173E005CE5D1 /* MLRotationContainerViewController.h */,
 				277D20261AFE173E005CE5D1 /* MLRotationContainerViewController.m */,
+				274012CF1B01569B001179DE /* MLRotationSwitchViewController.h */,
+				274012D01B01569B001179DE /* MLRotationSwitchViewController.m */,
 			);
 			name = "Container Controllers";
 			sourceTree = "<group>";
@@ -587,6 +595,8 @@
 				278377B41A20BAB200C29996 /* MLSplitViewController.m */,
 				277D201B1AFE0EA2005CE5D1 /* MLContainerViewController.h */,
 				277D201C1AFE0EA2005CE5D1 /* MLContainerViewController.m */,
+				274012CC1B015653001179DE /* MLSwitchViewController.h */,
+				274012CD1B015653001179DE /* MLSwitchViewController.m */,
 			);
 			name = "Abstract Containers";
 			sourceTree = "<group>";
@@ -1014,6 +1024,7 @@
 				27B7FA131AAB9A040062430E /* MLTableViewDataSource.m in Sources */,
 				278377891A20B7B400C29996 /* MLNavigationController.m in Sources */,
 				278377C01A20C51600C29996 /* MLCustomTableViewController.m in Sources */,
+				274012CE1B015653001179DE /* MLSwitchViewController.m in Sources */,
 				AAA780F11A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m in Sources */,
 				2783778D1A20B7B400C29996 /* MLTableViewCell.m in Sources */,
 				279CDEC41AF3D4E2009D7258 /* MLUserDefaultsController.m in Sources */,
@@ -1029,6 +1040,7 @@
 				276CA8621AC0DF54002A90B3 /* MLLoadableTableViewController.m in Sources */,
 				27251AE01ABF5D80004C1743 /* MLLoadableContent.m in Sources */,
 				27251AD91ABEFBAB004C1743 /* MLLoadingTableViewCell.m in Sources */,
+				274012D11B01569B001179DE /* MLRotationSwitchViewController.m in Sources */,
 				27709B281AC82C7800F3D29C /* MLFetchedTableViewController.m in Sources */,
 				27709B251AC82C5800F3D29C /* MLArrayTableViewController.m in Sources */,
 				27E2E79C1ACB27BB00EA2DFF /* MLCollectionViewFlowLayout.m in Sources */,

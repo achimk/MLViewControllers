@@ -63,7 +63,7 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    self.tableView.dataSource = nil;
+    _tableView.dataSource = nil;
 }
 
 #pragma mark Accessors

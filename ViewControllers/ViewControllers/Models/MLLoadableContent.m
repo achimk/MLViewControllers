@@ -81,7 +81,7 @@ NSString * const MLContentStateError            = @"ErrorState";
 }
 
 - (void)dealloc {
-    [self.loadToken ignore];
+    [_loadToken ignore];
 }
 
 #pragma mark Accessors

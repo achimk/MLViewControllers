@@ -214,7 +214,7 @@ const CGFloat MLCellSizeManagerDefaultCellHeightPadding     = 1.0f;
             
             // Add an extra point to the height to account for the cell separator, which is added between the bottom
             // of the cell's contentView and the bottom of the table view cell.
-            if ([configuration.cell isKindOfClass:[UITableView class]]) {
+            if ([configuration.cell isKindOfClass:[UITableViewCell class]]) {
                 size.height += self.cellHeightPadding;
             }
             
