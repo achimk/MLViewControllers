@@ -96,17 +96,20 @@
     
     if (_containerViewConstraintsNeedsUpdate) {
         _containerViewConstraintsNeedsUpdate = NO;
-        
-        UIEdgeInsets inset = [[self class] defaultContainerViewInset];
-        NSDictionary * sizes = @{@"top"             : @(inset.top),
-                                 @"bottom"          : @(inset.bottom),
-                                 @"left"            : @(inset.left),
-                                 @"right"           : @(inset.right)};
-        NSDictionary * views = @{@"topGuide"        : self.topLayoutGuide,
-                                 @"containerView"   : self.containerView};
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide]-(top)-[containerView]-(bottom)-|" options:kNilOptions metrics:sizes views:views]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[containerView]-(right)-|" options:kNilOptions metrics:sizes views:views]];
+        [self updateContainerViewConstraints];
     }
+}
+
+- (void)updateContainerViewConstraints {
+    UIEdgeInsets inset = [[self class] defaultContainerViewInset];
+    NSDictionary * sizes = @{@"top"             : @(inset.top),
+                             @"bottom"          : @(inset.bottom),
+                             @"left"            : @(inset.left),
+                             @"right"           : @(inset.right)};
+    NSDictionary * views = @{@"topGuide"        : self.topLayoutGuide,
+                             @"containerView"   : self.containerView};
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide]-(top)-[containerView]-(bottom)-|" options:kNilOptions metrics:sizes views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[containerView]-(right)-|" options:kNilOptions metrics:sizes views:views]];
 }
 
 #pragma mark Accessors

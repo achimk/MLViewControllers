@@ -110,23 +110,26 @@
     
     if (_tableViewConstraintsNeedsUpdate) {
         _tableViewConstraintsNeedsUpdate = NO;
-        
-        UIEdgeInsets inset = [[self class] defaultTableViewInset];
-        NSDictionary * sizes = @{@"top"         : @(inset.top),
-                                 @"bottom"      : @(inset.bottom),
-                                 @"left"        : @(inset.left),
-                                 @"right"       : @(inset.right)};
-        NSDictionary * views = @{@"topGuide"    : self.topLayoutGuide,
-                                 @"tableView"   : self.tableView};
-        
-        if (self.automaticallyAdjustsScrollViewInsets) {
-            [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(top)-[tableView]-(bottom)-|" options:kNilOptions metrics:sizes views:views]];
-        }
-        else {
-            [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide]-(top)-[tableView]-(bottom)-|" options:kNilOptions metrics:sizes views:views]];
-        }
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[tableView]-(right)-|" options:kNilOptions metrics:sizes views:views]];
+        [self updateTableViewConstraints];
     }
+}
+
+- (void)updateTableViewConstraints {
+    UIEdgeInsets inset = [[self class] defaultTableViewInset];
+    NSDictionary * sizes = @{@"top"         : @(inset.top),
+                             @"bottom"      : @(inset.bottom),
+                             @"left"        : @(inset.left),
+                             @"right"       : @(inset.right)};
+    NSDictionary * views = @{@"topGuide"    : self.topLayoutGuide,
+                             @"tableView"   : self.tableView};
+    
+    if (self.automaticallyAdjustsScrollViewInsets) {
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(top)-[tableView]-(bottom)-|" options:kNilOptions metrics:sizes views:views]];
+    }
+    else {
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide]-(top)-[tableView]-(bottom)-|" options:kNilOptions metrics:sizes views:views]];
+    }
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[tableView]-(right)-|" options:kNilOptions metrics:sizes views:views]];
 }
 
 #pragma mark Editing

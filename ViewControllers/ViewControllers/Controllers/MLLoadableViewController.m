@@ -19,9 +19,7 @@
 
 #pragma mark - MLLoadableViewController
 
-@interface MLLoadableViewController () <MLLoadableContentDataSource> {
-    BOOL _segmentedControlConstraintsNeedsUpdate;
-}
+@interface MLLoadableViewController () <MLLoadableContentDataSource>
 
 @property (nonatomic, readwrite, strong) MLLoadableContent * loadableContent;
 @property (nonatomic, readwrite, strong) MLCollectionListController * collectionListController;
@@ -32,10 +30,6 @@
 #pragma mark -
 
 @implementation MLLoadableViewController
-
-+ (UIEdgeInsets)defaultContainerViewInset {
-    return UIEdgeInsetsMake(48.0f, 0.0f, 0.0f, 0.0f);
-}
 
 #pragma mark Init
 
@@ -73,7 +67,6 @@
     [super loadView];
     
     if (!_segmentedControl) {
-        _segmentedControlConstraintsNeedsUpdate = YES;
         UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] init];
         segmentedControl.translatesAutoresizingMaskIntoConstraints = NO;
         [self.view addSubview:segmentedControl];
@@ -107,32 +100,27 @@
 
 #pragma mark Constraints
 
-- (void)updateViewConstraints {
-    [super updateViewConstraints];
-    
-    if (_segmentedControlConstraintsNeedsUpdate) {
-        _segmentedControlConstraintsNeedsUpdate = NO;
-        
-        NSDictionary * views = @{@"topGuide"            : self.topLayoutGuide,
-                                 @"segmentedControl"    : self.segmentedControl,
-                                 @"containerView"       : self.containerView};
-        NSDictionary * sizes = @{@"margin"              : @(10.0f)};
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide]-(margin)-[segmentedControl]-(margin)-[containerView]|"
-                                                                          options:0
-                                                                          metrics:sizes
-                                                                            views:views]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[segmentedControl]-(margin)-|"
-                                                                          options:0
-                                                                          metrics:sizes
-                                                                            views:views]];
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.segmentedControl
-                                                              attribute:NSLayoutAttributeHeight
-                                                              relatedBy:NSLayoutRelationEqual
-                                                                 toItem:nil
-                                                              attribute:NSLayoutAttributeNotAnAttribute
-                                                             multiplier:1.0f
-                                                               constant:28.0f]];
-    }
+- (void)updateContainerViewConstraints {
+    NSDictionary * views = @{@"topGuide"            : self.topLayoutGuide,
+                             @"segmentedControl"    : self.segmentedControl,
+                             @"containerView"       : self.containerView};
+    NSDictionary * sizes = @{@"margin"              : @(10.0f)};
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide]-(margin)-[segmentedControl]-(margin)-[containerView]|"
+                                                                      options:0
+                                                                      metrics:sizes
+                                                                        views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[segmentedControl]-(margin)-|"
+                                                                      options:0
+                                                                      metrics:sizes
+                                                                        views:views]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.segmentedControl
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0f
+                                                           constant:28.0f]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[containerView]|" options:kNilOptions metrics:nil views:views]];
 }
 
 #pragma mark Accessors
