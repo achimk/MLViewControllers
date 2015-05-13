@@ -86,6 +86,10 @@ NSString * const MLContentStateError            = @"ErrorState";
 
 #pragma mark Accessors
 
+- (BOOL)isInitial {
+    return [self.currentState isEqualToString:MLContentStateInitial];
+}
+
 - (BOOL)isLoading {
     return [self.currentState isEqualToString:MLContentStateLoading];
 }
@@ -96,6 +100,18 @@ NSString * const MLContentStateError            = @"ErrorState";
 
 - (BOOL)isPaging {
     return [self.currentState isEqualToString:MLContentStatePaging];
+}
+
+- (BOOL)isLoaded {
+    return [self.currentState isEqualToString:MLContentStateLoaded];
+}
+
+- (BOOL)isNoContent {
+    return [self.currentState isEqualToString:MLContentStateNoContent];
+}
+
+- (BOOL)isError {
+    return [self.currentState isEqualToString:MLContentStateError];
 }
 
 #pragma mark Content State

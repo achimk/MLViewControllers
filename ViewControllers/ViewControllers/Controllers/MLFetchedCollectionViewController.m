@@ -85,9 +85,9 @@
 
 #pragma mark MLCollectionViewDataSourceDelegate
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForObject:(id)object atIndexPath:(NSIndexPath *)indexPath {
-    MLEventEntity * event = (MLEventEntity *)object;
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MLButtonCollectionViewCell * cell = [MLButtonCollectionViewCell cellForCollectionView:collectionView indexPath:indexPath];
+    MLEventEntity * event = (MLEventEntity *)[self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = [event.timestamp description];
     return cell;
 }

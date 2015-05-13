@@ -168,8 +168,7 @@
         return [delegate tableView:tableView loadingCellAtIndexPath:indexPath];
     }
     
-    id object = [self.resultsController objectAtIndexPath:indexPath];
-    return [self.delegate tableView:self.tableView cellForObject:object atIndexPath:indexPath];
+    return [self.delegate tableView:tableView cellForRowAtIndexPath:indexPath];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -380,7 +379,6 @@
     else if (showLoadingCell && animated) {
         NSIndexPath * indexPath = self.loadingIndexPath;
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:self.updateObjectAnimation];
-//        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:self.updateSectionAnimation];
     }
 }
 

@@ -15,7 +15,7 @@
 @protocol MLCollectionViewDataSourceDelegate <NSObject>
 
 @required
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForObject:(id)object atIndexPath:(NSIndexPath *)indexPath;
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 
 @optional
 - (void)collectionView:(UICollectionView *)collectionView updateCell:(UICollectionViewCell *)cell forObject:(id)object atIndexPath:(NSIndexPath *)indexPath;

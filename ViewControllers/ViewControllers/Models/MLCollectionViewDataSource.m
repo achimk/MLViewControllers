@@ -147,8 +147,7 @@
         return [delegate collectionView:collectionView loadingCellAtIndexPath:indexPath];
     }
     
-    id object = [self.resultsController objectAtIndexPath:indexPath];
-    return [self.delegate collectionView:self.collectionView cellForObject:object atIndexPath:indexPath];
+    return [self.delegate collectionView:collectionView cellForItemAtIndexPath:indexPath];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {

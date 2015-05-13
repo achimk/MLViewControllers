@@ -86,13 +86,18 @@
 }
 
 - (NSUInteger)collectionView:(UICollectionView *)collectionView layout:(MLUniformFlowLayout *)layout numberOfColumnsInSection:(NSInteger)section {
-    return 1;
+    if ([self.dataSource isLoadingSection:section]) {
+        return 1;
+    }
+    
+    return (IS_IPHONE) ? 1 : 3;
 }
 
 #pragma mark MLCollectionViewDataSourceDelegate
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForObject:(id)object atIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MLCustomCollectionViewCell * cell = [MLCustomCollectionViewCell cellForCollectionView:collectionView indexPath:indexPath];
+    id object = [self.resultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = [object description];
     return cell;
 }

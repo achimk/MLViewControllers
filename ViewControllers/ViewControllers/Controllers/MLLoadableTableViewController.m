@@ -54,8 +54,9 @@
 
 #pragma mark MLTableViewDataSourceDelegate
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForObject:(id)object atIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MLTableViewCell * cell = [MLTableViewCell cellForTableView:tableView indexPath:indexPath];
+    id object = [self.resultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = [object description];
     return cell;
 }

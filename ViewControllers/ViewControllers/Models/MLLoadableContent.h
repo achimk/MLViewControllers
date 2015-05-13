@@ -70,13 +70,24 @@ typedef NS_ENUM(NSUInteger, MLLoadableContentType) {
 
 - (instancetype)initWithType:(MLLoadableContentType)type;
 
-- (BOOL)isLoading;
-- (BOOL)isRefreshing;
-- (BOOL)isPaging;
-
 - (BOOL)loadContent;
 - (BOOL)refreshContent;
 - (BOOL)pageContent;
+
+@end
+
+/**
+ MLLoadableContent (MLStates)
+ */
+@interface MLLoadableContent (MLStates)
+
+- (BOOL)isInitial;
+- (BOOL)isLoading;
+- (BOOL)isRefreshing;
+- (BOOL)isPaging;
+- (BOOL)isLoaded;
+- (BOOL)isNoContent;
+- (BOOL)isError;
 
 @end
 

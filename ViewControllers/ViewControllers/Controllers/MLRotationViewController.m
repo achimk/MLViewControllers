@@ -9,6 +9,8 @@
 #import "MLRotationViewController.h"
 #import "MLAutorotation.h"
 
+#define LOG_APPEARANCE  0
+
 typedef NS_ENUM (NSUInteger, MLSection) {
     MLSectionAutorotationMode,
     MLSectionOrientationMask,
@@ -55,12 +57,15 @@ typedef NS_ENUM (NSUInteger, MLSection) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+#if LOG_APPEARANCE
     NSLog(@"-> %p, %@, %@", self, NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+#endif
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.autorotationController.autorotationMode = self.mode;
 }
 
+#if LOG_APPEARANCE
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
@@ -84,6 +89,7 @@ typedef NS_ENUM (NSUInteger, MLSection) {
     
     NSLog(@"-> %p, %@, %@", self, NSStringFromClass([self class]), NSStringFromSelector(_cmd));
 }
+#endif
 
 #pragma mark Accessors
 

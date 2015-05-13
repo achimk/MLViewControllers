@@ -15,7 +15,7 @@
 #import "MLLoadableSettingsViewController.h"
 
 #define LOAD_TIME_INTERVAL      2.0f
-#define NUMBER_OF_LOAD_ITEMS    5
+#define NUMBER_OF_LOAD_ITEMS    ((IS_IPHONE) ? 6 : 18)
 
 #pragma mark - MLLoadableViewController
 
@@ -149,8 +149,6 @@
             return;
         }
         
-        [loadToken success:@(NUMBER_OF_LOAD_ITEMS)];
-        
         RZArrayCollectionList * collectionList = [weakSelf arrayCollectionList];
 
         
@@ -167,6 +165,7 @@
                 [collectionList addObject:[NSDate date] toSection:0];
             }
             
+            [loadToken success:@(NUMBER_OF_LOAD_ITEMS)];
             [collectionList endUpdates];
         });
         
