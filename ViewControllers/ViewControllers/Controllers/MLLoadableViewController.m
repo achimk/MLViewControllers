@@ -8,8 +8,9 @@
 
 #import "MLLoadableViewController.h"
 #import "MLLoadableContent.h"
-#import "MLCollectionListController.h"
 #import "RZCollectionList.h"
+#import "RZBaseCollectionList+MLResultsController.h"
+#import "RZArrayCollectionList+MLResultsController.h"
 #import "MLLoadableTableViewController.h"
 #import "MLLoadableCollectionViewController.h"
 #import "MLLoadableSettingsViewController.h"
@@ -22,7 +23,7 @@
 @interface MLLoadableViewController () <MLLoadableContentDataSource>
 
 @property (nonatomic, readwrite, strong) MLLoadableContent * loadableContent;
-@property (nonatomic, readwrite, strong) MLCollectionListController * collectionListController;
+@property (nonatomic, readwrite, strong) RZArrayCollectionList * resultsController;
 @property (nonatomic, readwrite, strong) UISegmentedControl * segmentedControl;
 
 @end
@@ -40,17 +41,16 @@
     _loadableContent = [[MLLoadableContent alloc] initWithType:type];
     _loadableContent.dataSource = self;
     
-    RZArrayCollectionList * collectionList = [[RZArrayCollectionList alloc] initWithArray:@[] sectionNameKeyPath:nil];
-    _collectionListController = [[MLCollectionListController alloc] initWithCollectionList:collectionList];
+    _resultsController = [[RZArrayCollectionList alloc] initWithArray:@[] sectionNameKeyPath:nil];
     
     MLLoadableTableViewController * loadableTableViewController = [[MLLoadableTableViewController alloc] init];
     loadableTableViewController.loadableContent = self.loadableContent;
-    loadableTableViewController.resultsController = self.collectionListController;
+    loadableTableViewController.resultsController = self.resultsController;
     loadableTableViewController.title = @"Table";
     
     MLLoadableCollectionViewController * loadableCollectionViewController = [[MLLoadableCollectionViewController alloc] init];
     loadableCollectionViewController.loadableContent = self.loadableContent;
-    loadableCollectionViewController.resultsController = self.collectionListController;
+    loadableCollectionViewController.resultsController = self.resultsController;
     loadableCollectionViewController.title = @"Collection";
     
     MLLoadableSettingsViewController * loadableSettingsViewController = [[MLLoadableSettingsViewController alloc] init];
@@ -123,12 +123,6 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[containerView]|" options:kNilOptions metrics:nil views:views]];
 }
 
-#pragma mark Accessors
-
-- (RZArrayCollectionList *)arrayCollectionList {
-    return self.collectionListController.collectionList;
-}
-
 #pragma mark Actions
 
 - (IBAction)itemDidChange:(id)sender {
@@ -149,7 +143,7 @@
             return;
         }
         
-        RZArrayCollectionList * collectionList = [weakSelf arrayCollectionList];
+        RZArrayCollectionList * collectionList = [weakSelf resultsController];
 
         
         if (refreshItems) {
