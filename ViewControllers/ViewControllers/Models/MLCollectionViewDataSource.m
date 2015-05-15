@@ -144,42 +144,21 @@
     BOOL showLoadingCell = self.shouldShowLoadingCell;
     NSIndexPath * indexPath = self.loadingIndexPath;
     
-#warning Fix bugs with wrong layout attributes! Uniform layout will crash for update loading cell!
     if (self.showLoadingCell != showLoadingCell) {
         self.showLoadingCell = showLoadingCell;
-        id cell = [self.collectionView cellForItemAtIndexPath:indexPath];
         
         if (showLoadingCell) {
-            NSLog(@"-> insert (%@ - %@)", @(indexPath.section), @(indexPath.row));
-            BOOL insertCell = (nil == cell);
-            
-            [self.collectionView performBatchUpdates:^{
-                [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:indexPath.section]];
-                if (insertCell) {
-                    [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
-                }
-            } completion:nil];
+            [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:indexPath.section]];
         }
         else {
-            NSLog(@"-> delete (%@ - %@)", @(indexPath.section), @(indexPath.row));
-            BOOL deleteCell = (nil != cell);
-            
-            [self.collectionView performBatchUpdates:^{
-                if (deleteCell) {
-                    [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
-                }
-                [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section]];
-            } completion:nil];
+            [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section]];
         }
     }
     else if (showLoadingCell) {
         id cell = [self.collectionView cellForItemAtIndexPath:indexPath];
         
         if (cell) {
-            [self.collectionView performBatchUpdates:^{
-                NSLog(@"-> reload (%@ - %@)", @(indexPath.section), @(indexPath.row));
-                [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
-            } completion:nil];
+            [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
         }
     }
 }
