@@ -7,11 +7,13 @@
 //
 
 #import "MLCollectionViewController.h"
+#import "MLCollectionViewDataSource.h"
 #import "MLLoadableContent.h"
 #import "MLResultsControllerProtocol.h"
 
 @interface MLLoadableCollectionViewController : MLCollectionViewController
 
+@property (nonatomic, readonly, strong) MLCollectionViewDataSource * dataSource;
 @property (nonatomic, readwrite, strong) MLLoadableContent * loadableContent;
 @property (nonatomic, readwrite, strong) id <MLResultsController> resultsController;
 

@@ -63,8 +63,11 @@
 - (void)setAllAnimations:(UITableViewRowAnimation)animation;
 - (void)setAllSectionAnimations:(UITableViewRowAnimation)animation;
 - (void)setAllObjectAnimations:(UITableViewRowAnimation)animation;
+
 - (BOOL)isLoadingSection:(NSUInteger)section;
 - (BOOL)isLoadingIndexPath:(NSIndexPath *)indexPath;
+- (void)updateLoadingCell;
+- (void)updateLoadingCellAnimated:(BOOL)animated;
 
 - (void)reloadData;
 

@@ -7,8 +7,7 @@
 //
 
 #import "MLContainerViewController.h"
-#import "MLConfiguration.h"
 
-@interface MLLoadableViewController : MLContainerViewController <MLConfiguration>
+@interface MLLoadableViewController : MLContainerViewController
 
 @end

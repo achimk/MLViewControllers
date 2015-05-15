@@ -15,7 +15,6 @@
 @property (nonatomic, readwrite, strong) NSMutableArray * batchUpdates;
 @property (nonatomic, readwrite, strong) NSMutableArray * insertedSectionIndexes;
 @property (nonatomic, readwrite, assign) BOOL showLoadingCell;
-@property (nonatomic, readwrite, assign) BOOL reloadAfterAnimation;
 
 @end
 
@@ -31,7 +30,6 @@
     if (self = [super init]) {
         _showLoadingCell = NO;
         _useBatchUpdating = YES;
-        _reloadAfterAnimation = NO;
         _animateCollectionChanges = YES;
         _clearsSelectionOnReloadData = NO;
         _reloadOnCurrentLocaleChange = NO;
@@ -131,6 +129,73 @@
     }
 }
 
+#pragma mark Loading Cell
+
+- (void)updateLoadingCell {
+    [self updateLoadingCellAnimated:self.animateCollectionChanges];
+}
+
+- (void)updateLoadingCellAnimated:(BOOL)animated {
+    if (!animated) {
+        [self reloadData];
+        return;
+    }
+    
+    BOOL showLoadingCell = self.shouldShowLoadingCell;
+    NSIndexPath * indexPath = self.loadingIndexPath;
+    
+#warning Fix bugs with wrong layout attributes! Uniform layout will crash for update loading cell!
+    if (self.showLoadingCell != showLoadingCell) {
+        self.showLoadingCell = showLoadingCell;
+        id cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+        
+        if (showLoadingCell) {
+            NSLog(@"-> insert (%@ - %@)", @(indexPath.section), @(indexPath.row));
+            BOOL insertCell = (nil == cell);
+            
+            [self.collectionView performBatchUpdates:^{
+                [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:indexPath.section]];
+                if (insertCell) {
+                    [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
+                }
+            } completion:nil];
+        }
+        else {
+            NSLog(@"-> delete (%@ - %@)", @(indexPath.section), @(indexPath.row));
+            BOOL deleteCell = (nil != cell);
+            
+            [self.collectionView performBatchUpdates:^{
+                if (deleteCell) {
+                    [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+                }
+                [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section]];
+            } completion:nil];
+        }
+    }
+    else if (showLoadingCell) {
+        id cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+        
+        if (cell) {
+            [self.collectionView performBatchUpdates:^{
+                NSLog(@"-> reload (%@ - %@)", @(indexPath.section), @(indexPath.row));
+                [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+            } completion:nil];
+        }
+    }
+}
+
+- (BOOL)isLoadingSection:(NSUInteger)section {
+    return (self.showLoadingCell && (section == self.loadingIndexPath.section));
+}
+
+- (BOOL)isLoadingIndexPath:(NSIndexPath *)indexPath {
+    if (self.showLoadingCell && indexPath) {
+        return [indexPath isEqual:self.loadingIndexPath];
+    }
+    
+    return NO;
+}
+
 #pragma mark Notifications
 
 - (void)currentLocaleDidChangeNotification:(NSNotification *)aNotification {
@@ -186,7 +251,6 @@
 - (void)resultsControllerWillChangeContent:(id<MLResultsController>)resultsController {
     if (self.animateCollectionChanges) {
         if (self.useBatchUpdating) {
-            self.reloadAfterAnimation = NO;
             self.batchUpdates = [[NSMutableArray alloc] init];
             self.insertedSectionIndexes = [[NSMutableArray alloc] init];
         }
@@ -207,7 +271,7 @@
                     [self.delegate collectionView:self.collectionView updateCell:cell forObject:anObject atIndexPath:newIndexPath];
                 }
                 else {
-                    self.reloadAfterAnimation = YES;
+                    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
                 }
             }
             else {
@@ -288,37 +352,15 @@
 }
 
 - (void)resultsControllerDidChangeContent:(id<MLResultsController>)resultsController {
-    if (self.animateCollectionChanges && self.collectionView.window) {
-        if (self.useBatchUpdating) {
-            BOOL showLoadingCell = self.shouldShowLoadingCell;
-            
-            if (showLoadingCell || showLoadingCell != self.showLoadingCell) {
-                void(^block)(void) = ^{
-                    [self setShowLoadingCell:showLoadingCell animated:YES];
-                };
-                
-                [self.batchUpdates addObject:[block copy]];
-            }
-            
-            if (self.batchUpdates.count) {
-                [self.collectionView performBatchUpdates:^{
-                    [self.batchUpdates enumerateObjectsUsingBlock:^(void (^changeBlock)(void), NSUInteger idx, BOOL *stop) {
-                        changeBlock();
-                    }];
-                } completion:^(BOOL finished) {
-                    if (self.reloadAfterAnimation) {
-                        self.reloadAfterAnimation = NO;
-                        
-                        [self reloadData];
-                    }
-                    
-                    self.batchUpdates = nil;
+    if (self.animateCollectionChanges) {        
+        if (self.useBatchUpdating && self.batchUpdates.count) {
+            [self.collectionView performBatchUpdates:^{
+                [self.batchUpdates enumerateObjectsUsingBlock:^(void (^changeBlock)(void), NSUInteger idx, BOOL *stop) {
+                    changeBlock();
                 }];
-            }
-        }
-        else {
-            BOOL showLoadingCell = self.shouldShowLoadingCell;
-            [self setShowLoadingCell:showLoadingCell animated:YES];
+            } completion:^(BOOL finished) {
+                self.batchUpdates = nil;
+            }];
         }
         
         self.insertedSectionIndexes = nil;
@@ -328,50 +370,7 @@
     }
 }
 
-#pragma mark Loading Cell
-
-- (void)setShowLoadingCell:(BOOL)showLoadingCell {
-    [self setShowLoadingCell:showLoadingCell animated:NO];
-}
-
-- (void)setShowLoadingCell:(BOOL)showLoadingCell animated:(BOOL)animated {
-    if (_showLoadingCell != showLoadingCell) {
-        _showLoadingCell = showLoadingCell;
-        
-        if (animated) {
-            NSIndexPath * indexPath = self.loadingIndexPath;
-            
-            if (showLoadingCell) {
-                if (![self.insertedSectionIndexes containsObject:@(indexPath.section)]) {
-                    [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:indexPath.section]];
-                }
-                else {
-                    [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
-                }
-            }
-            else {
-                [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
-                [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section]];
-            }
-        }
-    }
-    else if (showLoadingCell && animated) {
-        NSIndexPath * indexPath = self.loadingIndexPath;
-        [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
-    }
-}
-
-- (BOOL)isLoadingSection:(NSUInteger)section {
-    return (self.showLoadingCell && (section == self.loadingIndexPath.section));
-}
-
-- (BOOL)isLoadingIndexPath:(NSIndexPath *)indexPath {
-    if (self.showLoadingCell && indexPath) {
-        return [indexPath isEqual:self.loadingIndexPath];
-    }
-    
-    return NO;
-}
+#pragma mark Private Methods
 
 - (NSIndexPath *)loadingIndexPath {
     NSUInteger sections = [self.resultsController.sections count];

@@ -20,11 +20,18 @@
 
 #pragma mark - MLLoadableViewController
 
-@interface MLLoadableViewController () <MLLoadableContentDataSource>
+@interface MLLoadableViewController () <
+    MLLoadableContentDelegate,
+    MLLoadableContentDataSource
+>
 
 @property (nonatomic, readwrite, strong) MLLoadableContent * loadableContent;
 @property (nonatomic, readwrite, strong) RZArrayCollectionList * resultsController;
 @property (nonatomic, readwrite, strong) UISegmentedControl * segmentedControl;
+
+@property (nonatomic, readwrite, strong) MLLoadableTableViewController * loadableTableViewController;
+@property (nonatomic, readwrite, strong) MLLoadableCollectionViewController * loadableCollectionViewController;
+@property (nonatomic, readwrite, strong) MLLoadableSettingsViewController * loadableSettingsViewController;
 
 @end
 
@@ -39,26 +46,30 @@
     
     MLLoadableContentType type = MLLoadableContentTypePaging;
     _loadableContent = [[MLLoadableContent alloc] initWithType:type];
+    _loadableContent.delegate = self;
     _loadableContent.dataSource = self;
     
     _resultsController = [[RZArrayCollectionList alloc] initWithArray:@[] sectionNameKeyPath:nil];
+    
+    MLLoadableSettingsViewController * loadableSettingsViewController = [[MLLoadableSettingsViewController alloc] init];
+    loadableSettingsViewController.title = @"Settings";
+    self.loadableSettingsViewController = loadableSettingsViewController;
     
     MLLoadableTableViewController * loadableTableViewController = [[MLLoadableTableViewController alloc] init];
     loadableTableViewController.loadableContent = self.loadableContent;
     loadableTableViewController.resultsController = self.resultsController;
     loadableTableViewController.title = @"Table";
+    self.loadableTableViewController = loadableTableViewController;
     
     MLLoadableCollectionViewController * loadableCollectionViewController = [[MLLoadableCollectionViewController alloc] init];
     loadableCollectionViewController.loadableContent = self.loadableContent;
     loadableCollectionViewController.resultsController = self.resultsController;
     loadableCollectionViewController.title = @"Collection";
+    self.loadableCollectionViewController = loadableCollectionViewController;
     
-    MLLoadableSettingsViewController * loadableSettingsViewController = [[MLLoadableSettingsViewController alloc] init];
-    loadableSettingsViewController.title = @"Settings";
-    
-    self.viewControllers = @[loadableTableViewController,
-                             loadableCollectionViewController,
-                             loadableSettingsViewController];
+    self.viewControllers = @[loadableSettingsViewController,
+                             loadableTableViewController,
+                             loadableCollectionViewController];
 }
 
 #pragma mark View
@@ -90,12 +101,6 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
                                                                                            target:self
                                                                                            action:@selector(refreshAction:)];
-}
-
-#pragma mark MLConfiguration
-
-- (void)configureWithObject:(id)anObject context:(id)context {
-    // Nothing to do...
 }
 
 #pragma mark Constraints
@@ -133,6 +138,13 @@
     [self.loadableContent refreshContent];
 }
 
+#pragma mark MLLoadableContentDelegate
+
+- (void)loadableContentDidChangeState:(MLLoadableContent *)loadableContent {
+    [self.loadableTableViewController.dataSource updateLoadingCell];
+    [self.loadableCollectionViewController.dataSource updateLoadingCell];
+}
+
 #pragma mark MLLoadableContentDataSource
 
 - (void)loadableContent:(MLLoadableContent *)loadableContent loadDataWithLoadToken:(MLLoadToken *)loadToken {
@@ -142,28 +154,24 @@
         if (MLLoadTokenStateIgnore == loadToken.state) {
             return;
         }
-        
-        RZArrayCollectionList * collectionList = [weakSelf resultsController];
 
+        RZArrayCollectionList * collectionList = [weakSelf resultsController];
+        [collectionList beginUpdates];
         
         if (refreshItems) {
-            [collectionList beginUpdates];
-            [collectionList removeAllObjects];
-            [collectionList endUpdates];
+            NSArray * allObjects = [collectionList.allObjects copy];
+            for (id object in allObjects) {
+                [collectionList removeObject:object];
+            }
         }
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [collectionList beginUpdates];
-            
-            for (NSUInteger i = 0; i < NUMBER_OF_LOAD_ITEMS; i++) {
-                [collectionList addObject:[NSDate date] toSection:0];
-            }
-            
-            [loadToken success:@(NUMBER_OF_LOAD_ITEMS)];
-            [collectionList endUpdates];
-        });
+        for (NSUInteger i = 0; i < NUMBER_OF_LOAD_ITEMS; i++) {
+            [collectionList addObject:[NSDate date] toSection:0];
+        }
         
+        [collectionList endUpdates];
         
+        [loadToken success:@(NUMBER_OF_LOAD_ITEMS)];
     });
 }
 

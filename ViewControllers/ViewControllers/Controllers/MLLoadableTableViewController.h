@@ -7,11 +7,13 @@
 //
 
 #import "MLTableViewController.h"
+#import "MLTableViewDataSource.h"
 #import "MLLoadableContent.h"
 #import "MLResultsControllerProtocol.h"
 
 @interface MLLoadableTableViewController : MLTableViewController
 
+@property (nonatomic, readonly, strong) MLTableViewDataSource * dataSource;
 @property (nonatomic, readwrite, strong) MLLoadableContent * loadableContent;
 @property (nonatomic, readwrite, strong) id <MLResultsController> resultsController;
 

@@ -51,6 +51,8 @@
 
 - (BOOL)isLoadingSection:(NSUInteger)section;
 - (BOOL)isLoadingIndexPath:(NSIndexPath *)indexPath;
+- (void)updateLoadingCell;
+- (void)updateLoadingCellAnimated:(BOOL)animated;
 
 - (void)reloadData;
 

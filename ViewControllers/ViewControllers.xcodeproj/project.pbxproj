@@ -606,7 +606,6 @@
 			children = (
 				AAA780FA1A25F24B00E2E295 /* Cell Controllers */,
 				278377BC1A20C4EA00C29996 /* Base Controllers */,
-				278377BD1A20C4F500C29996 /* CoreData Controllers */,
 				274341951AAE1A89002AD9B5 /* Data Source Controllers */,
 				27251ADA1ABF37F0004C1743 /* Loading Controllers */,
 				2718AA211AA10CF200F4938C /* Container Controllers */,
@@ -630,13 +629,6 @@
 				278377C21A20C58300C29996 /* MLCustomCollectionViewController.m */,
 			);
 			name = "Base Controllers";
-			sourceTree = "<group>";
-		};
-		278377BD1A20C4F500C29996 /* CoreData Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "CoreData Controllers";
 			sourceTree = "<group>";
 		};
 		278377C71A20D3C500C29996 /* UICollectionView Layouts */ = {
