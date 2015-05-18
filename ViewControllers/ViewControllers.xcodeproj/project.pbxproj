@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		07E497747F7D15BA5D209B5E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39EA6D112DF10EA65BC5006F /* libPods.a */; };
+		270C7C211B0A6CDB009B7BEC /* MLOperationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E36EEE1AD7F78D00C7B984 /* MLOperationTestCase.m */; };
 		2718AA241AA10DB000F4938C /* MLRotationTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2718AA231AA10DB000F4938C /* MLRotationTabBarController.m */; };
 		27251AD91ABEFBAB004C1743 /* MLLoadingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27251AD81ABEFBAB004C1743 /* MLLoadingTableViewCell.m */; };
 		27251ADD1ABF547B004C1743 /* MLLoadToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 27251ADC1ABF547B004C1743 /* MLLoadToken.m */; };
@@ -84,7 +85,6 @@
 		27E36EEB1AD7F67E00C7B984 /* MLBlockOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2755E7321AD749A700A9DFE3 /* MLBlockOperation.m */; };
 		27E36EEC1AD7F71F00C7B984 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278377671A20B7B400C29996 /* UIKit.framework */; };
 		27E36EED1AD7F72600C7B984 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278377651A20B7B400C29996 /* Foundation.framework */; };
-		27E36EEF1AD7F78D00C7B984 /* MLOperationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E36EEE1AD7F78D00C7B984 /* MLOperationTestCase.m */; };
 		27E36F0A1AD8314E00C7B984 /* MLHTTPServiceOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E36F091AD8314E00C7B984 /* MLHTTPServiceOperation.m */; };
 		27E36F0D1AD8317C00C7B984 /* MLTaskServiceOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E36F0C1AD8317C00C7B984 /* MLTaskServiceOperation.m */; };
 		AA6BCE9A1ACEBFCE00AD0E81 /* MLObserversManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6BCE991ACEBFCE00AD0E81 /* MLObserversManager.m */; };
@@ -1049,8 +1049,8 @@
 			files = (
 				27E36EEA1AD7F67900C7B984 /* MLAsynchronousOperation.m in Sources */,
 				27E36EE91AD7F67400C7B984 /* MLOperation.m in Sources */,
+				270C7C211B0A6CDB009B7BEC /* MLOperationTestCase.m in Sources */,
 				27E36EEB1AD7F67E00C7B984 /* MLBlockOperation.m in Sources */,
-				27E36EEF1AD7F78D00C7B984 /* MLOperationTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

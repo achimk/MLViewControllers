@@ -79,15 +79,21 @@
             [self onExecute];
         }
     }
-
-    if (self.isCancelled) {
+    else {
         @autoreleasepool {
             [self onCancel];
         }
     }
     
-    self.state = MLOperationStateFinished;
     [self.lock unlock];
+}
+
+- (void)onExecute {
+    self.state = MLOperationStateFinished;
+}
+
+- (void)onCancel {
+    self.state = MLOperationStateFinished;
 }
 
 #pragma mark Private Methods
@@ -108,9 +114,7 @@
     switch (fromState) {
         case MLOperationStateReady: {
             switch (toState) {
-                case MLOperationStateUnknown: {
-                    return NO;
-                }
+                case MLOperationStateUnknown:
                 case MLOperationStateReady: {
                     return NO;
                 }
@@ -125,12 +129,8 @@
             
         case MLOperationStateExecuting: {
             switch (toState) {
-                case MLOperationStateUnknown: {
-                    return NO;
-                }
-                case MLOperationStateReady: {
-                    return NO;
-                }
+                case MLOperationStateUnknown:
+                case MLOperationStateReady:
                 case MLOperationStateExecuting: {
                     return NO;
                 }
@@ -142,15 +142,9 @@
             
         case MLOperationStateFinished: {
             switch (toState) {
-                case MLOperationStateUnknown: {
-                    return NO;
-                }
-                case MLOperationStateReady: {
-                    return NO;
-                }
-                case MLOperationStateExecuting: {
-                    return NO;
-                }
+                case MLOperationStateUnknown:
+                case MLOperationStateReady:
+                case MLOperationStateExecuting:
                 case MLOperationStateFinished: {
                     return NO;
                 }
@@ -159,14 +153,12 @@
             
         case MLOperationStateUnknown: {
             switch (toState) {
-                case MLOperationStateUnknown: {
+                case MLOperationStateUnknown:
+                case MLOperationStateExecuting: {
                     return NO;
                 }
                 case MLOperationStateReady: {
                     return YES;
-                }
-                case MLOperationStateExecuting: {
-                    return NO;
                 }
                 case MLOperationStateFinished: {
                     return self.isCancelled;
@@ -174,9 +166,6 @@
             }
         }
     }
-    
-    
-    return NO;
 }
 
 @end

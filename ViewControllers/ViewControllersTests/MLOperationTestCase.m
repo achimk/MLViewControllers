@@ -69,10 +69,18 @@
     else {
         sleep(OPERATION_EXECUTION_TIME);
     }
+    
+    if (self.isCancelled) {
+        [self onCancel];
+    }
+    else {
+        self.state = MLOperationStateFinished;
+    }
 }
 
 - (void)onCancel {
     _cancellationCounter++;
+    self.state = MLOperationStateFinished;
 }
 
 @end
