@@ -27,6 +27,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor blueColor];
+    self.tableView.backgroundView = [[UIView alloc] init];
+    self.tableView.backgroundView.backgroundColor = [UIColor redColor];
     [MLTableViewCell registerCellWithTableView:self.tableView];
 }
 
@@ -65,7 +68,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell * cell = [MLTableViewCell cellForTableView:tableView indexPath:indexPath];
     cell.textLabel.text = [NSString stringWithFormat:@"Section: %ld row: %ld", indexPath.section, indexPath.row];
-
+    cell.textLabel.backgroundColor = [UIColor redColor];
+    
+    if (!cell.backgroundView) {
+        cell.backgroundView = [[UIView alloc] init];
+        cell.backgroundView.backgroundColor = [UIColor redColor];
+    }
+    
     return cell;
 }
 

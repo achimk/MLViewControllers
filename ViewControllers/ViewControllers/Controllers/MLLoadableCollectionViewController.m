@@ -126,9 +126,14 @@
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldShowLoadingCellAtIndexPath:(NSIndexPath *)indexPath {
-    MLLoadableContentType type = self.loadableContent.type;
-    NSString * currentState = self.loadableContent.currentState;
-    return type == MLLoadableContentTypePaging && ([currentState isEqualToString:MLContentStateLoaded] || [currentState isEqualToString:MLContentStatePaging]);
+    BOOL isPagingType = (self.loadableContent.type == MLLoadableContentTypePaging);
+    BOOL isLoaded = self.loadableContent.isLoaded;
+    BOOL isPaging = self.loadableContent.isPaging;
+    BOOL showLoadingCell =  isPagingType && (isLoaded || isPaging);
+    
+    NSLog(@"-> %@: show loading cell: %@ for state: %@", NSStringFromClass([self class]), @(showLoadingCell), self.loadableContent.currentState);
+    
+    return showLoadingCell;
 }
 
 @end

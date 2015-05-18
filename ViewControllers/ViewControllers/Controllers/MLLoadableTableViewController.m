@@ -75,7 +75,7 @@
     BOOL isPaging = self.loadableContent.isPaging;
     BOOL showLoadingCell =  isPagingType && (isLoaded || isPaging);
     
-    NSLog(@"-> show loading cell: %@ for state: %@", @(showLoadingCell), self.loadableContent.currentState);
+    NSLog(@"-> %@: show loading cell: %@ for state: %@", NSStringFromClass([self class]), @(showLoadingCell), self.loadableContent.currentState);
     
     return showLoadingCell;
 }

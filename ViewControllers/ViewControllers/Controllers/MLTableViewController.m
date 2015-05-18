@@ -35,7 +35,9 @@
 
 - (instancetype)initWithStyle:(UITableViewStyle)style {
     if (self = [self initWithNibName:nil bundle:nil]) {
-        self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:style];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:style];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
     }
     
     return self;
@@ -61,28 +63,15 @@
 - (void)loadView {
     [super loadView];
     
-    if (!self.isViewLoaded) {
-        self.view = [[UIView alloc] init];
-    }
-    
-    if (!_tableView) {
+    if (!self.tableView) { // For programmatically init
         UITableViewStyle style = [[self class] defaultTableViewStyle];
-        self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:style];
-        self.tableView.scrollsToTop = YES;
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:style];
     }
-    else if (!_tableView.superview) {
+    else if (!self.tableView.superview) { // For programmatically init from initWithStyle:
         _tableViewConstraintsNeedsUpdate = YES;
-        _tableView.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.view addSubview:_tableView];
+        self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.view addSubview:self.tableView];
         [self.view setNeedsUpdateConstraints];
-    }
-}
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    
-    if (self.automaticallyAdjustsScrollViewInsets) {
-        self.tableView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0.0f, self.bottomLayoutGuide.length, 0.0f);
     }
 }
 
@@ -121,14 +110,22 @@
                              @"left"        : @(inset.left),
                              @"right"       : @(inset.right)};
     NSDictionary * views = @{@"topGuide"    : self.topLayoutGuide,
+                             @"bottomGuide" : self.bottomLayoutGuide,
                              @"tableView"   : self.tableView};
     
     if (self.automaticallyAdjustsScrollViewInsets) {
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(top)-[tableView]-(bottom)-|" options:kNilOptions metrics:sizes views:views]];
+        
+        UIEdgeInsets scrollInsets = UIEdgeInsetsMake(self.topLayoutGuide.length, 0.0f, self.bottomLayoutGuide.length, 0.0f);
+        self.tableView.contentInset = self.tableView.scrollIndicatorInsets = scrollInsets;
     }
     else {
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide]-(top)-[tableView]-(bottom)-|" options:kNilOptions metrics:sizes views:views]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide]-(top)-[tableView]-(bottom)-[bottomGuide]|" options:kNilOptions metrics:sizes views:views]];
+        
+        UIEdgeInsets scrollInsets = UIEdgeInsetsZero;
+        self.tableView.contentInset = self.tableView.scrollIndicatorInsets = scrollInsets;
     }
+    
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[tableView]-(right)-|" options:kNilOptions metrics:sizes views:views]];
 }
 

@@ -28,6 +28,7 @@
 + (Class)defaultContainerViewClass;
 + (UIEdgeInsets)defaultContainerViewInset;
 
+- (void)finishInitialize NS_REQUIRES_SUPER;
 - (void)replaceViewController:(UIViewController *)existingViewController
            withViewController:(UIViewController *)newViewController
               inContainerView:(UIView *)containerView

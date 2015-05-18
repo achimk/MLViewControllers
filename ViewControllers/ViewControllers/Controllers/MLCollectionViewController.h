@@ -33,6 +33,8 @@
 
 + (Class)defaultCollectionViewLayoutClass;
 + (UIEdgeInsets)defaultCollectionViewInset;
+
+- (void)finishInitialize NS_REQUIRES_SUPER;
 - (UIView *)backgroundViewForCollectionView:(UICollectionView *)collectionView;
 
 @end

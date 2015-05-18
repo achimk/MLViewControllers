@@ -9,12 +9,13 @@
 /* Begin PBXBuildFile section */
 		07E497747F7D15BA5D209B5E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39EA6D112DF10EA65BC5006F /* libPods.a */; };
 		270C7C211B0A6CDB009B7BEC /* MLOperationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E36EEE1AD7F78D00C7B984 /* MLOperationTestCase.m */; };
+		270C7C241B0A7246009B7BEC /* MLCustomConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 270C7C231B0A7246009B7BEC /* MLCustomConfigurationViewController.m */; };
+		270C7C271B0A7C77009B7BEC /* CustomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 270C7C261B0A7C77009B7BEC /* CustomViewController.xib */; };
+		270C7C2A1B0A7E76009B7BEC /* CustomTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 270C7C291B0A7E76009B7BEC /* CustomTableViewController.xib */; };
 		2718AA241AA10DB000F4938C /* MLRotationTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2718AA231AA10DB000F4938C /* MLRotationTabBarController.m */; };
 		27251AD91ABEFBAB004C1743 /* MLLoadingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27251AD81ABEFBAB004C1743 /* MLLoadingTableViewCell.m */; };
 		27251ADD1ABF547B004C1743 /* MLLoadToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 27251ADC1ABF547B004C1743 /* MLLoadToken.m */; };
 		27251AE01ABF5D80004C1743 /* MLLoadableContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 27251ADF1ABF5D80004C1743 /* MLLoadableContent.m */; };
-		274012CE1B015653001179DE /* MLSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274012CD1B015653001179DE /* MLSwitchViewController.m */; };
-		274012D11B01569B001179DE /* MLRotationSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274012D01B01569B001179DE /* MLRotationSwitchViewController.m */; };
 		2743419B1AAE1E3D002AD9B5 /* MLCollectionListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2743419A1AAE1E3D002AD9B5 /* MLCollectionListController.m */; };
 		2743419E1AAE1F58002AD9B5 /* MLBaseResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2743419D1AAE1F58002AD9B5 /* MLBaseResultsController.m */; };
 		2755E7301AD731C500A9DFE3 /* MLOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2755E72F1AD731C500A9DFE3 /* MLOperation.m */; };
@@ -96,6 +97,10 @@
 
 /* Begin PBXFileReference section */
 		1C679E83FE33288317C35094 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		270C7C221B0A7246009B7BEC /* MLCustomConfigurationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCustomConfigurationViewController.h; sourceTree = "<group>"; };
+		270C7C231B0A7246009B7BEC /* MLCustomConfigurationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCustomConfigurationViewController.m; sourceTree = "<group>"; };
+		270C7C261B0A7C77009B7BEC /* CustomViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomViewController.xib; sourceTree = "<group>"; };
+		270C7C291B0A7E76009B7BEC /* CustomTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomTableViewController.xib; sourceTree = "<group>"; };
 		2718AA221AA10DB000F4938C /* MLRotationTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLRotationTabBarController.h; sourceTree = "<group>"; };
 		2718AA231AA10DB000F4938C /* MLRotationTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLRotationTabBarController.m; sourceTree = "<group>"; };
 		27251AD71ABEFBAB004C1743 /* MLLoadingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLoadingTableViewCell.h; sourceTree = "<group>"; };
@@ -104,10 +109,6 @@
 		27251ADC1ABF547B004C1743 /* MLLoadToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLoadToken.m; sourceTree = "<group>"; };
 		27251ADE1ABF5D80004C1743 /* MLLoadableContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLoadableContent.h; sourceTree = "<group>"; };
 		27251ADF1ABF5D80004C1743 /* MLLoadableContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLoadableContent.m; sourceTree = "<group>"; };
-		274012CC1B015653001179DE /* MLSwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLSwitchViewController.h; sourceTree = "<group>"; };
-		274012CD1B015653001179DE /* MLSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLSwitchViewController.m; sourceTree = "<group>"; };
-		274012CF1B01569B001179DE /* MLRotationSwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLRotationSwitchViewController.h; sourceTree = "<group>"; };
-		274012D01B01569B001179DE /* MLRotationSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLRotationSwitchViewController.m; sourceTree = "<group>"; };
 		274341991AAE1E3D002AD9B5 /* MLCollectionListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCollectionListController.h; sourceTree = "<group>"; };
 		2743419A1AAE1E3D002AD9B5 /* MLCollectionListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCollectionListController.m; sourceTree = "<group>"; };
 		2743419C1AAE1F58002AD9B5 /* MLBaseResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLBaseResultsController.h; sourceTree = "<group>"; };
@@ -283,6 +284,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		270C7C251B0A7C4B009B7BEC /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				277D20231AFE11D2005CE5D1 /* CustomContainer.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		270C7C281B0A7E4E009B7BEC /* Xibs */ = {
+			isa = PBXGroup;
+			children = (
+				270C7C261B0A7C77009B7BEC /* CustomViewController.xib */,
+				270C7C291B0A7E76009B7BEC /* CustomTableViewController.xib */,
+			);
+			name = Xibs;
+			sourceTree = "<group>";
+		};
 		2718AA211AA10CF200F4938C /* Container Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -290,8 +308,6 @@
 				2718AA231AA10DB000F4938C /* MLRotationTabBarController.m */,
 				277D20251AFE173E005CE5D1 /* MLRotationContainerViewController.h */,
 				277D20261AFE173E005CE5D1 /* MLRotationContainerViewController.m */,
-				274012CF1B01569B001179DE /* MLRotationSwitchViewController.h */,
-				274012D01B01569B001179DE /* MLRotationSwitchViewController.m */,
 			);
 			name = "Container Controllers";
 			sourceTree = "<group>";
@@ -406,7 +422,8 @@
 		277D20221AFE11AE005CE5D1 /* Interfaces */ = {
 			isa = PBXGroup;
 			children = (
-				277D20231AFE11D2005CE5D1 /* CustomContainer.storyboard */,
+				270C7C251B0A7C4B009B7BEC /* Storyboards */,
+				270C7C281B0A7E4E009B7BEC /* Xibs */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -595,8 +612,6 @@
 				278377B41A20BAB200C29996 /* MLSplitViewController.m */,
 				277D201B1AFE0EA2005CE5D1 /* MLContainerViewController.h */,
 				277D201C1AFE0EA2005CE5D1 /* MLContainerViewController.m */,
-				274012CC1B015653001179DE /* MLSwitchViewController.h */,
-				274012CD1B015653001179DE /* MLSwitchViewController.m */,
 			);
 			name = "Abstract Containers";
 			sourceTree = "<group>";
@@ -621,6 +636,8 @@
 		278377BC1A20C4EA00C29996 /* Base Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				270C7C221B0A7246009B7BEC /* MLCustomConfigurationViewController.h */,
+				270C7C231B0A7246009B7BEC /* MLCustomConfigurationViewController.m */,
 				278377C41A20C5B300C29996 /* MLCustomViewController.h */,
 				278377C51A20C5B300C29996 /* MLCustomViewController.m */,
 				278377BE1A20C51600C29996 /* MLCustomTableViewController.h */,
@@ -916,6 +933,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAA780F91A25F21900E2E295 /* Contacts.json in Resources */,
+				270C7C271B0A7C77009B7BEC /* CustomViewController.xib in Resources */,
+				270C7C2A1B0A7E76009B7BEC /* CustomTableViewController.xib in Resources */,
 				277D20241AFE11D2005CE5D1 /* CustomContainer.storyboard in Resources */,
 				278377701A20B7B400C29996 /* InfoPlist.strings in Resources */,
 				278377A71A20B7D400C29996 /* Images.xcassets in Resources */,
@@ -1004,6 +1023,7 @@
 				27A767D01AF3B5A90096CAEE /* RZBaseCollectionList+MLResultsController.m in Sources */,
 				275646831A96A35C00D1847A /* MLRotationViewController.m in Sources */,
 				27B7FA161AAB9A180062430E /* MLCollectionViewDataSource.m in Sources */,
+				270C7C241B0A7246009B7BEC /* MLCustomConfigurationViewController.m in Sources */,
 				278377801A20B7B400C29996 /* MLViewController.m in Sources */,
 				278377831A20B7B400C29996 /* MLTableViewController.m in Sources */,
 				279CDEBE1AF3CD20009D7258 /* RZArrayCollectionList+MLResultsController.m in Sources */,
@@ -1016,7 +1036,6 @@
 				27B7FA131AAB9A040062430E /* MLTableViewDataSource.m in Sources */,
 				278377891A20B7B400C29996 /* MLNavigationController.m in Sources */,
 				278377C01A20C51600C29996 /* MLCustomTableViewController.m in Sources */,
-				274012CE1B015653001179DE /* MLSwitchViewController.m in Sources */,
 				AAA780F11A25C4A100E2E295 /* UINavigationController+MLCustomConfiguration.m in Sources */,
 				2783778D1A20B7B400C29996 /* MLTableViewCell.m in Sources */,
 				279CDEC41AF3D4E2009D7258 /* MLUserDefaultsController.m in Sources */,
@@ -1032,7 +1051,6 @@
 				276CA8621AC0DF54002A90B3 /* MLLoadableTableViewController.m in Sources */,
 				27251AE01ABF5D80004C1743 /* MLLoadableContent.m in Sources */,
 				27251AD91ABEFBAB004C1743 /* MLLoadingTableViewCell.m in Sources */,
-				274012D11B01569B001179DE /* MLRotationSwitchViewController.m in Sources */,
 				27709B281AC82C7800F3D29C /* MLFetchedTableViewController.m in Sources */,
 				27709B251AC82C5800F3D29C /* MLArrayTableViewController.m in Sources */,
 				27E2E79C1ACB27BB00EA2DFF /* MLCollectionViewFlowLayout.m in Sources */,

@@ -32,6 +32,8 @@
 
 + (UITableViewStyle)defaultTableViewStyle;
 + (UIEdgeInsets)defaultTableViewInset;
+
+- (void)finishInitialize NS_REQUIRES_SUPER;
 - (UIView *)backgroundViewForTableView:(UITableView *)tableView;
 
 @end
