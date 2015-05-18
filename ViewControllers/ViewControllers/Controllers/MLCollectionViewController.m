@@ -11,6 +11,7 @@
 #pragma mark - MLCollectionViewController
 
 @interface MLCollectionViewController () {
+    BOOL _collectionViewScrollInsetsNeedsUpdate;
     BOOL _collectionViewConstraintsNeedsUpdate;
     BOOL _needsReload;
 }
@@ -39,7 +40,7 @@
     
     if (self = [self initWithNibName:nil bundle:nil]) {
         if (!layout) {
-            layout = [[[self class] defaultCollectionViewLayoutClass] new];
+            layout = [[[[self class] defaultCollectionViewLayoutClass] alloc] init];
         }
         
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
@@ -58,6 +59,7 @@
     _reloadOnAppearsFirstTime = YES;
     _clearsSelectionOnViewWillAppear = YES;
     _clearsSelectionOnReloadData = NO;
+    _collectionViewScrollInsetsNeedsUpdate = NO;
     _collectionViewConstraintsNeedsUpdate = NO;
 }
 
@@ -79,6 +81,14 @@
         self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
         [self.view addSubview:self.collectionView];
         [self.view setNeedsUpdateConstraints];
+    }
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    if (_collectionViewScrollInsetsNeedsUpdate) {
+        [self updateCollectionViewScrollInsets];
     }
 }
 
@@ -105,6 +115,7 @@
     [super updateViewConstraints];
     
     if (_collectionViewConstraintsNeedsUpdate) {
+        _collectionViewScrollInsetsNeedsUpdate = YES;
         _collectionViewConstraintsNeedsUpdate = NO;
         [self updateCollectionViewConstraints];
     }
@@ -125,28 +136,32 @@
                                                                           options:kNilOptions
                                                                           metrics:sizes
                                                                             views:views]];
-        
-        BOOL isVerticalLayout = ([self.collectionViewLayout isKindOfClass:[UICollectionViewFlowLayout class]] && UICollectionViewScrollDirectionVertical == [(UICollectionViewFlowLayout *)self.collectionViewLayout scrollDirection]);
-        
-        if (isVerticalLayout) {
-            UIEdgeInsets scrollInsets = UIEdgeInsetsMake(self.topLayoutGuide.length, 0.0f, self.bottomLayoutGuide.length, 0.0f);
-            self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets = scrollInsets;
-        }
     }
     else {
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide]-(top)-[collectionView]-(bottom)-[bottomGuide]|"
                                                                           options:kNilOptions
                                                                           metrics:sizes
                                                                             views:views]];
-        
-        UIEdgeInsets scrollInsets = UIEdgeInsetsZero;
-        self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets = scrollInsets;
     }
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[collectionView]-(right)-|"
                                                                       options:kNilOptions
                                                                       metrics:sizes
                                                                         views:views]];
+}
+
+- (void)updateCollectionViewScrollInsets {
+    UIEdgeInsets scrollInsets = UIEdgeInsetsZero;
+    
+    if (self.automaticallyAdjustsScrollViewInsets) {
+        BOOL isVerticalLayout = ([self.collectionViewLayout isKindOfClass:[UICollectionViewFlowLayout class]] && UICollectionViewScrollDirectionVertical == [(UICollectionViewFlowLayout *)self.collectionViewLayout scrollDirection]);
+        
+        if (isVerticalLayout) {
+            scrollInsets = UIEdgeInsetsMake(self.topLayoutGuide.length, 0.0f, self.bottomLayoutGuide.length, 0.0f);
+        }
+    }
+    
+    self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets = scrollInsets;
 }
 
 #pragma mark Accessors

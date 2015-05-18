@@ -207,7 +207,7 @@
 }
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
-    NSMutableArray *allAttributesInRect = [NSMutableArray new];
+    NSMutableArray *allAttributesInRect = [[NSMutableArray alloc] init];
     
     NSUInteger numberOfSections = self.numberOfSections;
     for (int section = 0; section < numberOfSections; section++) {

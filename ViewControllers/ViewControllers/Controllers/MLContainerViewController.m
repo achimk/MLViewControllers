@@ -56,13 +56,8 @@
 - (void)loadView {
     [super loadView];
     
-    if (!self.isViewLoaded) {
-        self.view = [[UIView alloc] init];
-    }
-    
-    if (!_containerView) {
+    if (!self.containerView) {
         self.containerView = [[[[self class] defaultContainerViewClass] alloc] init];
-        self.containerView.backgroundColor = [UIColor whiteColor];
     }
 }
 
@@ -106,10 +101,16 @@
                              @"bottom"          : @(inset.bottom),
                              @"left"            : @(inset.left),
                              @"right"           : @(inset.right)};
-    NSDictionary * views = @{@"topGuide"        : self.topLayoutGuide,
-                             @"containerView"   : self.containerView};
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide]-(top)-[containerView]-(bottom)-|" options:kNilOptions metrics:sizes views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[containerView]-(right)-|" options:kNilOptions metrics:sizes views:views]];
+    NSDictionary * views = @{@"containerView"   : self.containerView};
+
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(top)-[containerView]-(bottom)-|"
+                                                                      options:kNilOptions
+                                                                      metrics:sizes
+                                                                        views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[containerView]-(right)-|"
+                                                                      options:kNilOptions
+                                                                      metrics:sizes
+                                                                        views:views]];
 }
 
 #pragma mark Accessors

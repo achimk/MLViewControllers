@@ -11,6 +11,7 @@
 #pragma mark - MLTableViewController
 
 @interface MLTableViewController () {
+    BOOL _tableViewScrollInsetsNeedsUpdate;
     BOOL _tableViewConstraintsNeedsUpdate;
     BOOL _needsReload;
 }
@@ -51,6 +52,7 @@
     _reloadOnAppearsFirstTime = YES;
     _clearsSelectionOnViewWillAppear = YES;
     _clearsSelectionOnReloadData = NO;
+    _tableViewScrollInsetsNeedsUpdate = NO;
     _tableViewConstraintsNeedsUpdate = NO;
 }
 
@@ -72,6 +74,14 @@
         self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
         [self.view addSubview:self.tableView];
         [self.view setNeedsUpdateConstraints];
+    }
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    if (_tableViewScrollInsetsNeedsUpdate) {
+        [self updateTableViewScrollInsets];
     }
 }
 
@@ -98,6 +108,7 @@
     [super updateViewConstraints];
     
     if (_tableViewConstraintsNeedsUpdate) {
+        _tableViewScrollInsetsNeedsUpdate = YES;
         _tableViewConstraintsNeedsUpdate = NO;
         [self updateTableViewConstraints];
     }
@@ -114,19 +125,31 @@
                              @"tableView"   : self.tableView};
     
     if (self.automaticallyAdjustsScrollViewInsets) {
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(top)-[tableView]-(bottom)-|" options:kNilOptions metrics:sizes views:views]];
-        
-        UIEdgeInsets scrollInsets = UIEdgeInsetsMake(self.topLayoutGuide.length, 0.0f, self.bottomLayoutGuide.length, 0.0f);
-        self.tableView.contentInset = self.tableView.scrollIndicatorInsets = scrollInsets;
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(top)-[tableView]-(bottom)-|"
+                                                                          options:kNilOptions
+                                                                          metrics:sizes
+                                                                            views:views]];
     }
     else {
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide]-(top)-[tableView]-(bottom)-[bottomGuide]|" options:kNilOptions metrics:sizes views:views]];
-        
-        UIEdgeInsets scrollInsets = UIEdgeInsetsZero;
-        self.tableView.contentInset = self.tableView.scrollIndicatorInsets = scrollInsets;
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide]-(top)-[tableView]-(bottom)-[bottomGuide]|"
+                                                                          options:kNilOptions
+                                                                          metrics:sizes
+                                                                            views:views]];
     }
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[tableView]-(right)-|" options:kNilOptions metrics:sizes views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[tableView]-(right)-|"
+                                                                      options:kNilOptions
+                                                                      metrics:sizes
+                                                                        views:views]];
+}
+
+- (void)updateTableViewScrollInsets {
+    UIEdgeInsets scrollInsets = UIEdgeInsetsZero;
+    if (self.automaticallyAdjustsScrollViewInsets) {
+        scrollInsets = UIEdgeInsetsMake(self.topLayoutGuide.length, 0.0f, self.bottomLayoutGuide.length, 0.0f);
+    }
+    
+    self.tableView.contentInset = self.tableView.scrollIndicatorInsets = scrollInsets;
 }
 
 #pragma mark Editing
