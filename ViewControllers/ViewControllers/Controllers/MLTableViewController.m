@@ -11,7 +11,7 @@
 #pragma mark - MLTableViewController
 
 @interface MLTableViewController () {
-    BOOL _tableViewScrollInsetsNeedsUpdate;
+    BOOL _tableViewInsetsNeedsUpdate;
     BOOL _tableViewConstraintsNeedsUpdate;
     BOOL _needsReload;
 }
@@ -52,7 +52,7 @@
     _reloadOnAppearsFirstTime = YES;
     _clearsSelectionOnViewWillAppear = YES;
     _clearsSelectionOnReloadData = NO;
-    _tableViewScrollInsetsNeedsUpdate = NO;
+    _tableViewInsetsNeedsUpdate = NO;
     _tableViewConstraintsNeedsUpdate = NO;
 }
 
@@ -80,8 +80,8 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    if (_tableViewScrollInsetsNeedsUpdate) {
-        [self updateTableViewScrollInsets];
+    if (_tableViewInsetsNeedsUpdate) {
+        [self updateTableViewInsets];
     }
 }
 
@@ -108,7 +108,7 @@
     [super updateViewConstraints];
     
     if (_tableViewConstraintsNeedsUpdate) {
-        _tableViewScrollInsetsNeedsUpdate = YES;
+        _tableViewInsetsNeedsUpdate = YES;
         _tableViewConstraintsNeedsUpdate = NO;
         [self updateTableViewConstraints];
     }
@@ -143,7 +143,7 @@
                                                                         views:views]];
 }
 
-- (void)updateTableViewScrollInsets {
+- (void)updateTableViewInsets {
     UIEdgeInsets scrollInsets = UIEdgeInsetsZero;
     if (self.automaticallyAdjustsScrollViewInsets) {
         scrollInsets = UIEdgeInsetsMake(self.topLayoutGuide.length, 0.0f, self.bottomLayoutGuide.length, 0.0f);

@@ -15,14 +15,13 @@ typedef NS_ENUM(NSUInteger, MLLayoutTypes) {
     MLLayoutTypeFlow,
     MLLayoutTypeSticky,
     MLLayoutTypeUniform,
+    MLLayoutTypeItemFlow,
     MLLayoutTypeCount
 };
 
 #pragma mark - MLLayoutViewController
 
 @interface MLLayoutViewController ()
-
-@property (nonatomic, readwrite, assign) BOOL useCoreData;
 
 @end
 
@@ -49,7 +48,6 @@ typedef NS_ENUM(NSUInteger, MLLayoutTypes) {
 #pragma mark MLConfiguration
 
 - (void)configureWithObject:(id)anObject context:(id)context {
-    self.useCoreData = [anObject[@"useCoreData"] boolValue];
 }
 
 #pragma mark UITableViewDelegate
@@ -59,11 +57,10 @@ typedef NS_ENUM(NSUInteger, MLLayoutTypes) {
     static NSDictionary * layouts = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        layouts = @{
-                    @(MLLayoutTypeFlow)     : @"UICollectionViewFlowLayout",
-                    @(MLLayoutTypeSticky)   : @"MLCollectionViewStickyLayout",
-                    @(MLLayoutTypeUniform)  : @"MLUniformFlowLayout",
-                    };
+        layouts = @{@(MLLayoutTypeFlow)         : @"UICollectionViewFlowLayout",
+                    @(MLLayoutTypeSticky)       : @"MLCollectionViewStickyLayout",
+                    @(MLLayoutTypeUniform)      : @"MLUniformFlowLayout",
+                    @(MLLayoutTypeItemFlow)     : @"MLItemFlowLayout"};
     });
     
     id layout = [layouts objectForKey:@(indexPath.row)];
@@ -89,11 +86,10 @@ typedef NS_ENUM(NSUInteger, MLLayoutTypes) {
     static NSDictionary * names = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        names = @{
-                  @(MLLayoutTypeFlow)       : @"Flow Layout",
+        names = @{@(MLLayoutTypeFlow)       : @"Flow Layout",
                   @(MLLayoutTypeSticky)     : @"Sticky Layout",
                   @(MLLayoutTypeUniform)    : @"Uniform Layout",
-                  };
+                  @(MLLayoutTypeItemFlow)   : @"Item Flow Layout"};
     });
     
     cell.textLabel.text = names[@(indexPath.row)];

@@ -68,6 +68,7 @@
 		278B3DDC1AE01FED00FE809E /* MLCollectionListSectionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 278B3DDB1AE01FED00FE809E /* MLCollectionListSectionInfo.m */; };
 		278B3DDF1AE0201800FE809E /* MLFetchedResultsSectionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 278B3DDE1AE0201800FE809E /* MLFetchedResultsSectionInfo.m */; };
 		279164A21AC21C59002439F2 /* MLLoadingCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 279164A11AC21C59002439F2 /* MLLoadingCollectionViewCell.m */; };
+		279826171B0BBA460071ED07 /* MLItemFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 279826161B0BBA460071ED07 /* MLItemFlowLayout.m */; };
 		279CDEBE1AF3CD20009D7258 /* RZArrayCollectionList+MLResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279CDEBD1AF3CD20009D7258 /* RZArrayCollectionList+MLResultsController.m */; };
 		279CDEC41AF3D4E2009D7258 /* MLUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279CDEC31AF3D4E2009D7258 /* MLUserDefaultsController.m */; };
 		27A767D01AF3B5A90096CAEE /* RZBaseCollectionList+MLResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A767CF1AF3B5A90096CAEE /* RZBaseCollectionList+MLResultsController.m */; };
@@ -210,6 +211,8 @@
 		278B3DDE1AE0201800FE809E /* MLFetchedResultsSectionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLFetchedResultsSectionInfo.m; sourceTree = "<group>"; };
 		279164A01AC21C59002439F2 /* MLLoadingCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLoadingCollectionViewCell.h; sourceTree = "<group>"; };
 		279164A11AC21C59002439F2 /* MLLoadingCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLoadingCollectionViewCell.m; sourceTree = "<group>"; };
+		279826151B0BBA460071ED07 /* MLItemFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLItemFlowLayout.h; sourceTree = "<group>"; };
+		279826161B0BBA460071ED07 /* MLItemFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLItemFlowLayout.m; sourceTree = "<group>"; };
 		279CDEBC1AF3CD20009D7258 /* RZArrayCollectionList+MLResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RZArrayCollectionList+MLResultsController.h"; sourceTree = "<group>"; };
 		279CDEBD1AF3CD20009D7258 /* RZArrayCollectionList+MLResultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RZArrayCollectionList+MLResultsController.m"; sourceTree = "<group>"; };
 		279CDEC21AF3D4E2009D7258 /* MLUserDefaultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLUserDefaultsController.h; sourceTree = "<group>"; };
@@ -651,6 +654,8 @@
 		278377C71A20D3C500C29996 /* UICollectionView Layouts */ = {
 			isa = PBXGroup;
 			children = (
+				279826151B0BBA460071ED07 /* MLItemFlowLayout.h */,
+				279826161B0BBA460071ED07 /* MLItemFlowLayout.m */,
 				27E2E79A1ACB27BB00EA2DFF /* MLCollectionViewFlowLayout.h */,
 				27E2E79B1ACB27BB00EA2DFF /* MLCollectionViewFlowLayout.m */,
 				277808C21AAB1D2100D4C410 /* MLUniformFlowLayout.h */,
@@ -991,6 +996,7 @@
 				278377CA1A20D64600C29996 /* MLCollectionViewStickyLayout.m in Sources */,
 				AAA780F71A25EC2500E2E295 /* MLContactTableViewCell.m in Sources */,
 				277808C71AAB261C00D4C410 /* MLContactsCollectionViewController.m in Sources */,
+				279826171B0BBA460071ED07 /* MLItemFlowLayout.m in Sources */,
 				2755E7361AD752BF00A9DFE3 /* MLAsynchronousOperation.m in Sources */,
 				AA6BCE9A1ACEBFCE00AD0E81 /* MLObserversManager.m in Sources */,
 				278377C31A20C58300C29996 /* MLCustomCollectionViewController.m in Sources */,

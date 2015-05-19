@@ -49,12 +49,14 @@
 
 extern NSString * const MLStateMachineStateNil;
 
+@class MLStateMachine;
+
 @protocol MLStateMachineDelegate <NSObject>
 
 @optional
 // Completely generic state change hook
-- (void)stateWillChange;
-- (void)stateDidChange;
+- (void)stateMachineWillChangeState:(MLStateMachine *)stateMachine;
+- (void)stateMachineDidChangeState:(MLStateMachine *)stateMachine;
 
 // Return the new state or nil for no change for an missing transition from a state to another state. If implemented, overrides the base implementation completely.
 - (NSString *)missingTransitionFromState:(NSString *)fromState toState:(NSString *)toState;

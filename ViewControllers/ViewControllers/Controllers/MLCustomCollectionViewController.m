@@ -8,14 +8,28 @@
 
 #import "MLCustomCollectionViewController.h"
 #import "MLUniformFlowLayout.h"
+#import "MLItemFlowLayout.h"
 #import "MLCustomCollectionReusableView.h"
 #import "MLCustomCollectionViewCell.h"
 
-#define NUMBER_OF_SECTIONS     10
+#define NUMBER_OF_SECTIONS      10
+#define NUMBER_OF_COLUMNS       (IS_IPHONE) ? 1 : 3
+
+#pragma mark - MLCollectionViewController
+
+@interface MLCollectionViewController ()
+
+- (void)updateCollectionViewInsets;
+
+@end
 
 #pragma mark - MLCustomCollectionViewController
 
-@interface MLCustomCollectionViewController () <UICollectionViewDelegateFlowLayout, MLUniformFlowLayoutDelegate>
+@interface MLCustomCollectionViewController () <
+    MLUniformFlowLayoutDelegate,
+    MLCollectionViewDelegateItemFlowLayout,
+    UICollectionViewDelegateFlowLayout
+>
 
 @end
 
@@ -31,15 +45,15 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.collectionView.backgroundColor = [UIColor whiteColor];
     
-    MLUniformFlowLayout * uniformLayout = ([self.collectionViewLayout isKindOfClass:[MLUniformFlowLayout class]]) ? (MLUniformFlowLayout *)self.collectionViewLayout : nil;
-    UICollectionViewFlowLayout * flowLayout = ([self.collectionViewLayout isKindOfClass:[UICollectionViewFlowLayout class]]) ? (UICollectionViewFlowLayout *)self.collectionViewLayout : nil;
-    
-    if (uniformLayout) {
-        uniformLayout.interItemSpacing = MLInterItemSpacingMake(5.0f, 5.0f);
-        uniformLayout.enableStickyHeader = YES;
+    if ([self uniformFlowLayout]) {
+        self.uniformFlowLayout.interItemSpacing = MLInterItemSpacingMake(5.0f, 5.0f);
+        self.uniformFlowLayout.enableStickyHeader = YES;
     }
-    else if (flowLayout) {
-        flowLayout.sectionInset = UIEdgeInsetsMake(50.0f, 0.0f, 50.0f, 0.0f);
+    else if ([self itemFlowLayout]) {
+        self.itemFlowLayout.itemSpacing = MLItemSpacingMake(5.0f, 5.0f);
+    }
+    else if ([self collectionViewFlowLayout]) {
+        self.collectionViewFlowLayout.sectionInset = UIEdgeInsetsMake(50.0f, 0.0f, 50.0f, 0.0f);
     }
     
     [self.collectionView registerClass:[MLCustomCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
@@ -47,7 +61,37 @@
     [MLCustomCollectionViewCell registerCellWithCollectionView:self.collectionView];
 }
 
+- (void)updateCollectionViewInsets {
+    [super updateCollectionViewInsets];
+
+#warning Bug with content inset for item flow layout.
+//    UIEdgeInsets contentInset = self.collectionView.contentInset;
+//    contentInset.left = contentInset.right = 5.0f;
+//    self.collectionView.contentInset = contentInset;
+}
+
+#pragma mark Accessors
+
+- (MLUniformFlowLayout *)uniformFlowLayout {
+    MLUniformFlowLayout * uniformFlowLayout = ([self.collectionViewLayout isKindOfClass:[MLUniformFlowLayout class]]) ? (MLUniformFlowLayout *)self.collectionViewLayout : nil;
+    return uniformFlowLayout;
+}
+
+- (MLItemFlowLayout *)itemFlowLayout {
+    MLItemFlowLayout * itemFlowLayout = ([self.collectionViewLayout isKindOfClass:[MLItemFlowLayout class]]) ? (MLItemFlowLayout *)self.collectionViewLayout : nil;
+    return itemFlowLayout;
+}
+
+- (UICollectionViewFlowLayout *)collectionViewFlowLayout {
+    UICollectionViewFlowLayout * flowLayout = ([self.collectionViewLayout isKindOfClass:[UICollectionViewFlowLayout class]]) ? (UICollectionViewFlowLayout *)self.collectionViewLayout : nil;
+    return flowLayout;
+}
+
 #pragma mark MLUniformFlowLayoutDelegate
+
+- (NSUInteger)collectionView:(UICollectionView *)collectionView layout:(MLUniformFlowLayout *)layout numberOfColumnsInSection:(NSInteger)section {
+    return NUMBER_OF_COLUMNS;
+}
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(MLUniformFlowLayout *)layout itemHeightInSection:(NSInteger)section {
     return 200.0f;
@@ -65,8 +109,17 @@
     return 10.0f;
 }
 
-- (NSUInteger)collectionView:(UICollectionView *)collectionView layout:(MLUniformFlowLayout *)layout numberOfColumnsInSection:(NSInteger)section {
-    return 1;
+#pragma mark MLCollectionViewDelegateItemFlowLayout
+
+- (NSUInteger)collectionView:(UICollectionView *)collectionView numberOfColumnsInSection:(NSInteger)section {
+    return NUMBER_OF_COLUMNS;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView heightForItemsInSection:(NSInteger)section {
+    return 200.0f;
+}
+- (CGFloat)sectionSpacingForCollectionView:(UICollectionView *)collectionView {
+    return 10.0f;
 }
 
 #pragma mark UICollectionViewDelegateFlowLayout
@@ -132,6 +185,10 @@
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    if ([self itemFlowLayout]) {
+        return nil;
+    }
+    
     UICollectionReusableView * reusableView = nil;
     
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {

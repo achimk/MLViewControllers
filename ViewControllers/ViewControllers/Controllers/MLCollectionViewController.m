@@ -11,7 +11,7 @@
 #pragma mark - MLCollectionViewController
 
 @interface MLCollectionViewController () {
-    BOOL _collectionViewScrollInsetsNeedsUpdate;
+    BOOL _collectionViewInsetsNeedsUpdate;
     BOOL _collectionViewConstraintsNeedsUpdate;
     BOOL _needsReload;
 }
@@ -59,7 +59,7 @@
     _reloadOnAppearsFirstTime = YES;
     _clearsSelectionOnViewWillAppear = YES;
     _clearsSelectionOnReloadData = NO;
-    _collectionViewScrollInsetsNeedsUpdate = NO;
+    _collectionViewInsetsNeedsUpdate = NO;
     _collectionViewConstraintsNeedsUpdate = NO;
 }
 
@@ -87,8 +87,8 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    if (_collectionViewScrollInsetsNeedsUpdate) {
-        [self updateCollectionViewScrollInsets];
+    if (_collectionViewInsetsNeedsUpdate) {
+        [self updateCollectionViewInsets];
     }
 }
 
@@ -115,7 +115,7 @@
     [super updateViewConstraints];
     
     if (_collectionViewConstraintsNeedsUpdate) {
-        _collectionViewScrollInsetsNeedsUpdate = YES;
+        _collectionViewInsetsNeedsUpdate = YES;
         _collectionViewConstraintsNeedsUpdate = NO;
         [self updateCollectionViewConstraints];
     }
@@ -150,7 +150,7 @@
                                                                         views:views]];
 }
 
-- (void)updateCollectionViewScrollInsets {
+- (void)updateCollectionViewInsets {
     UIEdgeInsets scrollInsets = UIEdgeInsetsZero;
     
     if (self.automaticallyAdjustsScrollViewInsets) {

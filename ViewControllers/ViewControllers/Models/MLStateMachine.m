@@ -111,11 +111,11 @@ NSString * const MLStateMachineStateNil     = @"Nil";
     }
     
     id target = self.target;
-    SEL willChangeSelector = @selector(stateWillChange);
+    SEL willChangeSelector = @selector(stateMachineWillChangeState:);
     if ([target respondsToSelector:willChangeSelector]) {
-        typedef void (*ObjCMsgSendReturnVoid)(id, SEL);
-        ObjCMsgSendReturnVoid sendMsgReturnVoid = (ObjCMsgSendReturnVoid)objc_msgSend;
-        sendMsgReturnVoid(target, willChangeSelector);
+        typedef void (*ObjCMsgSendSelfReturnVoid)(id, SEL, MLStateMachine *);
+        ObjCMsgSendSelfReturnVoid sendSelfMsgReturnVoid = (ObjCMsgSendSelfReturnVoid)objc_msgSend;
+        sendSelfMsgReturnVoid(target, willChangeSelector, self);
     }
     
     OSSpinLockLock(&_lock);
@@ -239,9 +239,11 @@ NSString * const MLStateMachineStateNil     = @"Nil";
         sendMsgReturnVoid(target, transitionSelector);
     }
     
-    SEL didChangeSelector = @selector(stateDidChange);
+    SEL didChangeSelector = @selector(stateMachineDidChangeState:);
     if ([target respondsToSelector:didChangeSelector]) {
-        sendMsgReturnVoid(target, didChangeSelector);
+        typedef void (*ObjCMsgSendSelfReturnVoid)(id, SEL, MLStateMachine *);
+        ObjCMsgSendSelfReturnVoid sendSelfMsgReturnVoid = (ObjCMsgSendSelfReturnVoid)objc_msgSend;
+        sendSelfMsgReturnVoid(target, didChangeSelector, self);
     }
 }
 
