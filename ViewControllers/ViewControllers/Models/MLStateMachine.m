@@ -127,13 +127,6 @@ NSString * const MLStateMachineStateNil     = @"Nil";
     return [state isEqualToString:toState];
 }
 
-- (BOOL)canApplyState:(NSString *)state {
-    NSString * fromState = self.currentState;
-    NSString * toState = [self validateTransitionFromState:fromState toState:state];
-    
-    return ([state isEqualToString:toState]);
-}
-
 - (NSString *)missingTransitionFromState:(NSString *)fromState toState:(NSString *)toState {
     NSAssert2(NO, @"State machine cannot transit from %@ to %@", fromState, toState);
     return nil;
@@ -184,7 +177,7 @@ NSString * const MLStateMachineStateNil     = @"Nil";
             }
             
             if (self.shouldLogStateTransitions) {
-                NSLog(@"%@ -> annot transition to %@ from %@", [self class], toState, fromState);
+                NSLog(@"%@ -> cannot transition to %@ from %@", [self class], toState, fromState);
             }
             
             toState = [self stateTransitionFromState:fromState toState:toState];
@@ -244,6 +237,13 @@ NSString * const MLStateMachineStateNil     = @"Nil";
         typedef void (*ObjCMsgSendSelfReturnVoid)(id, SEL, MLStateMachine *);
         ObjCMsgSendSelfReturnVoid sendSelfMsgReturnVoid = (ObjCMsgSendSelfReturnVoid)objc_msgSend;
         sendSelfMsgReturnVoid(target, didChangeSelector, self);
+    }
+    
+    SEL didChangeFromStateToStateSelector = @selector(stateMachine:didChangeFromState:toState:);
+    if ([target respondsToSelector:didChangeFromStateToStateSelector]) {
+        typedef void (*ObjCMsgSendChangesReturnVoid)(id, SEL, MLStateMachine *, NSString *, NSString *);
+        ObjCMsgSendChangesReturnVoid sendMsgChangesReturnVoid = (ObjCMsgSendChangesReturnVoid)objc_msgSend;
+        sendMsgChangesReturnVoid(target, didChangeFromStateToStateSelector, self, fromState, toState);
     }
 }
 

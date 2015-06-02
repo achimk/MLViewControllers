@@ -57,6 +57,7 @@ extern NSString * const MLStateMachineStateNil;
 // Completely generic state change hook
 - (void)stateMachineWillChangeState:(MLStateMachine *)stateMachine;
 - (void)stateMachineDidChangeState:(MLStateMachine *)stateMachine;
+- (void)stateMachine:(MLStateMachine *)stateMachine didChangeFromState:(NSString *)fromState toState:(NSString *)toState;
 
 // Return the new state or nil for no change for an missing transition from a state to another state. If implemented, overrides the base implementation completely.
 - (NSString *)missingTransitionFromState:(NSString *)fromState toState:(NSString *)toState;
@@ -82,9 +83,6 @@ extern NSString * const MLStateMachineStateNil;
 
 // Set current state and return YES if the state changed successfully to the supplied state, NO otherwise. Note that this does _not_ bypass missingTransitionFromState, so, if you invoke this, you must also supply an missingTransitionFromState implementation that avoids raising exceptions.
 - (BOOL)applyState:(NSString *)state;
-
-// Test and validation for apply with new state, return YES if state can be changed successfully, NO otherwise.
-- (BOOL)canApplyState:(NSString *)state;
 
 // For subclasses. Base implementation raises IllegalStateTransition exception. Need not invoke super unless desired. Should return the desired state if it doesn't raise, or nil for no change.
 - (NSString *)missingTransitionFromState:(NSString *)fromState toState:(NSString *)toState;
