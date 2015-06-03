@@ -156,37 +156,43 @@
 }
 
 - (void)updateLoadingCellAnimated:(BOOL)animated {
-    if (!animated) {
-        [self reloadData];
-        return;
-    }
-    
     BOOL showLoadingCell = self.shouldShowLoadingCell;
     NSIndexPath * indexPath = self.loadingIndexPath;
     
     if (self.showLoadingCell != showLoadingCell) {
         self.showLoadingCell = showLoadingCell;
         
-        [self.tableView beginUpdates];
-        
-        if (showLoadingCell) {
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:self.addSectionAnimation];
-            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:self.addObjectAnimation];
+        if (animated) {
+            [self.tableView beginUpdates];
+            
+            if (showLoadingCell) {
+                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:self.addSectionAnimation];
+                [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:self.addObjectAnimation];
+            }
+            else {
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:self.removeObjectAnimation];
+                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:self.removeSectionAnimation];
+            }
+            
+            [self.tableView endUpdates];
         }
         else {
-            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:self.removeObjectAnimation];
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:self.removeSectionAnimation];
+            [self reloadData];
         }
-        
-        [self.tableView endUpdates];
     }
     else if (showLoadingCell) {
         id cell = [self.tableView cellForRowAtIndexPath:indexPath];
         
         if (cell) {
-            [self.tableView beginUpdates];
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:self.updateObjectAnimation];
-            [self.tableView endUpdates];
+            if (animated) {
+                [self.tableView beginUpdates];
+                [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:self.updateObjectAnimation];
+                [self.tableView endUpdates];
+            }
+            else {
+                [self reloadData];
+            }
+
         }
     }
 }

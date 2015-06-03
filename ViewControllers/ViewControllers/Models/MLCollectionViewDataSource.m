@@ -136,29 +136,35 @@
 }
 
 - (void)updateLoadingCellAnimated:(BOOL)animated {
-    if (!animated) {
-        [self reloadData];
-        return;
-    }
-    
     BOOL showLoadingCell = self.shouldShowLoadingCell;
     NSIndexPath * indexPath = self.loadingIndexPath;
     
     if (self.showLoadingCell != showLoadingCell) {
         self.showLoadingCell = showLoadingCell;
         
-        if (showLoadingCell) {
-            [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:indexPath.section]];
+        if (animated) {
+            if (showLoadingCell) {
+                [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:indexPath.section]];
+            }
+            else {
+                [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section]];
+            }
         }
         else {
-            [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section]];
+            [self reloadData];
         }
+
     }
     else if (showLoadingCell) {
         id cell = [self.collectionView cellForItemAtIndexPath:indexPath];
         
         if (cell) {
-            [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+            if (animated) {
+                [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+            }
+            else {
+                [self reloadData];
+            }
         }
     }
 }

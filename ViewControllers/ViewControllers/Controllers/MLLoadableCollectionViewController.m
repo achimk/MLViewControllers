@@ -38,7 +38,7 @@
     self.dataSource = [[MLCollectionViewDataSource alloc] initWithCollectionView:self.collectionView
                                                                resultsController:self.resultsController
                                                                         delegate:self];
-    self.dataSource.animateCollectionChanges = YES;
+    self.dataSource.animateCollectionChanges = NO;
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.collectionView.backgroundColor = [UIColor whiteColor];
