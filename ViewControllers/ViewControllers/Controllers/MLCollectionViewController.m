@@ -88,6 +88,7 @@
     [super viewDidLayoutSubviews];
     
     if (_collectionViewInsetsNeedsUpdate) {
+        _collectionViewInsetsNeedsUpdate = NO;
         [self updateCollectionViewInsets];
     }
 }
@@ -127,23 +128,12 @@
                              @"bottom"          : @(inset.bottom),
                              @"left"            : @(inset.left),
                              @"right"           : @(inset.right)};
-    NSDictionary * views = @{@"topGuide"        : self.topLayoutGuide,
-                             @"bottomGuide"     : self.bottomLayoutGuide,
-                             @"collectionView"  : self.collectionView};
+    NSDictionary * views = @{@"collectionView"  : self.collectionView};
     
-    if (self.automaticallyAdjustsScrollViewInsets) {
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(top)-[collectionView]-(bottom)-|"
-                                                                          options:kNilOptions
-                                                                          metrics:sizes
-                                                                            views:views]];
-    }
-    else {
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide]-(top)-[collectionView]-(bottom)-[bottomGuide]|"
-                                                                          options:kNilOptions
-                                                                          metrics:sizes
-                                                                            views:views]];
-    }
-    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(top)-[collectionView]-(bottom)-|"
+                                                                      options:kNilOptions
+                                                                      metrics:sizes
+                                                                        views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[collectionView]-(right)-|"
                                                                       options:kNilOptions
                                                                       metrics:sizes
@@ -151,17 +141,11 @@
 }
 
 - (void)updateCollectionViewInsets {
-    UIEdgeInsets scrollInsets = UIEdgeInsetsZero;
-    
     if (self.automaticallyAdjustsScrollViewInsets) {
-        BOOL isVerticalLayout = ([self.collectionViewLayout isKindOfClass:[UICollectionViewFlowLayout class]] && UICollectionViewScrollDirectionVertical == [(UICollectionViewFlowLayout *)self.collectionViewLayout scrollDirection]);
-        
-        if (isVerticalLayout) {
-            scrollInsets = UIEdgeInsetsMake(self.topLayoutGuide.length, 0.0f, self.bottomLayoutGuide.length, 0.0f);
-        }
+        UIEdgeInsets scrollInsets = UIEdgeInsetsZero;
+        scrollInsets = UIEdgeInsetsMake(self.topLayoutGuide.length, 0.0f, self.bottomLayoutGuide.length, 0.0f);
+        self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets = scrollInsets;
     }
-    
-    self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets = scrollInsets;
 }
 
 #pragma mark Accessors

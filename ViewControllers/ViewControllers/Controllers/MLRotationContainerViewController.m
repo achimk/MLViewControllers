@@ -140,7 +140,7 @@ typedef NS_ENUM(NSUInteger, MLConfigurationContainer) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor purpleColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.containerView.backgroundColor = [UIColor lightGrayColor];
     self.segmentedControl.selectedSegmentIndex = 0;
 }

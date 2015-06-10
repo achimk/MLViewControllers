@@ -61,7 +61,6 @@ typedef NS_ENUM (NSUInteger, MLSection) {
     NSLog(@"-> %p, %@, %@", self, NSStringFromClass([self class]), NSStringFromSelector(_cmd));
 #endif
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
     self.autorotationController.autorotationMode = self.mode;
 }
 

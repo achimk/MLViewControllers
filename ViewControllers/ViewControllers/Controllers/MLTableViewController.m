@@ -81,6 +81,7 @@
     [super viewDidLayoutSubviews];
     
     if (_tableViewInsetsNeedsUpdate) {
+        _tableViewInsetsNeedsUpdate = NO;
         [self updateTableViewInsets];
     }
 }
@@ -120,23 +121,12 @@
                              @"bottom"      : @(inset.bottom),
                              @"left"        : @(inset.left),
                              @"right"       : @(inset.right)};
-    NSDictionary * views = @{@"topGuide"    : self.topLayoutGuide,
-                             @"bottomGuide" : self.bottomLayoutGuide,
-                             @"tableView"   : self.tableView};
+    NSDictionary * views = @{@"tableView"   : self.tableView};
     
-    if (self.automaticallyAdjustsScrollViewInsets) {
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(top)-[tableView]-(bottom)-|"
-                                                                          options:kNilOptions
-                                                                          metrics:sizes
-                                                                            views:views]];
-    }
-    else {
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide]-(top)-[tableView]-(bottom)-[bottomGuide]|"
-                                                                          options:kNilOptions
-                                                                          metrics:sizes
-                                                                            views:views]];
-    }
-    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(top)-[tableView]-(bottom)-|"
+                                                                      options:kNilOptions
+                                                                      metrics:sizes
+                                                                        views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[tableView]-(right)-|"
                                                                       options:kNilOptions
                                                                       metrics:sizes
@@ -144,12 +134,11 @@
 }
 
 - (void)updateTableViewInsets {
-    UIEdgeInsets scrollInsets = UIEdgeInsetsZero;
     if (self.automaticallyAdjustsScrollViewInsets) {
+        UIEdgeInsets scrollInsets = UIEdgeInsetsZero;
         scrollInsets = UIEdgeInsetsMake(self.topLayoutGuide.length, 0.0f, self.bottomLayoutGuide.length, 0.0f);
+        self.tableView.contentInset = self.tableView.scrollIndicatorInsets = scrollInsets;
     }
-    
-    self.tableView.contentInset = self.tableView.scrollIndicatorInsets = scrollInsets;
 }
 
 #pragma mark Editing
